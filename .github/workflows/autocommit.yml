@@ -3,7 +3,7 @@ name: Auto Commit
 on:
   push:
     branches:
-      - main  # або master, залежно від вашої гілки
+      - master  # або master, залежно від вашої гілки
   schedule:
     - cron: "*/10 * * * *"  # Виконувати кожні 10 хвилин
 

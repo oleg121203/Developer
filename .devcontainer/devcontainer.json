@@ -123,5 +123,5 @@
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "/bin/bash -c 'python3 -m pip install --upgrade pip setuptools wheel && python3 -m pip install --user --upgrade pip && pip install --user -r requirements.txt && chmod 600 ~/.ssh/id_rsa && chmod 644 ~/.ssh/id_rsa.pub && eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/id_rsa && git config --global user.name \"Oleg Kizyma\" && git config --global user.email \"oleg1203@gmail.com\" && mkdir -p /home/vscode/.continue && cp ${localWorkspaceFolder}/config.json /home/vscode/.continue/config.json'"
+    "postCreateCommand": "/bin/bash -c 'python3 -m pip install --upgrade pip setuptools wheel && python3 -m pip install --user --upgrade pip && pip install --user -r requirements.txt && chmod 600 ~/.ssh/id_rsa && chmod 644 ~/.ssh/id_rsa.pub && eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/id_rsa && git config --global user.name \"Oleg Kizyma\" && git config --global user.email \"oleg1203@gmail.com\" && mkdir -p /home/vscode/.continue && cp /workspace/config.json /home/vscode/.continue/config.json'"
 }

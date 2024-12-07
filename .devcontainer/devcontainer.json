@@ -1,6 +1,14 @@
 {
     "name": "Python 3",
     "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
+    "remoteUser": "vscode",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
+    "remoteEnv": {
+        "GIT_SSH_COMMAND": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
+        "SYNC_LOCALHOST_KUBECONFIG": "true",
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+    },
     "customizations": {
         "vscode": {
             "settings": {
@@ -24,8 +32,8 @@
                     "--profile",
                     "black"
                 ],
-                "git.user.name": "Oleg Kizyma",
-                "git.user.email": "oleg1203@gmail.com",
+                "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+                "python.sortImports.organizeImports": true,
                 "continue.previewMode": true,
                 "python.analysis.languageServerMode": "default",
                 "python.analysis.indexing": true,
@@ -35,6 +43,16 @@
                 "python.analysis.typeCheckingMode": "basic",
                 "python.testing.pytestEnabled": true,
                 "python.testing.unittestEnabled": false,
+                "python.testing.autoTestDiscoverOnSaveEnabled": true,
+                "python.testing.autoTestLaunchType": "background",
+                "python.testing.autoTestLaunchArgs": [
+                    "--disable-warnings",
+                    "--show-capture=stdout"
+                ],
+                "python.testing.autoTestLaunchPythonArgs": [
+                    "-m",
+                    "pytest"
+                ],
                 "editor.suggest.snippetsPreventQuickSuggestions": false,
                 "editor.suggest.insertMode": "replace",
                 "editor.suggestSelection": "first",
@@ -42,13 +60,35 @@
                 "editor.acceptSuggestionOnCommitCharacter": true,
                 "editor.acceptSuggestionOnEnter": "on",
                 "editor.codeActionsOnSave": {
-                    "source.fixAll": true
+                    "source.fixAll": true,
+                    "source.fixAll.eslint": true,
+                    "source.organizeImports": true
                 },
+                "source.fixAll.eslint": true,
+                "source.organizeImports": true,
                 "editor.quickSuggestions": {
                     "other": true,
                     "comments": true,
                     "strings": true
-                }
+                },
+                "extensions.autoUpdate": true,
+                "extensions.autoCheckUpdates": true,
+                "git.autofetch": true,
+                "git.confirmSync": false,
+                "git.enableCommitSigning": true,
+                "git.postCommitCommand": "git push",
+                "update.mode": "default",
+                "update.channel": "insiders",
+                "remote.extensionKind": {
+                    "*": [
+                        "workspace"
+                    ]
+                },
+                "remote.containers.defaultExtensions": [],
+                "remote.containers.copyGitConfig": false,
+                "remote.containers.gitCredentialsHelper": "cache",
+                "remote.localPortHost": "allInterfaces",
+                "remote.containers.workspaceMountConsistency": "cached"
             },
             "extensions": [
                 "ms-python.python",
@@ -63,7 +103,14 @@
                 "github.copilot",
                 "github.copilot-chat",
                 "sourcery.sourcery",
-                "eamodio.gitlens"
+                "eamodio.gitlens",
+                "ms-vscode-remote.remote-ssh",
+                "ms-vscode-remote.remote-ssh-edit",
+                "ms-vscode-remote.remote-explorer",
+                "github.vscode-pull-request-github",
+                "redhat.vscode-yaml",
+                "GitHub.vscode-github-actions",
+                "continue.continue"
             ]
         }
     },
@@ -76,15 +123,5 @@
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "/bin/bash -c \"set -e && \
-    apk add --no-cache python3 py3-pip && \
-    ln -sf python3 /usr/bin/python && \
-    python3 -m pip install --user --upgrade pip && \
-    pip install --user -r requirements.txt && \
-    pip install --user -r src/requirements.txt && \
-    mkdir -p ~/.ssh && \
-    touch ~/.ssh/id_rsa ~/.ssh/id_rsa.pub && \
-    chmod 600 ~/.ssh/id_rsa && \
-    chmod 644 ~/.ssh/id_rsa.pub\"",
-    "remoteUser": "vscode"
+    "postCreateCommand": "/bin/bash -c 'python3 -m pip install --upgrade pip setuptools wheel && python3 -m pip install --user --upgrade pip && pip install --user -r requirements.txt && chmod 600 ~/.ssh/id_rsa && chmod 644 ~/.ssh/id_rsa.pub && eval \"$(ssh-agent -s)\" && ssh-add ~/.ssh/id_rsa && git config --global user.name \"Oleg Kizyma\" && git config --global user.email \"oleg1203@gmail.com\"'"
 }

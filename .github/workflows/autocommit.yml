@@ -3,25 +3,28 @@ name: Auto Commit
 on:
   push:
     branches:
-      - master  # або master, залежно від вашої гілки
-  schedule:
-    - cron: "*/10 * * * *"  # Виконувати кожні 10 хвилин
+      - update-autocommit
 
 jobs:
-  auto-commit:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        ref: update-autocommit
 
-      - name: Set up Git
-        run: |
-          git config user.name "Auto Commit Bot"
-          git config user.email "bot@example.com"
+    - name: Set up Git
+      run: |
+        git config user.name "Auto Commit Bot"
+        git config user.email "bot@example.com"
 
-      - name: Commit and push changes
-        run: |
-          git add .
-          git commit -m "Auto-commit: Зміни у проєкті" -m "Опис змін:\n- Автоматизовано через GitHub Actions"
-          git push
+    - name: Add changes
+      run: git add .
+
+    - name: Commit changes
+      run: git commit -m "Auto-commit: Зміни у проєкті" -m "Опис змін:\n- Автоматизовано через GitHub Actions"
+
+    - name: Push changes
+      run: git push

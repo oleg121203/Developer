@@ -149,5 +149,5 @@
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
     ],
-    "postCreateCommand": "python3 -m venv .venv && . .venv/bin/activate && python3 -m pip install --upgrade pip setuptools wheel && if [ -f /workspace/requirements.txt ]; then pip install -r /workspace/requirements.txt; fi && if [ -f ~/.ssh/id_rsa ]; then chmod 600 ~/.ssh/id_rsa; fi && if [ -f ~/.ssh/id_rsa.pub ]; then chmod 644 ~/.ssh/id_rsa.pub; fi && eval \"$(ssh-agent -s)\" && if [ -f ~/.ssh/id_rsa ]; then ssh-add ~/.ssh/id_rsa; fi && git config --global user.name \"Oleg Kizyma\" && git config --global user.email \"oleg1203@gmail.com\""
+    "postCreateCommand": "python3 -m venv .venv && . .venv/bin/activate && python3 -m pip install --upgrade pip setuptools wheel && if [ -f /workspace/requirements.txt ]; then pip install -r /workspace/requirements.txt; fi && if [ -f ~/.ssh/id_rsa ]; then chmod 600 ~/.ssh/id_rsa; fi && if [ -f ~/.ssh/id_rsa.pub ]; then chmod 644 ~/.ssh/id_rsa.pub; fi && eval \"$(ssh-agent -s)\" && if [ -f ~/.ssh/id_rsa ]; then ssh-add ~/.ssh/id_rsa; fi && git config --global user.name \"oleg121203\" && git config --global user.email \"oleg1203@gmail.com\""
 }

@@ -11,7 +11,8 @@
         "SYNC_LOCALHOST_KUBECONFIG": "true",
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
         "VIRTUAL_ENV_PROMPT": "($$$) ",
-        "SHELL": "/bin/bash"
+        "SHELL": "/bin/bash",
+        "GPG_TTY": "/dev/pts/0"
     },
     "customizations": {
         "vscode": {
@@ -164,8 +165,5 @@
             "ppa": true
         }
     },
-    "postCreateCommand": {
-        "1-permissions": "sudo chown -R vscode:vscode /workspace && chmod +x .devcontainer/init-scripts/*.sh",
-        "2-setup": ".devcontainer/init-scripts/setup.sh"
-    }
+    "postCreateCommand": "/bin/bash -c 'mkdir -p .devcontainer/init-scripts && chown -R vscode:vscode /workspace /home/vscode/.gnupg && chmod -R 700 /home/vscode/.gnupg && if [ -f .devcontainer/init-scripts/init.sh ]; then chmod +x .devcontainer/init-scripts/init.sh; bash .devcontainer/init-scripts/init.sh; fi'"
 }

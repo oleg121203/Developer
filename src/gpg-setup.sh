@@ -1,16 +1,25 @@
 #!/bin/bash
-set -e
+set -ex
 
-# Установка GPG без sudo
+echo "=== Starting GPG setup ==="
+
+# Проверка и установка GPG
 if ! command -v gpg &> /dev/null; then
-    apt-get update && apt-get install -y gnupg2
+    echo "Installing GPG..."
+    sudo apt-get update && sudo apt-get install -y gnupg2
 fi
 
-# Настройка для текущего пользователя
-cd /workspace
+# Настройка GPG
+echo "Configuring GPG..."
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
+echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
+echo "keyserver hkps://keys.openpgp.org" >> ~/.gnupg/gpg.conf
+killall gpg-agent || true
 export GPG_TTY=$(tty)
 
-# Генерация GPG ключа
+# Генерация ключа
+echo "Generating GPG key..."
 cat >key_config <<EOF
 %echo Generating GPG key
 Key-Type: RSA
@@ -23,20 +32,20 @@ Expire-Date: 0
 %echo Done
 EOF
 
-gpg --batch --generate-key key_config
+gpg --batch --debug-all --gen-key key_config
 rm key_config
 
-# Настройка Git для использования GPG
-KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | cut -d'/' -f2 | cut -d' ' -f1)
+# Настройка Git
+KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)
 if [ ! -z "$KEY_ID" ]; then
+    echo "=== GPG key generated: $KEY_ID ==="
     git config --global user.signingkey "$KEY_ID"
     git config --global commit.gpgsign true
     git config --global gpg.program $(which gpg)
-    
-    # Экспорт публичного ключа
-    echo "Your GPG public key:"
+    echo "=== GPG public key: ==="
     gpg --armor --export "$KEY_ID"
 else
-    echo "Failed to generate GPG key"
+    echo "!!! GPG key generation failed !!!"
     exit 1
 fi
+#ACAEE2ADC54FBE31E073DC24A1AE5720F9457E1A

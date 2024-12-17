@@ -1,6 +1,7 @@
 %echo Generating GPG key
 Key-Type: RSA
 Key-Length: 4096
+Key-Usage: sign
 Name-Real: Oleg Kizyma
 Name-Email: oleg1203@gmail.com
 Expire-Date: 0

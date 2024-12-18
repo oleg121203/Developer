@@ -108,33 +108,7 @@
                 "dev.containers.gitCredentialsHelper": "cache",
                 "dev.containers.workspaceMountConsistency": "cached",
                 "github.copilot.includeFilePatterns": [],
-                "continue.includeFilePatterns": [],
-                // Удаляем старые настройки continuum
-                // "continuum.apiEndpoint": "http://cline-api:8000",
-                // "continuum.model": "deepseek-coder-v2",
-                // "continuum.modelParameters": {
-                //     "temperature": 0.1,
-                //     "top_p": 0.95,
-                //     "frequency_penalty": 0.1
-                // },
-                // "continuum.enableAutoRefactor": true,
-                // "continuum.enableAutoFix": true
-                // Удаляем настройки Continue
-                // "continue.enabled": true,
-                // "continue.configPath": "/home/vscode/.continue/config.json",
-                // "continue.model": {
-                //     "model": "qwen2.5-coder:1.5b",
-                //     "title": "Qwen 2.5 Coder 1.5B",
-                //     "provider": "ollama",
-                //     "endpoint": "http://172.17.0.1:11434"
-                // },
-                // "continue.serverUrl": "http://172.17.0.1:11434",
-                // "continue.temperature": 0.05,
-                // "continue.sites": [
-                //     "chat",
-                //     "refactor"
-                // ],
-                // "continue.terminalRootPath": "${workspaceFolder}"
+                "continue.includeFilePatterns": []
             },
             "extensions": [
                 "ms-python.python",

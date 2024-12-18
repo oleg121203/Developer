@@ -29,3 +29,8 @@
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":4688,"generatedTokens":80}
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":3186,"generatedTokens":552}
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":5295,"generatedTokens":396}
+{"model":"gemma2-9b-it","provider":"groq","promptTokens":5489,"generatedTokens":594}
+{"model":"gemma2-9b-it","provider":"groq","promptTokens":445,"generatedTokens":7}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":5603,"generatedTokens":525}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3832,"generatedTokens":30}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3465,"generatedTokens":75}

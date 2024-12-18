@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 name: Auto Commit
 
 on:
@@ -26,7 +27,7 @@ jobs:
         git reset .backups/
 
     - name: Commit changes
-      run: git commit -m "Auto-commit: Зміни у проєкті" -m "Опис змін:\n- Автоматизовано через GitHub Actions" || echo "No changes to commit"
+      run: git commit -m "Auto-commit: Project changes" -m "Changes description:\n- Automated via GitHub Actions" || echo "No changes to commit"
 
     - name: Push changes
       run: git push || echo "No changes to push"

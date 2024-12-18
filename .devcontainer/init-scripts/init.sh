@@ -4,20 +4,15 @@
 set -euo pipefail
 exec 1> >(tee -a "/tmp/init-script.log") 2>&1
 
-echo "[$(date)] Starting initialization script..."
-
-# Add logging function
-log() {
-    echo "[$(date)] $1"
-}
-
 # Ensure script is run with bash
 if [ -z "$BASH_VERSION" ]; then
     exec bash "$0" "$@"
 fi
 
-# Enable error handling
-set -euo pipefail
+# Add logging function
+log() {
+    echo "[$(date)] $1"
+}
 
 echo "=== Starting container initialization ==="
 

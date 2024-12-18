@@ -55,9 +55,22 @@ default-cache-ttl 3600
 max-cache-ttl 7200
 EOF
 
+# Покращена конфігурація GPG
+cat > ~/.gnupg/gpg-agent.conf <<EOF
+allow-loopback-pinentry
+pinentry-mode loopback
+default-cache-ttl 34560000
+max-cache-ttl 34560000
+EOF
+
+# Додаткові налаштування для GPG
+echo "no-tty" >> ~/.gnupg/gpg.conf
+echo "batch" >> ~/.gnupg/gpg.conf
+echo "no-autostart" >> ~/.gnupg/gpg-agent.conf
+
 # Restart GPG agent
 gpgconf --kill gpg-agent
-gpg-agent --daemon
+gpg-agent --daemon --allow-loopback-pinentry
 
 # Ensure GPG works in current session
 export GPG_TTY=$(tty)

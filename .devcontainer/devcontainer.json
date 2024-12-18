@@ -12,7 +12,8 @@
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
         "VIRTUAL_ENV_PROMPT": "($$$) ",
         "SHELL": "/bin/bash",
-        "GPG_TTY": "/dev/pts/0"
+        "GPG_TTY": "/dev/pts/0",
+        "GNUPGHOME": "/home/vscode/.gnupg"
     },
     "customizations": {
         "vscode": {

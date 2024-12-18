@@ -1,109 +1,134 @@
 {
   "models": [
     {
-      "model": "qwen2.5-coder:1.5b",
-      "title": "Qwen 2.5 Coder 1.5B",
+      "title": "Qwen2.5 Coder 7B",
       "provider": "ollama",
-      "serverUrl": "http://172.17.0.1:11434",
-      "endpoint": "http://172.17.0.1:11434",
-      "apiVersion": "v1",
+      "model": "qwen2.5-coder:7b",
+      "apiBase": "http://172.17.0.1:11434",
       "contextLength": 8192,
-      "parameters": {
-        "temperature": 0.05,
-        "top_p": 0.98,
-        "frequency_penalty": 0.15,
-        "presence_penalty": 0.1
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.9,
+        "topK": 50
+      }
+    },
+    {
+      "title": "DeepSeek Coder v2",
+      "provider": "ollama",
+      "model": "deepseek-coder-v2:latest",
+      "apiBase": "http://172.17.0.1:11434",
+      "contextLength": 8192,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.85,
+        "topK": 40
+      }
+    },
+    {
+      "title": "Qwen2.5 Coder 1.5B",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:1.5b",
+      "apiBase": "http://172.17.0.1:11434",
+      "contextLength": 4096,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 1024,
+        "topP": 0.9,
+        "topK": 30
+      }
+    },
+    {
+      "title": "LLaMA 3.1",
+      "provider": "ollama",
+      "model": "llama3.1:latest",
+      "apiBase": "http://172.17.0.1:11434",
+      "contextLength": 4096,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 1024,
+        "topP": 0.8,
+        "topK": 40
+      }
+    },
+    {
+      "title": "Nomic Embed Text",
+      "provider": "ollama",
+      "model": "nomic-embed-text:latest",
+      "apiBase": "http://172.17.0.1:11434",
+      "contextLength": 512,
+      "completionOptions": {
+        "temperature": 0.5,
+        "maxTokens": 512
       }
     }
   ],
-  "defaultModel": {
-    "model": "qwen2.5-coder:1.5b",
-    "title": "Qwen 2.5 Coder 1.5B",
-    "provider": "ollama",
-    "serverUrl": "http://172.17.0.1:11434",
-    "endpoint": "http://172.17.0.1:11434",
-    "apiVersion": "v1"
-  },
   "tabAutocompleteModel": {
-    "model": "qwen2.5-coder:1.5b",
-    "title": "Qwen 2.5 Coder 1.5B",
+    "title": "Qwen2.5 Autocomplete",
     "provider": "ollama",
-    "serverUrl": "http://172.17.0.1:11434",
-    "endpoint": "http://172.17.0.1:11434"
+    "model": "qwen2.5-coder:7b",
+    "apiBase": "http://172.17.0.1:11434"
   },
-  "contextProviders": [
+  "tabAutocompleteOptions": {
+    "debounceDelay": 300,
+    "maxPromptTokens": 512,
+    "disableInFiles": [
+      "*.md",
+      "*.log"
+    ]
+  },
+  "embeddingsProvider": {
+    "provider": "ollama",
+    "model": "nomic-embed-text:latest",
+    "apiBase": "http://172.17.0.1:11434",
+    "maxChunkSize": 256,
+    "maxBatchSize": 10
+  },
+  "completionOptions": {
+    "stream": true,
+    "temperature": 0.7,
+    "maxTokens": 2048
+  },
+  "requestOptions": {
+    "timeout": 7200,
+    "verifySsl": false
+  },
+  "customCommands": [
     {
-      "name": "code",
-      "params": {}
+      "name": "Генерація Тестів",
+      "prompt": "Напиши набір юніт-тестів для вибраного коду. Забезпеч повне покриття, враховуючи крайні випадки.",
+      "description": "Генерація тестів для виділеного коду"
     },
     {
-      "name": "docs",
-      "params": {}
-    },
-    {
-      "name": "diff",
-      "params": {}
-    },
-    {
-      "name": "terminal",
-      "params": {}
-    },
-    {
-      "name": "problems",
-      "params": {}
-    },
-    {
-      "name": "folder",
-      "params": {}
-    },
-    {
-      "name": "codebase",
-      "params": {}
-    },
-    {
-      "name": "git-history",
-      "params": {
-        "maxEntries": 50
-      }
+      "name": "Оптимізація Коду",
+      "prompt": "Оптимізуй виділений код для покращення продуктивності та читабельності.",
+      "description": "Оптимізація виділеного коду"
     }
   ],
   "slashCommands": [
     {
-      "name": "share",
-      "description": "Export the current chat session to markdown"
-    },
-    {
-      "name": "cmd",
-      "description": "Generate a shell command"
-    },
-    {
       "name": "commit",
-      "description": "Generate a git commit message"
+      "description": "Згенерувати повідомлення коміту"
     },
     {
-      "name": "test",
-      "description": "Generate unit tests for selected code"
-    },
-    {
-      "name": "doc",
-      "description": "Generate documentation for selected code"
+      "name": "review",
+      "description": "Зробити рев'ю коду"
     }
   ],
-  "settings": {
-    "enabled": true,
-    "configPath": "/home/vscode/.continue/config.json",
-    "model": {
-      "model": "qwen2.5-coder:1.5b",
-      "title": "Qwen 2.5 Coder 1.5B",
-      "provider": "ollama",
-      "endpoint": "http://172.17.0.1:11434"
+  "experimental": {
+    "modelRoles": {
+      "inlineEdit": "Qwen2.5 Coder 1.5B"
     },
-    "serverUrl": "http://172.17.0.1:11434",
-    "temperature": 0.05,
-    "sites": [
-      "chat",
-      "refactor"
-    ],
-    "terminalRootPath": "${workspaceFolder}"
-  }
+    "readResponseTTS": false,
+    "useChromiumForDocsCrawling": true
+  },
+  "ui": {
+    "codeBlockToolbarPosition": "bottom",
+    "fontSize": 14,
+    "displayRawMarkdown": false
+  },
+  "allowAnonymousTelemetry": false,
+  "disableSessionTitles": false,
+  "systemMessage": "Налаштовано оптимальні параметри для роботи з вашими моделями."
 }

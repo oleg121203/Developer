@@ -1,0 +1,9 @@
+{
+    "puppeteerVersion": "23.10.2",
+    "platform": "linux",
+    "revision": "1397779",
+    "cacheDir": "/home/vscode/.continue/.utils",
+    "snapshotsDir": "/home/vscode/.continue/.utils/.chromium-browser-snapshots",
+    "executablePath": "/home/vscode/.continue/.utils/.chromium-browser-snapshots/chromium/linux-1397779/chrome-linux/chrome",
+    "launchable": false
+}

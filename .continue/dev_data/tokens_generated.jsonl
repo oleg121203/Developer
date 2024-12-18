@@ -95,3 +95,12 @@
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":4435,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":5611,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":7636,"generatedTokens":0}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":5416,"generatedTokens":869}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":1389,"generatedTokens":8}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":1389,"generatedTokens":8}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4098,"generatedTokens":137}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":5265,"generatedTokens":886}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":3295,"generatedTokens":2712}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":3017,"generatedTokens":2601}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4275,"generatedTokens":814}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4597,"generatedTokens":244}

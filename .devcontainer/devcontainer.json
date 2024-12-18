@@ -143,30 +143,20 @@
                 "dev.containers.workspaceMountConsistency": "cached",
                 "github.copilot.includeFilePatterns": [],
                 "continue.includeFilePatterns": [],
-                "terminal.integrated": {
-                    "tabs": {
-                        "title": "${process}${separator}${sequence}",
-                        "description": "${task}${separator}${local}${separator}${cwd}",
-                        "separator": " - "
-                    },
-                    "defaultProfile": {
-                        "linux": "bash"
-                    },
-                    "shellIntegration": {
-                        "decorationsEnabled": "true",
-                        "enabled": "true"
-                    },
-                    "fontSize": "12",
-                    "fontFamily": "Menlo, Monaco, 'Courier New', monospace"
-                },
-                "workbench": {
-                    "editor.showTabs": true,
-                    "statusBar.visible": true,
-                    "activity.showFilterInStatusBar": true,
-                    "colorCustomizations": {
-                        "editor.lineHighlightBackground": "#1073cf2d",
-                        "editor.lineHighlightBorder": "#9fced11f"
-                    }
+                "terminal.integrated.tabs.title": "${process}${separator}${sequence}",
+                "terminal.integrated.tabs.description": "${task}${separator}${local}${separator}${cwd}",
+                "terminal.integrated.tabs.separator": " - ",
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.shellIntegration.decorationsEnabled": true,
+                "terminal.integrated.shellIntegration.enabled": true,
+                "terminal.integrated.fontSize": 12,
+                "terminal.integrated.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
+                "workbench.editor.showTabs": true,
+                "workbench.statusBar.visible": true,
+                "workbench.colorCustomizations": {
+                    "editor.foreground": "#000000", // Змінює колір тексту в редакторі
+                    "statusBar.panelBackground": "#4A4A4A", // Змінює фон статус-бару панелей
+                    "editor.lineHighlightBackground": "#d417e12d"
                 }
             },
             "extensions": [
@@ -182,12 +172,10 @@
                 "ms-vscode-remote.remote-explorer",
                 "github.vscode-pull-request-github",
                 "redhat.vscode-yaml",
-                "GitHub.vscode-github-actions",
+                "GitHub.vscode-pull-request-github-actions",
                 "continue.continue",
                 "saoudrizwan.claude-dev",
                 "ryanluker.vscode-coverage-gutters",
-                "GitHub.copilot-chat",
-                "GitHub.copilot",
                 "magicstack.MagicPython",
                 "ms-python.vscode-pylance",
                 "ms-python.debugpy",
@@ -214,6 +202,20 @@
         "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
     ],
+    "bindMounts": [
+        {
+            "source": "${localEnv:HOME}/.gnupg",
+            "target": "/home/vscode/.gnupg",
+            "type": "bind",
+            "consistency": "cached"
+        },
+        {
+            "source": "${localWorkspaceFolder}/.continue",
+            "target": "/home/vscode/.continue",
+            "type": "bind",
+            "consistency": "cached"
+        }
+    ],
     "features": {
         "ghcr.io/devcontainers/features/git:1": {
             "version": "latest",
@@ -223,25 +225,7 @@
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": true,
             "upgradePackages": true,
-            "username": "vscode",
-            "userUid": "1000",
-            "userGid": "1000"
+            "username": "vscode"
         }
-    },
-    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent",
-    "postCreateCommand": [
-        "/bin/bash",
-        "-c",
-        "chmod +x .devcontainer/init-scripts/*.sh && .devcontainer/init-scripts/init.sh"
-    ],
-    "postStartCommand": [
-        "/bin/bash",
-        "-c",
-        "for i in {1..60}; do if curl -s http://172.17.0.1:11434 | grep -q 'Ollama is running'; then echo 'Ollama is ready!'; exit 0; fi; echo \"Attempt $i/60: Waiting for Ollama...\"; sleep 5; done; echo 'Error: Ollama not available after 5 minutes' >&2; exit 0"
-    ],
-    "containerEnv": {
-        "OLLAMA_API_HOST": "172.17.0.1",
-        "OLLAMA_API_PORT": "11434",
-        "OLLAMA_TIMEOUT": "300"
     }
 }

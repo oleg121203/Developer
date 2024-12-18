@@ -23,7 +23,7 @@
                 "editor.formatOnSave": true,
                 "editor.formatOnSaveMode": "file",
                 "files.autoSave": "afterDelay",
-                "files.autoSaveDelay": 3000,
+                "files.autoSaveDelay": 1000,
                 "python.formatting.provider": "black",
                 "python.formatting.blackArgs": [
                     "--line-length",
@@ -76,10 +76,14 @@
                 "editor.acceptSuggestionOnEnter": "on",
                 "editor.codeActionsOnSave": {
                     "source.organizeImports": true,
-                    "source.fixAll": true
+                    "source.fixAll": true,
+                    "source.fixAll.eslint": true
                 },
-                "source.fixAll.eslint": true,
-                "source.organizeImports": true,
+                "editor.defaultFormatter": "ms-python.black-formatter",
+                "editor.suggest.showMethods": true,
+                "editor.suggest.showFunctions": true,
+                "editor.suggest.showVariables": true,
+                "editor.suggest.showClasses": true,
                 "editor.quickSuggestions": {
                     "other": true,
                     "comments": true,

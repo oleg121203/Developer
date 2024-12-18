@@ -166,7 +166,8 @@
         "ghcr.io/devcontainers/features/git:1": {
             "version": "latest",
             "ppa": true
-        }
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {}
     },
     "postCreateCommand": "/bin/bash -c 'mkdir -p .devcontainer/init-scripts && chown -R vscode:vscode /workspace /home/vscode/.gnupg && chmod -R 700 /home/vscode/.gnupg && if [ -f .devcontainer/init-scripts/init.sh ]; then chmod +x .devcontainer/init-scripts/init.sh; bash .devcontainer/init-scripts/init.sh; fi'"
 }

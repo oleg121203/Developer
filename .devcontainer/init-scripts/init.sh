@@ -218,18 +218,18 @@ check_ollama() {
     fi
 }
 
-# Запуск model.py в фоновом режиме
-log "Запускаем model.py..."
+# Запуск model.py в фоновому режимі
+log "Запускаємо model.py..."
 nohup python3 /workspace/model.py > /tmp/model.log 2>&1 & 
 MODEL_PID=$!
-log "model.py запущен в фоновом режиме (PID: $MODEL_PID)"
+log "model.py запущений в фоновому режимі (PID: $MODEL_PID)"
 
-# Проверка запуска model.py
+# Перевірка запуску model.py
 sleep 5
 if ps -p $MODEL_PID > /dev/null; then
-    log "model.py успешно работает"
+    log "model.py успішно працює"
 else
-    log "Ошибка: model.py не удалось запустить"
+    log "Помилка: model.py не вдалося запустити"
     exit 1
 fi
 

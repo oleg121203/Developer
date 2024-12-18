@@ -1,12 +1,12 @@
 import logging
 import requests
-import json
 import time
+import subprocess
 from pathlib import Path
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-# Configure logging
+# Налаштування логування
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -30,23 +30,45 @@ class CodeChangeHandler(FileSystemEventHandler):
         try:
             with open(filepath, 'r') as f:
                 code = f.read()
-            logging.info(f"Processing file: {filepath}")
+            logging.info(f"Обробка файлу: {filepath}")
+            
+            # Рефакторинг коду
             result = self.model.run_model(f"Refactor this code:\n{code}")
             if result:
-                # Create backup with timestamp
+                # Створення резервної копії з часовою міткою
                 timestamp = time.strftime("%Y%m%d-%H%M%S")
                 backup_path = f"{filepath}.{timestamp}.bak"
                 Path(filepath).rename(backup_path)
-                logging.info(f"Created backup: {backup_path}")
+                logging.info(f"Створено резервну копію: {backup_path}")
 
                 with open(filepath, 'w') as f:
                     f.write(result)
-                logging.info(f"Successfully refactored: {filepath}")
+                logging.info(f"Успішно рефакторовано: {filepath}")
+
+            # Аналіз коду на помилки та правильність імпортів
+            self.run_analysis_tools(filepath)
         except Exception as e:
-            logging.error(f"Error processing {filepath}: {e}")
+            logging.error(f"Помилка обробки {filepath}: {e}")
             return False
         return True
 
+    def run_analysis_tools(self, filepath):
+        tools = [
+            ["pylint", filepath],
+            ["flake8", filepath],
+            ["mypy", filepath],
+            ["black", "--check", filepath],
+            ["isort", "--check-only", filepath]
+        ]
+        for tool in tools:
+            try:
+                result = subprocess.run(tool, capture_output=True, text=True)
+                if result.returncode != 0:
+                    logging.warning(f"Проблеми з {tool[0]} для {filepath}:\n{result.stdout}\n{result.stderr}")
+                else:
+                    logging.info(f"{tool[0]} пройшов успішно для {filepath}")
+            except Exception as e:
+                logging.error(f"Помилка запуску {tool[0]} для {filepath}: {e}")
 
 class OllamaModel:
     def __init__(self, api_base="http://172.17.0.1:11434", model="qwen2.5-coder:1.5b"):

@@ -1,6 +1,18 @@
 {
   "models": [
     {
+      "model": "qwen2.5-coder:1.5b",
+      "title": "Qwen 2.5 Coder 1.5B",
+      "provider": "ollama",
+      "serverUrl": "http://172.17.0.1:11434",
+      "contextLength": 8192,
+      "parameters": {
+        "temperature": 0.1,
+        "top_p": 0.95,
+        "frequency_penalty": 0.1
+      }
+    },
+    {
       "model": "deepseek-coder-v2",
       "title": "DeepSeek Coder V2",
       "provider": "ollama",
@@ -62,12 +74,6 @@
       "serverUrl": "http://172.17.0.1:11434"
     },
     {
-      "model": "qwen2.5-coder:1.5b",
-      "title": "Qwen 2.5 Coder 1.5B",
-      "provider": "ollama",
-      "serverUrl": "http://172.17.0.1:11434"
-    },
-    {
       "model": "llama3.1",
       "title": "Llama 3.1",
       "provider": "ollama",
@@ -75,10 +81,10 @@
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Codestral",
-    "provider": "mistral",
-    "model": "codestral-latest",
-    "apiKey": ""
+    "model": "qwen2.5-coder:1.5b",
+    "title": "Qwen 2.5 Coder 1.5B",
+    "provider": "ollama",
+    "serverUrl": "http://172.17.0.1:11434"
   },
   "contextProviders": [
     {

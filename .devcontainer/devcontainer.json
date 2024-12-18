@@ -42,7 +42,6 @@
                 ],
                 "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
                 "python.sortImports.organizeImports": true,
-                "continue.previewMode": true,
                 "python.analysis.languageServerMode": "default",
                 "python.analysis.indexing": true,
                 "python.analysis.autoImportCompletions": true,
@@ -110,30 +109,20 @@
                 "dev.containers.workspaceMountConsistency": "cached",
                 "github.copilot.includeFilePatterns": [],
                 "continue.includeFilePatterns": [],
-                "continuum.apiEndpoint": "http://cline-api:8000",
-                "continuum.model": "deepseek-coder-v2",
-                "continuum.modelParameters": {
-                    "temperature": 0.1,
-                    "top_p": 0.95,
-                    "frequency_penalty": 0.1
-                },
-                "continuum.enableAutoRefactor": true,
-                "continuum.enableAutoFix": true,
-                "editor.renderWhitespace": "all",
-                "editor.tabSize": 4,
-                "editor.insertSpaces": true,
-                "editor.detectIndentation": false,
-                "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
-                "python.analysis.extraPaths": [
-                    "/workspace/.venv/lib/python3.12/site-packages"
-                ],
-                "python.analysis.diagnosticMode": "workspace",
-                "python.analysis.inlayHints.functionReturnTypes": true,
-                "python.analysis.inlayHints.variableTypes": true,
+                // Удаляем старые настройки continuum
+                // "continuum.apiEndpoint": "http://cline-api:8000",
+                // "continuum.model": "deepseek-coder-v2",
+                // "continuum.modelParameters": {
+                //     "temperature": 0.1,
+                //     "top_p": 0.95,
+                //     "frequency_penalty": 0.1
+                // },
+                // "continuum.enableAutoRefactor": true,
+                // "continuum.enableAutoFix": true,
+                // Оставляем только настройки для Continue с Ollama
                 "continue.enabled": true,
-                "continue.previewMode": false,
                 "continue.model": {
-                    "name": "deepseek-coder-v2",
+                    "name": "qwen2.5-coder:1.5b",
                     "endpoint": "http://172.17.0.1:11434",
                     "temperature": 0.1,
                     "context_length": 8192

@@ -137,6 +137,7 @@
                     "fixBugs"
                 ],
                 "continue.sites": [
+                    "chat",
                     "refactor"
                 ],
                 "continue.terminalRootPath": "${workspaceFolder}"

@@ -5,6 +5,7 @@
       "title": "Qwen 2.5 Coder 1.5B",
       "provider": "ollama",
       "serverUrl": "http://172.17.0.1:11434",
+      "apiVersion": "v1",
       "contextLength": 8192,
       "parameters": {
         "temperature": 0.1,
@@ -16,7 +17,8 @@
   "defaultModel": {
     "model": "qwen2.5-coder:1.5b",
     "provider": "ollama",
-    "serverUrl": "http://172.17.0.1:11434"
+    "serverUrl": "http://172.17.0.1:11434",
+    "apiVersion": "v1"
   },
   "tabAutocompleteModel": {
     "model": "qwen2.5-coder:1.5b",

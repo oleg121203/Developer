@@ -52,5 +52,17 @@
     "title": "Error summary: Several errors in",
     "dateCreated": "1734554353156",
     "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "2cb64448-f59b-4458-b9c9-078762b1bd90",
+    "title": "Summary: Error in extension host",
+    "dateCreated": "1734556307183",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "694aa5e8-e576-4ed1-8414-5eb1a7dd68e2",
+    "title": "Repairing corrupted SQL",
+    "dateCreated": "1734556345124",
+    "workspaceDirectory": "/workspace"
   }
 ]

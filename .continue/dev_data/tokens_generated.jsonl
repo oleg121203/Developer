@@ -73,3 +73,11 @@
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":206,"generatedTokens":172}
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2295,"generatedTokens":580}
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":540,"generatedTokens":7}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":540,"generatedTokens":8}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":52,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":837,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":1068,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":2264,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":511,"generatedTokens":227}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":5896,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":7906,"generatedTokens":0}

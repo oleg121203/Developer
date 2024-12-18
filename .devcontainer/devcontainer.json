@@ -170,13 +170,7 @@
                 }
             },
             "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-python.debugpy",
-                "ms-python.black-formatter",
-                "ms-python.isort",
-                "ms-python.flake8",
-                "ms-python.autopep8",
+                "ms-python.python",           // основное Python расширение первым
                 "ms-azuretools.vscode-docker",
                 "batisteo.vscode-django",
                 "dbaeumer.vscode-eslint",
@@ -194,7 +188,14 @@
                 "ryanluker.vscode-coverage-gutters",
                 "GitHub.copilot-chat",
                 "GitHub.copilot",
-                "magicstack.MagicPython"
+                "magicstack.MagicPython",
+                // Зависимые от Python расширения в конце
+                "ms-python.vscode-pylance",   // языковой сервер
+                "ms-python.debugpy",          // дебаггер
+                "ms-python.black-formatter",  // форматирование
+                "ms-python.isort",           // сортировка импортов
+                "ms-python.flake8",          // линтер
+                "ms-python.autopep8"         // форматирование
             ]
         }
     },

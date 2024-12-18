@@ -8,10 +8,30 @@
       "apiVersion": "v1",
       "contextLength": 8192,
       "parameters": {
-        "temperature": 0.1,
-        "top_p": 0.95,
-        "frequency_penalty": 0.1
+        "temperature": 0.05,
+        "top_p": 0.98,
+        "frequency_penalty": 0.15,
+        "presence_penalty": 0.1
       }
+    },
+    {
+      "model": "qwen2.5-coder:1.5b",
+      "title": "Qwen 2.5 Coder 1.5B (Fallback)",
+      "provider": "ollama",
+      "serverUrl": "http://172.17.0.1:11434",
+      "apiVersion": "v1",
+      "contextLength": 8192,
+      "parameters": {
+        "temperature": 0.05,
+        "top_p": 0.98,
+        "frequency_penalty": 0.15,
+        "presence_penalty": 0.1
+      }
+    },
+    {
+      "model": "AUTODETECT",
+      "title": "Autodetect",
+      "provider": "ollama"
     }
   ],
   "defaultModel": {
@@ -54,6 +74,12 @@
     {
       "name": "codebase",
       "params": {}
+    },
+    {
+      "name": "git-history",
+      "params": {
+        "maxEntries": 50
+      }
     }
   ],
   "slashCommands": [
@@ -68,6 +94,14 @@
     {
       "name": "commit",
       "description": "Generate a git commit message"
+    },
+    {
+      "name": "test",
+      "description": "Generate unit tests for selected code"
+    },
+    {
+      "name": "doc",
+      "description": "Generate documentation for selected code"
     }
   ]
 }

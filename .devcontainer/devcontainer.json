@@ -118,29 +118,23 @@
                 //     "frequency_penalty": 0.1
                 // },
                 // "continuum.enableAutoRefactor": true,
-                // "continuum.enableAutoFix": true,
-                // Оставляем только настройки для Continue с Ollama
-                "continue.enabled": true,
-                "continue.model": {
-                    "name": "qwen2.5-coder:1.5b",
-                    "provider": "ollama",
-                    "endpoint": "http://172.17.0.1:11434",
-                    "temperature": 0.1,
-                    "context_length": 8192
-                },
-                "continue.autoRefactoring": true,
-                "continue.automaticRefactorings": [
-                    "simplifyCode",
-                    "addTyping",
-                    "improveNaming",
-                    "addDocstring",
-                    "fixBugs"
-                ],
-                "continue.sites": [
-                    "chat",
-                    "refactor"
-                ],
-                "continue.terminalRootPath": "${workspaceFolder}"
+                // "continuum.enableAutoFix": true
+                // Удаляем настройки Continue
+                // "continue.enabled": true,
+                // "continue.configPath": "/home/vscode/.continue/config.json",
+                // "continue.model": {
+                //     "model": "qwen2.5-coder:1.5b",
+                //     "title": "Qwen 2.5 Coder 1.5B",
+                //     "provider": "ollama",
+                //     "endpoint": "http://172.17.0.1:11434"
+                // },
+                // "continue.serverUrl": "http://172.17.0.1:11434",
+                // "continue.temperature": 0.05,
+                // "continue.sites": [
+                //     "chat",
+                //     "refactor"
+                // ],
+                // "continue.terminalRootPath": "${workspaceFolder}"
             },
             "extensions": [
                 "ms-python.python",
@@ -200,5 +194,10 @@
         "/bin/bash",
         "-c",
         "chmod +x .devcontainer/init-scripts/init.sh && .devcontainer/init-scripts/init.sh"
+    ],
+    "postStartCommand": [
+        "/bin/bash",
+        "-c",
+        "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
     ]
 }

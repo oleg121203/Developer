@@ -192,7 +192,8 @@
                 "saoudrizwan.claude-dev",
                 "ryanluker.vscode-coverage-gutters",
                 "GitHub.copilot-chat",
-                "GitHub.copilot"
+                "GitHub.copilot",
+                "magicstack.MagicPython"
             ]
         }
     },

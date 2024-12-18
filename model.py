@@ -2,6 +2,7 @@ import logging
 import requests
 import time
 import subprocess
+import magicpython
 from pathlib import Path
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler

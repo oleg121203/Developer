@@ -71,3 +71,5 @@
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2550,"generatedTokens":489}
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":1997,"generatedTokens":241}
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":206,"generatedTokens":172}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2295,"generatedTokens":580}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":540,"generatedTokens":7}

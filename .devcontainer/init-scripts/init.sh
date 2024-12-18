@@ -46,15 +46,19 @@ fi
 # Create directories
 mkdir -p ~/.gnupg ~/.ssh
 
-# Python setup
-log "Setting up Python environment..."
-python3 -m venv .venv || log "Warning: venv creation failed, continuing..."
+# Настройка Python окружения
+log "Настраиваем Python окружение..."
+python3 -m venv .venv || { log "Предупреждение: не удалось создать виртуальное окружение"; }
 if [ -f .venv/bin/activate ]; then
     source .venv/bin/activate
-    pip install --upgrade pip setuptools wheel || log "Warning: base package installation failed"
+    pip install --upgrade pip setuptools wheel || { log "Предупреждение: не удалось обновить pip"; }
     if [ -f requirements.txt ]; then
-        pip install -r requirements.txt || log "Warning: requirements installation failed"
+        log "Устанавливаем зависимости из requirements.txt..."
+        pip install -r requirements.txt || { log "Ошибка: не удалось установить зависимости"; exit 1; }
     fi
+else
+    log "Ошибка: не удалось активировать виртуальное окружение"
+    exit 1
 fi
 
 # Ensure proper GPG environment
@@ -214,6 +218,10 @@ check_ollama() {
         return 1
     fi
 }
+
+# Запуск model.py после установки зависимостей
+log "Запускаем model.py..."
+python3 /workspace/model.py || { log "Ошибка: не удалось запустить model.py"; exit 1; }
 
 # Run health check at the end
 if ! check_ollama; then

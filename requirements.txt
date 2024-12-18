@@ -33,3 +33,8 @@ docker==7.0.0
 
 # Утиліти для автодоповнення та рефакторингу
 python-lsp-server[all]==1.10.0
+
+# Залежності для роботи з моделлю Qwen2.5 Coder 1.5B
+transformers==4.33.0
+torch==2.0.1
+pytorch-lightning==1.8.5

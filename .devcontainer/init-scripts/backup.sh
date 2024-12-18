@@ -20,9 +20,9 @@ tar --exclude=".backups" --exclude=".git" --exclude=".venv" -czf "$BACKUP_FILE" 
 
 echo "Backup created at $BACKUP_FILE"
 
-# Удаление старых бэкапов, оставляем только последние 5
+# Удаление старых бэкапов, оставляем только последние 10
 BACKUP_COUNT=$(ls -1 "$BACKUP_DIR" | wc -l)
-if [ "$BACKUP_COUNT" -gt 5 ]; then
-    ls -1t "$BACKUP_DIR" | tail -n +6 | xargs -I {} rm -f "$BACKUP_DIR/{}"
-    echo "Old backups deleted, keeping only the latest 5 backups."
+if [ "$BACKUP_COUNT" -gt 10 ]; then
+    ls -1t "$BACKUP_DIR" | tail -n +11 | xargs -I {} rm -f "$BACKUP_DIR/{}"
+    echo "Old backups deleted, keeping only the latest 10 backups."
 fi

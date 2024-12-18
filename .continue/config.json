@@ -95,10 +95,17 @@
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Qwen2.5 Autocomplete",
+    "title": "Qwen2.5 Coder 1.5B",
     "provider": "ollama",
-    "model": "qwen2.5-coder:7b",
-    "apiBase": "http://172.17.0.1:11434"
+    "model": "qwen2.5-coder:1.5b",
+    "apiBase": "http://172.17.0.1:11434",
+    "contextLength": 4096,
+    "completionOptions": {
+      "temperature": 0.7,
+      "maxTokens": 1024,
+      "topP": 0.9,
+      "topK": 30
+    }
   },
   "tabAutocompleteOptions": {
     "debounceDelay": 300,
@@ -148,7 +155,9 @@
   ],
   "experimental": {
     "modelRoles": {
-      "inlineEdit": "Qwen2.5 Coder 1.5B"
+      "inlineEdit": "Qwen2.5 Coder 1.5B",
+      "codeCompletion": "Qwen2.5 Coder 1.5B",
+      "refactoring": "Qwen2.5 Coder 1.5B"
     },
     "readResponseTTS": false,
     "useChromiumForDocsCrawling": true

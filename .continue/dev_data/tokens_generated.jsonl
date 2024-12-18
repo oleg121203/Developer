@@ -34,3 +34,17 @@
 {"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":5603,"generatedTokens":525}
 {"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3832,"generatedTokens":30}
 {"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3465,"generatedTokens":75}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3021,"generatedTokens":75}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":527,"generatedTokens":8}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3081,"generatedTokens":64}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3215,"generatedTokens":64}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3342,"generatedTokens":64}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":3486,"generatedTokens":75}
+{"model":"llama3-groq-70b-8192-tool-use-preview","provider":"groq","promptTokens":4004,"generatedTokens":75}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":1371,"generatedTokens":437}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":549,"generatedTokens":8}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":2215,"generatedTokens":321}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":2660,"generatedTokens":272}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":3056,"generatedTokens":391}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":3571,"generatedTokens":534}
+{"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":4234,"generatedTokens":416}

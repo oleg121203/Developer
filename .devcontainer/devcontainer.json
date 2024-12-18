@@ -36,10 +36,28 @@
                         "showMethods": true,
                         "showFunctions": true,
                         "showVariables": true,
-                        "showClasses": true
+                        "showClasses": true,
+                        "filterGraceful": true,
+                        "shareSuggestSelections": true,
+                        "showStatusBar": true,
+                        "preview": true
+                    },
+                    "formatOnSaveMode": "modifications",
+                    "showProgress": true,
+                    "renderWhitespace": "selection",
+                    "minimap": {
+                        "enabled": true,
+                        "renderCharacters": false,
+                        "showSlider": "always",
+                        "maxColumn": 120
+                    },
+                    "guides": {
+                        "bracketPairs": true,
+                        "highlightActiveBracketPair": true,
+                        "indentation": true,
+                        "highlightActiveIndentation": true
                     }
                 },
-                "editor.formatOnSaveMode": "file",
                 "files.autoSave": "afterDelay",
                 "files.autoSaveDelay": 3000,
                 "python.formatting.provider": "black",
@@ -86,15 +104,18 @@
                 "coverage-gutters.showGutterCoverage": true,
                 "coverage-gutters.showLineCoverage": true,
                 "coverage-gutters.showRulerCoverage": true,
-                "editor.suggestSelection": "first",
+                "editor.suggestSelection": "recentlyUsed",
                 "editor.tabCompletion": "on",
                 "editor.acceptSuggestionOnCommitCharacter": true,
-                "editor.acceptSuggestionOnEnter": "on",
+                "editor.acceptSuggestionOnEnter": "smart",
                 "editor.quickSuggestions": {
-                    "other": true,
-                    "comments": true,
-                    "strings": true
+                    "other": "on",
+                    "comments": "on",
+                    "strings": "on"
                 },
+                "editor.inlineSuggest.enabled": true,
+                "editor.suggest.preview": true,
+                "editor.suggest.showStatusBar": true,
                 "extensions.autoUpdate": true,
                 "extensions.autoCheckUpdates": true,
                 "git.autofetch": true,
@@ -133,9 +154,16 @@
                         "enabled": "true"
                     },
                     "fontSize": "14",
-                    "fontFamily": "Menlo, Monaco, 'Courier New', monospace",
-                    "cursorBlinking": "true",
-                    "cursorStyle": "line"
+                    "fontFamily": "Menlo, Monaco, 'Courier New', monospace"
+                },
+                "workbench": {
+                    "editor.showTabs": true,
+                    "statusBar.visible": true,
+                    "activity.showFilterInStatusBar": true,
+                    "colorCustomizations": {
+                        "editor.lineHighlightBackground": "#1073cf2d",
+                        "editor.lineHighlightBorder": "#9fced11f"
+                    }
                 }
             },
             "extensions": [

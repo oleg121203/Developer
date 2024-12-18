@@ -6,7 +6,6 @@ set -e
 
 echo "=== Starting container initialization ==="
 
-<<<<<<< Updated upstream
 # Установка прав на выполнение всех скриптов
 find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
 
@@ -14,10 +13,6 @@ find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
 echo "Running permissions.sh..."
 .devcontainer/init-scripts/permissions.sh || { echo "permissions.sh failed"; exit 1; }
 
-# Запуск check_git_config.sh
-echo "Running check_git_config.sh..."
-.devcontainer/init-scripts/check_git_config.sh || { echo "check_git_config.sh failed"; exit 1; }
-=======
 # Git configuration
 echo "Configuring Git..."
 git config --global user.name "Oleg Kizyma"
@@ -27,9 +22,9 @@ git config --global pull.rebase true
 git config --global push.autoSetupRemote true
 git config --global push.default current
 
-# Verify Git configuration
-git config --list
->>>>>>> Stashed changes
+# Запуск check_git_config.sh
+echo "Running check_git_config.sh..."
+.devcontainer/init-scripts/check_git_config.sh || { echo "check_git_config.sh failed"; exit 1; }
 
 # Save current branch if repository exists
 CURRENT_BRANCH=""
@@ -50,21 +45,6 @@ if [ -f .venv/bin/activate ]; then
     if [ -f requirements.txt ]; then
         pip install -r requirements.txt || echo "Warning: requirements installation failed"
     fi
-fi
-
-# Git and GPG setup
-echo "Configuring Git..."
-git config --global user.name "Oleg Kizyma" || true
-git config --global user.email "oleg1203@gmail.com" || true
-git config --global core.editor "code --wait" || true
-git config --global pull.rebase true || true
-git config --global push.autoSetupRemote true || true
-git config --global push.default current || true
-
-# Restore original branch if it was saved
-if [ ! -z "$CURRENT_BRANCH" ]; then
-    echo "Restoring branch: $CURRENT_BRANCH"
-    git checkout "$CURRENT_BRANCH" 2>/dev/null || echo "Warning: Could not restore branch $CURRENT_BRANCH"
 fi
 
 # Ensure proper GPG environment
@@ -130,8 +110,6 @@ fi
 
 # Тест подписи
 echo "test" | gpg --clearsign || echo "GPG test signing failed"
-
-// ...existing code...
 
 # Add more entropy
 apt-get update && apt-get install -y rng-tools haveged || true

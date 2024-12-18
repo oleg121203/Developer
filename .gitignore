@@ -198,3 +198,4 @@ backup/
 
 # Continue - разрешаем версионирование
 #.continue/
+.continue/.utils/.chromium-browser-snapshots/chromium/linux-1397779/chrome-linux/chrome

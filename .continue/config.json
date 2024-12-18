@@ -62,6 +62,36 @@
         "temperature": 0.5,
         "maxTokens": 512
       }
+    },
+    {
+      "apiKey": "xQTwTs3Ba0E4hspT6mblj0Y8YK7LqBZg",
+      "title": "Mistral Large",
+      "model": "mistral-large-latest",
+      "provider": "mistral"
+    },
+    {
+      "apiKey": "xQTwTs3Ba0E4hspT6mblj0Y8YK7LqBZg",
+      "title": "Mistral 8x22B",
+      "model": "open-mixtral-8x22b",
+      "provider": "mistral"
+    },
+    {
+      "apiKey": "xQTwTs3Ba0E4hspT6mblj0Y8YK7LqBZg",
+      "title": "Mixtral 8x7B",
+      "model": "open-mixtral-8x7b",
+      "provider": "mistral"
+    },
+    {
+      "apiKey": "xQTwTs3Ba0E4hspT6mblj0Y8YK7LqBZg",
+      "title": "Codestral",
+      "model": "codestral-latest",
+      "provider": "mistral"
+    },
+    {
+      "model": "AUTODETECT",
+      "title": "Autodetect",
+      "apiKey": "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",
+      "provider": "groq"
     }
   ],
   "tabAutocompleteModel": {

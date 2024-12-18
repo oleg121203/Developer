@@ -1,8 +1,12 @@
 #!/bin/bash
-if [ ! -x "$0" ]; then
-    chmod +x "$0"
+
+# Ensure script is run with bash
+if [ -z "$BASH_VERSION" ]; then
+    exec bash "$0" "$@"
 fi
-set -e
+
+# Enable error handling
+set -euo pipefail
 
 echo "=== Starting container initialization ==="
 
@@ -81,10 +85,28 @@ gpg-agent --daemon --allow-loopback-pinentry
 export GPG_TTY=$(tty)
 echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
 
+# Improved package installation with checks
+install_packages() {
+    local packages=("$@")
+    for pkg in "${packages[@]}"; do
+        if ! dpkg -l | grep -q "^ii.*$pkg"; then
+            sudo apt-get install -y "$pkg" || echo "Warning: Failed to install $pkg"
+        fi
+    done
+}
+
+# Install required packages safely
+install_packages gnupg2 pinentry-tty gpg-agent rng-tools haveged
+
 # Создание нового ключа если не существует
 if ! gpg --list-secret-keys --keyid-format=long | grep -q "oleg1203@gmail.com"; then
-    # Генерация ключа без пароля
-    gpg --batch --gen-key <<EOF
+    # Check for existing backup
+    if [ -d "$HOME/.gnupg.bak" ]; then
+        echo "Found GPG backup, restoring..."
+        cp -r "$HOME/.gnupg.bak/"* "$HOME/.gnupg/"
+    else
+        echo "Generating new GPG key..."
+        gpg --batch --gen-key <<EOF
 %echo Generating a basic OpenPGP key
 Key-Type: RSA
 Key-Length: 4096
@@ -97,6 +119,7 @@ Expire-Date: 0
 %commit
 %echo done
 EOF
+    fi
 fi
 
 # Настройка Git для использования GPG
@@ -132,12 +155,35 @@ EOF
 chmod +x /workspace/.git/hooks/post-commit
 chmod +x /workspace/.devcontainer/init-scripts/backup.sh
 
-# Shell customization
-cat >> ~/.bashrc <<-EOF
-export PS1="(\$\$\$) \u ➜ \w\$ "
-export GPG_TTY=\$(tty)
-[ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate
+# Improved shell detection and compatibility
+SHELL_TYPE="$(basename "$SHELL")"
+if [ "$SHELL_TYPE" = "bash" ]; then
+    RCFILE="$HOME/.bashrc"
+elif [ "$SHELL_TYPE" = "zsh" ]; then
+    RCFILE="$HOME/.zshrc"
+else
+    RCFILE="$HOME/.profile"
+fi
+
+# Better git branch parsing without $$ usage
+parse_git_branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# Shell customization with safe defaults
+if [ -f "$HOME/.bashrc" ]; then
+    # Remove any existing prompt configuration
+    sed -i '/PROMPT_CONFIGURED/d' "$HOME/.bashrc"
+    
+    # Add new prompt configuration with guard
+    cat >> "$HOME/.bashrc" <<EOF
+# Added by devcontainer init script
+if [ -z "\${PROMPT_CONFIGURED:-}" ]; then
+    export PROMPT_CONFIGURED=1
+    PS1='\[\033[01;32m\](\$) \u\[\033[00m\] ➜ \[\033[01;34m\]\w\[\033[91m\]\$(parse_git_branch)\[\033[00m\]\$ '
+fi
 EOF
+fi
 
 # Add GPG environment variables to bashrc
 cat >> ~/.bashrc <<-EOF

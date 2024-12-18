@@ -1,4 +1,7 @@
 #!/bin/bash
+if [ ! -x "$0" ]; then
+    chmod +x "$0"
+fi
 set -e
 
 echo "=== Starting container initialization ==="
@@ -49,36 +52,50 @@ echo "keyserver hkps://keys.openpgp.org" > ~/.gnupg/gpg.conf
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
 
+# Базовая конфигурация GPG
 cat > ~/.gnupg/gpg.conf <<EOF
 use-agent
 pinentry-mode loopback
 no-tty
+allow-loopback-pinentry
 EOF
 
+# Конфигурация GPG агента
 cat > ~/.gnupg/gpg-agent.conf <<EOF
 allow-loopback-pinentry
+enable-ssh-support
+pinentry-program /usr/bin/pinentry-tty
 default-cache-ttl 34560000
 max-cache-ttl 34560000
 EOF
 
+# Перезапуск GPG агента
+gpgconf --kill all
+gpg-agent --daemon --allow-loopback-pinentry
+
+# Установка переменных окружения
+export GPG_TTY=$(tty)
+echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
+
+# Создание нового ключа если не существует
 if ! gpg --list-secret-keys --keyid-format=long | grep -q "oleg1203@gmail.com"; then
-    cat > ~/.gnupg/key-config <<EOF
-%echo Generating GPG key
+    # Генерация ключа без пароля
+    gpg --batch --gen-key <<EOF
+%echo Generating a basic OpenPGP key
 Key-Type: RSA
 Key-Length: 4096
-Key-Usage: sign
+Subkey-Type: RSA
+Subkey-Length: 4096
 Name-Real: Oleg Kizyma
 Name-Email: oleg1203@gmail.com
 Expire-Date: 0
 %no-protection
 %commit
+%echo done
 EOF
-
-    gpg --batch --gen-key ~/.gnupg/key-config
-    rm ~/.gnupg/key-config
 fi
 
-# Configure Git GPG signing
+# Настройка Git для использования GPG
 KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)
 if [ ! -z "$KEY_ID" ]; then
     git config --global user.signingkey "$KEY_ID"
@@ -86,13 +103,10 @@ if [ ! -z "$KEY_ID" ]; then
     git config --global gpg.program $(which gpg)
 fi
 
-# Restart GPG agent
-gpgconf --kill gpg-agent
-gpg-agent --daemon --allow-loopback-pinentry
+# Тест подписи
+echo "test" | gpg --clearsign || echo "GPG test signing failed"
 
-# Ensure GPG works in current session
-export GPG_TTY=$(tty)
-echo "test" | gpg --clearsign >/dev/null 2>&1 || echo "Warning: GPG signing test failed"
+// ...existing code...
 
 # Add more entropy
 apt-get update && apt-get install -y rng-tools haveged || true

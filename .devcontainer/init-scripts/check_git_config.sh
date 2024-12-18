@@ -1,4 +1,7 @@
 #!/bin/bash
+if [ ! -x "$0" ]; then
+    chmod +x "$0"
+fi
 set -e
 
 # Проверяем глобальные настройки git

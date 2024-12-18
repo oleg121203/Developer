@@ -14,7 +14,8 @@
         "SHELL": "/bin/bash",
         "GPG_TTY": "/dev/pts/0",
         "GNUPGHOME": "/home/vscode/.gnupg",
-        "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
+        "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock",
+        "GPG_KEY": "oleg1203@gmail.com"
     },
     "customizations": {
         "vscode": {
@@ -167,7 +168,29 @@
             "version": "latest",
             "ppa": true
         },
-        "ghcr.io/devcontainers/features/github-cli:1": {}
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "upgradePackages": true,
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000"
+        }
     },
-    "postCreateCommand": "/bin/bash -c 'mkdir -p .devcontainer/init-scripts && chown -R vscode:vscode /workspace /home/vscode/.gnupg && chmod -R 700 /home/vscode/.gnupg && if [ -f .devcontainer/init-scripts/init.sh ]; then chmod +x .devcontainer/init-scripts/init.sh; bash .devcontainer/init-scripts/init.sh; fi'"
+    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent",
+    "postCreateCommand": [
+        "/bin/bash",
+        "-c",
+        "set -e && \
+        mkdir -p .devcontainer/init-scripts && \
+        find .devcontainer/init-scripts -name '*.sh' -exec chmod +x {} \\; && \
+        for script in permissions.sh check_git_config.sh init.sh; do \
+            if [ -f \".devcontainer/init-scripts/$script\" ]; then \
+                echo \"Running $script...\" && \
+                .devcontainer/init-scripts/$script || exit 1; \
+            else \
+                echo \"Warning: $script not found\"; \
+            fi \
+        done"
+    ]
 }

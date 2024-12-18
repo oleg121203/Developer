@@ -9,16 +9,16 @@ __pycache__/
 .coverage
 coverage.xml
 
-# VS Code
-.vscode/
-*.code-workspace
+# VS Code - разрешаем версионирование настроек
+#.vscode/
+#*.code-workspace
 
-# PyCharm
+# PyCharm - можно оставить заблокированным
 .idea/
 
-# Docker
-*.env
-.docker/
+# Docker - разрешаем версионирование настроек
+#.docker/
+#*.env
 
 # Development
 *.log
@@ -193,5 +193,8 @@ backup/
 # Ignore backup files
 .backups/
 
-# Ignore continue files
-.continue/
+# Dev Containers - разрешаем версионирование
+#.devcontainer/
+
+# Continue - разрешаем версионирование
+#.continue/

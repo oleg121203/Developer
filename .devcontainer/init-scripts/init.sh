@@ -62,7 +62,6 @@ cat > ~/.gnupg/gpg.conf <<EOF
 use-agent
 pinentry-mode loopback
 no-tty
-allow-loopback-pinentry
 EOF
 
 # Конфигурация GPG агента
@@ -112,8 +111,8 @@ fi
 echo "test" | gpg --clearsign || echo "GPG test signing failed"
 
 # Add more entropy
-apt-get update && apt-get install -y rng-tools haveged || true
-service haveged start || true
+sudo apt-get update && sudo apt-get install -y rng-tools haveged || true
+sudo service haveged start || true
 
 echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
 gpgconf --kill gpg-agent

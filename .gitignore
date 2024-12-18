@@ -192,3 +192,6 @@ backup/
 
 # Ignore backup files
 .backups/
+
+# Ignore continue files
+.continue/

@@ -6,6 +6,7 @@ set -e
 
 echo "=== Starting container initialization ==="
 
+<<<<<<< Updated upstream
 # Установка прав на выполнение всех скриптов
 find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
 
@@ -16,6 +17,19 @@ echo "Running permissions.sh..."
 # Запуск check_git_config.sh
 echo "Running check_git_config.sh..."
 .devcontainer/init-scripts/check_git_config.sh || { echo "check_git_config.sh failed"; exit 1; }
+=======
+# Git configuration
+echo "Configuring Git..."
+git config --global user.name "Oleg Kizyma"
+git config --global user.email "oleg1203@gmail.com"
+git config --global core.editor "code --wait"
+git config --global pull.rebase true
+git config --global push.autoSetupRemote true
+git config --global push.default current
+
+# Verify Git configuration
+git config --list
+>>>>>>> Stashed changes
 
 # Save current branch if repository exists
 CURRENT_BRANCH=""

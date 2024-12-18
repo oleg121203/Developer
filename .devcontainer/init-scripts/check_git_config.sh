@@ -1,7 +1,10 @@
 #!/bin/bash
+<<<<<<< Updated upstream
 if [ ! -x "$0" ]; then
     chmod +x "$0"
 fi
+=======
+>>>>>>> Stashed changes
 set -e
 
 # Проверяем глобальные настройки git

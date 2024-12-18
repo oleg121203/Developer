@@ -181,16 +181,6 @@
     "postCreateCommand": [
         "/bin/bash",
         "-c",
-        "set -e && \
-        mkdir -p .devcontainer/init-scripts && \
-        find .devcontainer/init-scripts -name '*.sh' -exec chmod +x {} \\; && \
-        for script in permissions.sh check_git_config.sh init.sh; do \
-            if [ -f \".devcontainer/init-scripts/$script\" ]; then \
-                echo \"Running $script...\" && \
-                .devcontainer/init-scripts/$script || exit 1; \
-            else \
-                echo \"Warning: $script not found\"; \
-            fi \
-        done"
+        "chmod +x .devcontainer/init-scripts/init.sh && .devcontainer/init-scripts/init.sh"
     ]
 }

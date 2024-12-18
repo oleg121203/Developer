@@ -6,6 +6,17 @@ set -e
 
 echo "=== Starting container initialization ==="
 
+# Установка прав на выполнение всех скриптов
+find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
+
+# Запуск permissions.sh
+echo "Running permissions.sh..."
+.devcontainer/init-scripts/permissions.sh || { echo "permissions.sh failed"; exit 1; }
+
+# Запуск check_git_config.sh
+echo "Running check_git_config.sh..."
+.devcontainer/init-scripts/check_git_config.sh || { echo "check_git_config.sh failed"; exit 1; }
+
 # Save current branch if repository exists
 CURRENT_BRANCH=""
 if [ -d .git ]; then

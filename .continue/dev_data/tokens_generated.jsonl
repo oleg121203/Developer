@@ -48,3 +48,9 @@
 {"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":3056,"generatedTokens":391}
 {"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":3571,"generatedTokens":534}
 {"model":"mixtral-8x7b-32768","provider":"groq","promptTokens":4234,"generatedTokens":416}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2479,"generatedTokens":16}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2635,"generatedTokens":946}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2437,"generatedTokens":166}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2627,"generatedTokens":29}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":1333,"generatedTokens":346}
+{"model":"llama-3.1-70b-versatile","provider":"groq","promptTokens":4607,"generatedTokens":686}

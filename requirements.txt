@@ -19,14 +19,14 @@ coverage==7.4.0
 rope==1.11.0
 jedi==0.19.1
 
-# Django підтримка (оскільки встановлено batisteo.vscode-django)
+# Django підтримка
 django==5.0.1
 django-stubs==4.2.7
 
 # Додаткові інструменти для розробки
 pre-commit==3.6.0
 bandit==1.7.6
-safety==3.2.13  # Оновлено до останньої стабільної версії
+safety==3.2.13
 
 # Інструменти для роботи з докером
 docker==7.0.0
@@ -34,13 +34,5 @@ docker==7.0.0
 # Утиліти для автодоповнення та рефакторингу
 python-lsp-server[all]==1.10.0
 
-# Залежності для роботи з моделлю Qwen2.5 Coder 1.5B
-transformers==4.33.0
-torch==2.0.1
-pytorch-lightning==1.8.5
-
-# Основные зависимости для модели
-torch>=2.0.1
-transformers>=4.33.0
-sentencepiece>=0.1.99
-accelerate>=0.20.3
+# Зависимости для работы с Ollama API
+requests>=2.31.0

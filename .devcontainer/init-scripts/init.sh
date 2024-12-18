@@ -58,9 +58,6 @@ if [ -f .venv/bin/activate ]; then
         log "Устанавливаем зависимости из requirements.txt..."
         pip install -r requirements.txt || { log "Ошибка: не удалось установить зависимости"; exit 1; }
     fi
-else
-    log "Ошибка: не удалось активировать виртуальное окружение"
-    exit 1
 fi
 
 # Ensure proper GPG environment
@@ -221,7 +218,7 @@ check_ollama() {
     fi
 }
 
-# Запуск model.py после установки зависимостей
+# Запуск model.py після установки зависимостей
 log "Запускаем model.py..."
 python3 /workspace/model.py || { log "Ошибка: не удалось запустить model.py"; exit 1; }
 

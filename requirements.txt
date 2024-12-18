@@ -1,38 +1,27 @@
-# Лінтери та форматери
-black==24.1.1
-flake8==7.0.0
-pylint==3.0.3
-isort==5.13.2
-autopep8==2.0.4
-yapf==0.40.2
-
-# Типи та статичний аналіз
-mypy==1.8.0
-pyright==1.1.350
-
-# Тестування та покриття коду
-pytest==8.0.0
-pytest-cov==4.1.0
-coverage==7.4.0
-
-# Утиліти для рефакторингу
-rope==1.11.0
-jedi==0.19.1
-
-# Django підтримка
-django==5.0.1
-django-stubs==4.2.7
-
-# Додаткові інструменти для розробки
-pre-commit==3.6.0
-bandit==1.7.6
-safety==3.2.13
-
-# Інструменти для роботи з докером
-docker==7.0.0
-
-# Утиліти для автодоповнення та рефакторингу
-python-lsp-server[all]==1.10.0
-
-# Зависимости для работы с Ollama API
+# Core dependencies
 requests>=2.31.0
+watchdog>=3.0.0
+
+# Development tools
+black>=24.0.0
+flake8>=7.0.0
+pylint>=3.0.0
+isort>=5.13.0
+mypy>=1.8.0
+pytest>=8.0.0
+pytest-cov>=4.1.0
+
+# Code analysis
+rope>=1.11.0
+jedi>=0.19.1
+bandit>=1.7.6
+
+# LSP and formatting
+python-lsp-server[all]>=1.10.0
+autopep8>=2.0.4
+yapf>=0.40.2
+
+# Additional tools
+pre-commit>=3.6.0
+coverage>=7.4.0
+safety>=3.2.13

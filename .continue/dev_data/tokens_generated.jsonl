@@ -62,3 +62,12 @@
 {"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":496,"generatedTokens":0}
 {"model":"llama-3.1-70b-versatile","provider":"groq","promptTokens":5528,"generatedTokens":419}
 {"model":"llama-3.1-70b-versatile","provider":"groq","promptTokens":611,"generatedTokens":8}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":3757,"generatedTokens":1962}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":540,"generatedTokens":7}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4827,"generatedTokens":1732}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":1494,"generatedTokens":16}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":540,"generatedTokens":10}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":1475,"generatedTokens":1065}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":2550,"generatedTokens":489}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":1997,"generatedTokens":241}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":206,"generatedTokens":172}

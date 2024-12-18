@@ -92,6 +92,32 @@
       "title": "Autodetect",
       "apiKey": "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",
       "provider": "groq"
+    },
+    {
+      "title": "Qwen 2.5",
+      "provider": "ollama",
+      "model": "qwen2.5:latest",
+      "apiBase": "http://85.238.101.154:11434",
+      "contextLength": 8192,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.9,
+        "topK": 40
+      }
+    },
+    {
+      "title": "QWQ",
+      "provider": "ollama", 
+      "model": "qwq:latest",
+      "apiBase": "http://85.238.101.154:11434",
+      "contextLength": 8192,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.9,
+        "topK": 40
+      }
     }
   ],
   "tabAutocompleteModel": {

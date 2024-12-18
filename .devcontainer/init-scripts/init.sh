@@ -218,9 +218,20 @@ check_ollama() {
     fi
 }
 
-# Запуск model.py після установки зависимостей
+# Запуск model.py в фоновом режиме
 log "Запускаем model.py..."
-python3 /workspace/model.py || { log "Ошибка: не удалось запустить model.py"; exit 1; }
+nohup python3 /workspace/model.py > /tmp/model.log 2>&1 & 
+MODEL_PID=$!
+log "model.py запущен в фоновом режиме (PID: $MODEL_PID)"
+
+# Проверка запуска model.py
+sleep 5
+if ps -p $MODEL_PID > /dev/null; then
+    log "model.py успешно работает"
+else
+    log "Ошибка: model.py не удалось запустить"
+    exit 1
+fi
 
 # Run health check at the end
 if ! check_ollama; then

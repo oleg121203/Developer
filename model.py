@@ -3,7 +3,6 @@ import subprocess
 import time
 from pathlib import Path
 
-import magicpython
 import requests
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer

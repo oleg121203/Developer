@@ -172,10 +172,11 @@
             "extensions": [
                 "ms-python.python",
                 "ms-python.vscode-pylance",
+                "ms-python.debugpy",
                 "ms-python.black-formatter",
                 "ms-python.isort",
-                "ms-python.autopep8",
                 "ms-python.flake8",
+                "ms-python.autopep8",
                 "ms-azuretools.vscode-docker",
                 "batisteo.vscode-django",
                 "dbaeumer.vscode-eslint",

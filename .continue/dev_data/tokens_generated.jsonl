@@ -81,3 +81,4 @@
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":511,"generatedTokens":227}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":5896,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":7906,"generatedTokens":0}
+{"model":"qwen2.5-coder:1.5b","provider":"ollama","promptTokens":381,"generatedTokens":0}

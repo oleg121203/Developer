@@ -75,7 +75,6 @@
                 "editor.acceptSuggestionOnCommitCharacter": true,
                 "editor.acceptSuggestionOnEnter": "on",
                 "editor.codeActionsOnSave": {
-                    "source.organizeImports": "true",
                     "source.organizeImports": true,
                     "source.fixAll": true,
                     "source.fixAll.eslint": true

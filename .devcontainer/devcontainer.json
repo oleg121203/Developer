@@ -75,11 +75,10 @@
                 "editor.tabCompletion": "on",
                 "editor.acceptSuggestionOnCommitCharacter": true,
                 "editor.acceptSuggestionOnEnter": "on",
-                "editor.codeActionsOnSave": [
-                    "source.fixAll",
-                    "source.fixAll.eslint",
-                    "source.organizeImports"
-                ],
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": true,
+                    "source.fixAll": true
+                },
                 "source.fixAll.eslint": true,
                 "source.organizeImports": true,
                 "editor.quickSuggestions": {
@@ -112,7 +111,12 @@
                 "github.copilot.includeFilePatterns": [],
                 "continue.includeFilePatterns": [],
                 "continuum.apiEndpoint": "http://cline-api:8000",
-                "continuum.model": "ed5/qwen2.5-coder-cline",
+                "continuum.model": "deepseek-coder-v2",
+                "continuum.modelParameters": {
+                    "temperature": 0.1,
+                    "top_p": 0.95,
+                    "frequency_penalty": 0.1
+                },
                 "continuum.enableAutoRefactor": true,
                 "continuum.enableAutoFix": true,
                 "editor.renderWhitespace": "all",
@@ -122,7 +126,30 @@
                 "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
                 "python.analysis.extraPaths": [
                     "/workspace/.venv/lib/python3.12/site-packages"
-                ]
+                ],
+                "python.analysis.diagnosticMode": "workspace",
+                "python.analysis.inlayHints.functionReturnTypes": true,
+                "python.analysis.inlayHints.variableTypes": true,
+                "continue.enabled": true,
+                "continue.previewMode": false,
+                "continue.model": {
+                    "name": "deepseek-coder-v2",
+                    "endpoint": "http://172.17.0.1:11434",
+                    "temperature": 0.1,
+                    "context_length": 8192
+                },
+                "continue.autoRefactoring": true,
+                "continue.automaticRefactorings": [
+                    "simplifyCode",
+                    "addTyping",
+                    "improveNaming",
+                    "addDocstring",
+                    "fixBugs"
+                ],
+                "continue.sites": [
+                    "refactor"
+                ],
+                "continue.terminalRootPath": "${workspaceFolder}"
             },
             "extensions": [
                 "ms-python.python",

@@ -119,10 +119,7 @@
                 "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
                 "python.analysis.extraPaths": [
                     "/workspace/.venv/lib/python3.12/site-packages"
-                ],
-                "files.exclude": {
-                    "backup/": true
-                }
+                ]
             },
             "extensions": [
                 "ms-python.python",

@@ -3,6 +3,13 @@ set -e
 
 echo "=== Starting container initialization ==="
 
+# Save current branch if repository exists
+CURRENT_BRANCH=""
+if [ -d .git ]; then
+    CURRENT_BRANCH=$(git branch --show-current || echo "main")
+    echo "Current branch: $CURRENT_BRANCH"
+fi
+
 # Create directories
 mkdir -p ~/.gnupg ~/.ssh
 
@@ -26,11 +33,35 @@ git config --global pull.rebase true || true
 git config --global push.autoSetupRemote true || true
 git config --global push.default current || true
 
+# Restore original branch if it was saved
+if [ ! -z "$CURRENT_BRANCH" ]; then
+    echo "Restoring branch: $CURRENT_BRANCH"
+    git checkout "$CURRENT_BRANCH" 2>/dev/null || echo "Warning: Could not restore branch $CURRENT_BRANCH"
+fi
+
 # Ensure proper GPG environment
 export GPG_TTY=$(tty)
 chmod 700 ~/.gnupg
 echo "disable-ipv6" > ~/.gnupg/dirmngr.conf
 echo "keyserver hkps://keys.openpgp.org" > ~/.gnupg/gpg.conf
+
+# Add enhanced GPG configuration
+cat > ~/.gnupg/gpg-agent.conf <<EOF
+allow-loopback-pinentry
+pinentry-mode loopback
+enable-ssh-support
+use-standard-socket
+default-cache-ttl 3600
+max-cache-ttl 7200
+EOF
+
+# Restart GPG agent
+gpgconf --kill gpg-agent
+gpg-agent --daemon
+
+# Ensure GPG works in current session
+export GPG_TTY=$(tty)
+echo "test" | gpg --clearsign >/dev/null 2>&1 || echo "Warning: GPG signing test failed"
 
 # Add more entropy
 apt-get update && apt-get install -y rng-tools haveged || true
@@ -102,6 +133,13 @@ cat >> ~/.bashrc <<-EOF
 export PS1="(\$\$\$) \u ➜ \w\$ "
 export GPG_TTY=\$(tty)
 [ -f ~/.venv/bin/activate ] && source ~/.venv/bin/activate
+EOF
+
+# Add GPG environment variables to bashrc
+cat >> ~/.bashrc <<-EOF
+export GPG_TTY=\$(tty)
+export SSH_AUTH_SOCK=\$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye >/dev/null
 EOF
 
 echo "=== Container initialization complete ==="

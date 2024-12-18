@@ -156,7 +156,7 @@
                         "decorationsEnabled": "true",
                         "enabled": "true"
                     },
-                    "fontSize": "14",
+                    "fontSize": "12",
                     "fontFamily": "Menlo, Monaco, 'Courier New', monospace"
                 },
                 "workbench": {
@@ -170,7 +170,7 @@
                 }
             },
             "extensions": [
-                "ms-python.python",           // основное Python расширение первым
+                "ms-python.python",
                 "ms-azuretools.vscode-docker",
                 "batisteo.vscode-django",
                 "dbaeumer.vscode-eslint",
@@ -189,13 +189,12 @@
                 "GitHub.copilot-chat",
                 "GitHub.copilot",
                 "magicstack.MagicPython",
-                // Зависимые от Python расширения в конце
-                "ms-python.vscode-pylance",   // языковой сервер
-                "ms-python.debugpy",          // дебаггер
-                "ms-python.black-formatter",  // форматирование
-                "ms-python.isort",           // сортировка импортов
-                "ms-python.flake8",          // линтер
-                "ms-python.autopep8"         // форматирование
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.flake8",
+                "ms-python.autopep8"
             ]
         }
     },

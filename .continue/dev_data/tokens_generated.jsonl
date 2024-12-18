@@ -92,3 +92,6 @@
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":1432,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":1389,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":2626,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":4435,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":5611,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":7636,"generatedTokens":0}

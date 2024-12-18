@@ -3,6 +3,7 @@ import logging
 import subprocess
 import time
 from pathlib import Path
+from typing import Any, Dict, Optional
 
 # Third-party imports
 import requests
@@ -133,6 +134,28 @@ class OllamaModel:
             response = requests.post(endpoint, json=payload)
             response.raise_for_status()
             return response.json()['response']
+        except requests.exceptions.RequestException as e:
+            logging.error(f"Error calling Ollama API: {e}")
+            return None
+
+    def run_analysis(self, code: str) -> Optional[Dict[str, Any]]:
+        """
+        Запуск моделі Ollama для аналізу коду.
+
+        :param code: Вхідний текст для моделі
+        :return: Результат аналізу
+        """
+        try:
+            payload = {
+                "model": self.model,
+                "prompt": f"Analyze this Python code and suggest improvements:\n\n{code}",
+                **self.completion_options
+            }
+
+            response = requests.post(
+                f"{self.api_base}/api/generate", json=payload)
+            response.raise_for_status()
+            return response.json()
         except requests.exceptions.RequestException as e:
             logging.error(f"Error calling Ollama API: {e}")
             return None

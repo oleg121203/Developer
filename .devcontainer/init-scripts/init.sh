@@ -45,28 +45,46 @@ chmod 700 ~/.gnupg
 echo "disable-ipv6" > ~/.gnupg/dirmngr.conf
 echo "keyserver hkps://keys.openpgp.org" > ~/.gnupg/gpg.conf
 
-# Add enhanced GPG configuration
-cat > ~/.gnupg/gpg-agent.conf <<EOF
-allow-loopback-pinentry
+# Enhanced GPG Setup
+mkdir -p ~/.gnupg
+chmod 700 ~/.gnupg
+
+cat > ~/.gnupg/gpg.conf <<EOF
+use-agent
 pinentry-mode loopback
-enable-ssh-support
-use-standard-socket
-default-cache-ttl 3600
-max-cache-ttl 7200
+no-tty
 EOF
 
-# Покращена конфігурація GPG
 cat > ~/.gnupg/gpg-agent.conf <<EOF
 allow-loopback-pinentry
-pinentry-mode loopback
 default-cache-ttl 34560000
 max-cache-ttl 34560000
 EOF
 
-# Додаткові налаштування для GPG
-echo "no-tty" >> ~/.gnupg/gpg.conf
-echo "batch" >> ~/.gnupg/gpg.conf
-echo "no-autostart" >> ~/.gnupg/gpg-agent.conf
+if ! gpg --list-secret-keys --keyid-format=long | grep -q "oleg1203@gmail.com"; then
+    cat > ~/.gnupg/key-config <<EOF
+%echo Generating GPG key
+Key-Type: RSA
+Key-Length: 4096
+Key-Usage: sign
+Name-Real: Oleg Kizyma
+Name-Email: oleg1203@gmail.com
+Expire-Date: 0
+%no-protection
+%commit
+EOF
+
+    gpg --batch --gen-key ~/.gnupg/key-config
+    rm ~/.gnupg/key-config
+fi
+
+# Configure Git GPG signing
+KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)
+if [ ! -z "$KEY_ID" ]; then
+    git config --global user.signingkey "$KEY_ID"
+    git config --global commit.gpgsign true
+    git config --global gpg.program $(which gpg)
+fi
 
 # Restart GPG agent
 gpgconf --kill gpg-agent
@@ -82,49 +100,6 @@ service haveged start || true
 
 echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
 gpgconf --kill gpg-agent
-
-# Generate GPG key if needed
-if ! gpg --list-secret-keys --keyid-format=long | grep -q "Oleg Kizyma"; then
-    echo "Generating GPG key..."
-    cat >gpg_config <<-EOF
-%echo Generating GPG key
-Key-Type: RSA
-Key-Length: 4096
-Key-Usage: sign
-Name-Real: Oleg Kizyma
-Name-Email: oleg1203@gmail.com
-Expire-Date: 0
-%no-protection
-%commit
-%echo Done
-EOF
-    
-    # Try to generate key with increased verbosity
-    gpg --verbose --batch --gen-key gpg_config
-    GPG_STATUS=$?
-    rm -f gpg_config
-
-    if [ $GPG_STATUS -ne 0 ]; then
-        echo "Failed to generate GPG key. Error code: $GPG_STATUS"
-        exit 1
-    fi
-
-    # Verify key generation
-    if ! gpg --list-secret-keys --keyid-format=long | grep -q "Oleg Kizyma"; then
-        echo "GPG key verification failed"
-        exit 1
-    fi
-fi
-
-# Configure Git signing
-KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)
-if [ ! -z "$KEY_ID" ]; then
-    git config --global user.signingkey "$KEY_ID"
-    git config --global commit.gpgsign true
-    git config --global gpg.program $(which gpg)
-    echo "=== Your GPG public key (add to GitHub): ==="
-    gpg --armor --export "$KEY_ID"
-fi
 
 # Setup Git hooks
 echo "Setting up Git hooks..."

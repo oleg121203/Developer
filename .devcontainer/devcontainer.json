@@ -13,7 +13,8 @@
         "VIRTUAL_ENV_PROMPT": "($$$) ",
         "SHELL": "/bin/bash",
         "GPG_TTY": "/dev/pts/0",
-        "GNUPGHOME": "/home/vscode/.gnupg"
+        "GNUPGHOME": "/home/vscode/.gnupg",
+        "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock"
     },
     "customizations": {
         "vscode": {
@@ -158,6 +159,7 @@
     "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
     ],
     "features": {

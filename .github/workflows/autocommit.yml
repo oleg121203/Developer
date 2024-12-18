@@ -16,10 +16,17 @@ jobs:
         ref: update-autocommit
         fetch-depth: 0
 
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v5
+      with:
+        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+
     - name: Set up Git
       run: |
-        git config user.name "Auto Commit Bot"
-        git config user.email "bot@example.com"
+        git config user.name "Oleg Kizyma"
+        git config user.email "oleg1203@gmail.com"
 
     - name: Check and commit unfinished changes
       run: |

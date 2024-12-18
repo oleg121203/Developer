@@ -62,7 +62,7 @@
                     }
                 },
                 "files.autoSave": "afterDelay",
-                "files.autoSaveDelay": 3000,
+                "files.autoSaveDelay": 15000,
                 "python.formatting.provider": "black",
                 "python.formatting.blackArgs": [
                     "--line-length",

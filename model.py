@@ -1,8 +1,10 @@
+# Standard library imports
 import logging
 import subprocess
 import time
 from pathlib import Path
 
+# Third-party imports
 import requests
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
@@ -16,10 +18,20 @@ logging.basicConfig(
 
 class CodeChangeHandler(FileSystemEventHandler):
     def __init__(self, model):
+        """
+        Ініціалізація обробника змін у файловій системі.
+
+        :param model: Модель для рефакторингу коду
+        """
         self.model = model
         self.last_modified = {}
 
     def on_modified(self, event):
+        """
+        Обробник події зміни файлу.
+
+        :param event: Подія зміни файлу
+        """
         if event.src_path.endswith('.py'):
             current_time = time.time()
             if (event.src_path not in self.last_modified or
@@ -28,11 +40,17 @@ class CodeChangeHandler(FileSystemEventHandler):
                 self.process_file(event.src_path)
 
     def process_file(self, filepath):
+        """
+        Обробка файлу: рефакторинг та аналіз коду.
+
+        :param filepath: Шлях до файлу
+        :return: True, якщо обробка пройшла успішно, інакше False
+        """
         try:
             with open(filepath, 'r') as f:
                 code = f.read()
             logging.info(f"Обробка файлу: {filepath}")
-            
+
             # Рефакторинг коду
             result = self.model.run_model(f"Refactor this code:\n{code}")
             if result:
@@ -54,6 +72,11 @@ class CodeChangeHandler(FileSystemEventHandler):
         return True
 
     def run_analysis_tools(self, filepath):
+        """
+        Запуск інструментів аналізу коду.
+
+        :param filepath: Шлях до файлу
+        """
         tools = [
             ["pylint", filepath],
             ["flake8", filepath],
@@ -65,14 +88,24 @@ class CodeChangeHandler(FileSystemEventHandler):
             try:
                 result = subprocess.run(tool, capture_output=True, text=True)
                 if result.returncode != 0:
-                    logging.warning(f"Проблеми з {tool[0]} для {filepath}:\n{result.stdout}\n{result.stderr}")
+                    logging.warning(
+                        f"Проблеми з {tool[0]} для {filepath}:\n"
+                        f"{result.stdout}\n{result.stderr}"
+                    )
                 else:
                     logging.info(f"{tool[0]} пройшов успішно для {filepath}")
             except Exception as e:
                 logging.error(f"Помилка запуску {tool[0]} для {filepath}: {e}")
 
+
 class OllamaModel:
     def __init__(self, api_base="http://172.17.0.1:11434", model="qwen2.5-coder:1.5b"):
+        """
+        Ініціалізація моделі Ollama.
+
+        :param api_base: Базовий URL для API
+        :param model: Назва моделі
+        """
         self.api_base = api_base
         self.model = model
         self.completion_options = {
@@ -83,6 +116,12 @@ class OllamaModel:
         }
 
     def run_model(self, input_text):
+        """
+        Запуск моделі Ollama для рефакторингу коду.
+
+        :param input_text: Вхідний текст для моделі
+        :return: Результат рефакторингу
+        """
         endpoint = f"{self.api_base}/api/generate"
         payload = {
             "model": self.model,
@@ -99,6 +138,12 @@ class OllamaModel:
             return None
 
     def start_monitoring(self, path="/workspace"):
+        """
+        Початок моніторингу змін у файлах.
+
+        :param path: Шлях до директорії для моніторингу
+        :return: Об'єкт Observer для моніторингу
+        """
         event_handler = CodeChangeHandler(self)
         observer = Observer()
         observer.schedule(event_handler, path, recursive=True)

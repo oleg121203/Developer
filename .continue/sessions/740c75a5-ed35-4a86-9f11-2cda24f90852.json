@@ -1,0 +1,918 @@
+{
+  "sessionId": "740c75a5-ed35-4a86-9f11-2cda24f90852",
+  "title": "Оптимизация",
+  "workspaceDirectory": "/workspace",
+  "history": [
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "model.py init.sh devcontainer.json requirements.txt \nWARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:425  INFO Started local extension host with pid 92863.\nlog.ts:425  INFO Invoking resolveAuthority(dev-container)...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] obtaining proxy...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] invoking...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][1002ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][2001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][3001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][4001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5350ms] returned WebSocket(127.0.0.1:33145)\nlog.ts:425  INFO resolveAuthority(dev-container) returned 'WebSocket(127.0.0.1:33145)' after 5351 ms\nlog.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583)...\nlog.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c)...\nlog.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583) was successful after 145 ms.\nlog.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c) was successful after 306 ms.\nwebviewElement.ts:486 An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing.\nmountTo @ webviewElement.ts:486\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage\nregister @ TMScopeRegistry.ts:46\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json\nregister @ TMScopeRegistry.ts:46\nconsole.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.854Z - Translations initialized.\nconsole.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.856Z - Extension activated!\nlog.ts:425  INFO Settings Sync: Token updated for the account oleg121203\nlog.ts:425  INFO Settings Sync: Account status changed from uninitialized to available\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage\nregister @ TMScopeRegistry.ts:46\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json\nregister @ TMScopeRegistry.ts:46\nlog.ts:425  INFO Settings Sync: Token updated for the account oleg121203\nlog.ts:425  INFO [perf] Render performance baseline is 13ms\nconsole.ts:137 [Extension Host] did not find any theme files for theme Default Dark Modern\nEYi @ console.ts:137\nlog.ts:445   ERR [Extension Host] Error handling webview message: {\n\"msg\": {\n\"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\",\n\"messageType\": \"context/loadSubmenuItems\",\n\"data\": {\n\"title\": \"code\"\n}\n}\n}\nError: SQLITE_CORRUPT: database disk image is malformed\nconsole.ts:137 [Extension Host] Error handling webview message: {\n\"msg\": {\n\"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\",\n\"messageType\": \"context/loadSubmenuItems\",\n\"data\": {\n\"title\": \"code\"\n}\n}\n}\nError: SQLITE_CORRUPT: database disk image is malformed\nEYi @ console.ts:137\nnotificationsAlerts.ts:42 SQLITE_CORRUPT: database disk image is malformed\nc @ notificationsAlerts.ts:42\nindex.js:1158 Error loading items for code: Object\n(anonymous) @ index.js:1158\nconsole.ts:137 [Extension Host] rejected promise not handled within 1 second: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nEYi @ console.ts:137\nconsole.ts:137 [Extension Host] stack trace: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nat Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)\nat Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)\nat Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)\nEYi @ console.ts:137\nmainThreadExtensionService.ts:78 [GitHub.copilot-chat]Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\n$onExtensionRuntimeError @ mainThreadExtensionService.ts:78\nmainThreadExtensionService.ts:79 EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nat Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)\nat Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)\nat Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)\n$onExtensionRuntimeError @ mainThreadExtensionService.ts:79\nconsole.ts:137 [Extension Host] error when indexing:  Error: SQLITE_CORRUPT: database disk image is malformed"
+          }
+        ],
+        "id": "a33a72fe-e37c-4624-af44-53f0082dd1c1"
+      },
+      "contextItems": [
+        {
+          "name": "model.py",
+          "description": "/workspace/model.py",
+          "content": "```/workspace/model.py\n# Standard library imports\nimport logging\nimport subprocess\nimport time\nfrom pathlib import Path\n\n# Third-party imports\nimport requests\nfrom watchdog.events import FileSystemEventHandler\nfrom watchdog.observers import Observer\n\n# Налаштування логування\nlogging.basicConfig(\n    level=logging.INFO,\n    format='%(asctime)s - %(levelname)s - %(message)s'\n)\n\n\nclass CodeChangeHandler(FileSystemEventHandler):\n    def __init__(self, model):\n        self.model = model\n        self.last_modified = {}\n\n    def on_modified(self, event):\n        if event.src_path.endswith('.py'):\n            current_time = time.time()\n            if (event.src_path not in self.last_modified or\n                    current_time - self.last_modified[event.src_path] > 3):\n                self.last_modified[event.src_path] = current_time\n                self.process_file(event.src_path)\n\n    def process_file(self, filepath):\n        try:\n            with open(filepath, 'r') as f:\n                code = f.read()\n            logging.info(\n                f\"Обробка файлу: {filepath}\"\n            )\n            \n            # Рефакторинг коду\n            result = self.model.run_model(f\"Refactor this code:\\n{code}\")\n            if result:\n                # Створення резервної копії з часовою міткою\n                timestamp = time.strftime(\"%Y%m%d-%H%M%S\")\n                backup_path = f\"{filepath}.{timestamp}.bak\"\n                Path(filepath).rename(backup_path)\n                logging.info(\n                    f\"Створено резервну копію: {backup_path}\"\n                )\n\n                with open(filepath, 'w') as f:\n                    f.write(result)\n                logging.info(\n                    f\"Успішно рефакторовано: {filepath}\"\n                )\n\n            # Аналіз коду на помилки та правильність імпортів\n            self.run_analysis_tools(filepath)\n        except Exception as e:\n            logging.error(\n                f\"Помилка обробки {filepath}: {e}\"\n            )\n            return False\n        return True\n\n    def run_analysis_tools(self, filepath):\n        tools = [\n            [\"pylint\", filepath],\n            [\"flake8\", filepath],\n            [\"mypy\", filepath],\n            [\"black\", \"--check\", filepath],\n            [\"isort\", \"--check-only\", filepath]\n        ]\n        for tool in tools:\n            try:\n                result = subprocess.run(tool, capture_output=True, text=True)\n                if result.returncode != 0:\n                    logging.warning(\n                        f\"Проблеми з {tool[0]} для {filepath}:\\n\"\n                        f\"{result.stdout}\\n{result.stderr}\"\n                    )\n                else:\n                    logging.info(\n                        f\"{tool[0]} пройшов успішно для {filepath}\"\n                    )\n            except Exception as e:\n                logging.error(\n                    f\"Помилка запуску {tool[0]} для {filepath}: {e}\"\n                )\n\nclass OllamaModel:\n    def __init__(self, api_base=\"http://172.17.0.1:11434\", model=\"qwen2.5-coder:1.5b\"):\n        self.api_base = api_base\n        self.model = model\n        self.completion_options = {\n            \"temperature\": 0.7,\n            \"max_tokens\": 1024,\n            \"top_p\": 0.9,\n            \"top_k\": 30\n        }\n\n    def run_model(self, input_text):\n        endpoint = f\"{self.api_base}/api/generate\"\n        payload = {\n            \"model\": self.model,\n            \"prompt\": input_text,\n            **self.completion_options\n        }\n\n        try:\n            response = requests.post(endpoint, json=payload)\n            response.raise_for_status()\n            return response.json()['response']\n        except requests.exceptions.RequestException as e:\n            logging.error(f\"Error calling Ollama API: {e}\")\n            return None\n\n    def start_monitoring(self, path=\"/workspace\"):\n        event_handler = CodeChangeHandler(self)\n        observer = Observer()\n        observer.schedule(event_handler, path, recursive=True)\n        observer.start()\n        return observer\n\n\nif __name__ == \"__main__\":\n    model = OllamaModel()\n    observer = model.start_monitoring()\n    try:\n        while True:\n            time.sleep(1)\n    except KeyboardInterrupt:\n        observer.stop()\n    observer.join()\n\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/model.py"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "df89d9f3-3409-4351-9a7d-6452326775fc"
+          }
+        },
+        {
+          "name": "init.sh",
+          "description": "/workspace/.devcontainer/init-scripts/init.sh",
+          "content": "```/workspace/.devcontainer/init-scripts/init.sh\n#!/bin/bash\n\n# Enable better error handling and logging\nset -euo pipefail\nexec 1> >(tee -a \"/tmp/init-script.log\") 2>&1\n\n# Ensure script is run with bash\nif [ -z \"$BASH_VERSION\" ]; then\n    exec bash \"$0\" \"$@\"\nfi\n\n# Add logging function\nlog() {\n    echo \"[$(date)] $1\"\n}\n\necho \"=== Starting container initialization ===\"\n\n# Установка прав на выполнение всех скриптов\nfind .devcontainer/init-scripts -name \"*.sh\" -exec chmod +x {} \\;\n\n# Запуск permissions.sh\nlog \"Running permissions.sh...\"\n.devcontainer/init-scripts/permissions.sh || { log \"permissions.sh failed\"; exit 1; }\n\n# Git configuration\nlog \"Configuring Git...\"\ngit config --global user.name \"Oleg Kizyma\"\ngit config --global user.email \"oleg1203@gmail.com\"\ngit config --global core.editor \"code --wait\"\ngit config --global pull.rebase true\ngit config --global push.autoSetupRemote true\ngit config --global push.default current\n\n# Запуск check_git_config.sh\nlog \"Running check_git_config.sh...\"\n.devcontainer/init-scripts/check_git_config.sh || { log \"check_git_config.sh failed\"; exit 1; }\n\n# Save current branch if repository exists\nCURRENT_BRANCH=\"\"\nif [ -d .git ]; then\n    CURRENT_BRANCH=$(git branch --show-current || echo \"main\")\n    log \"Current branch: $CURRENT_BRANCH\"\nfi\n\n# Create directories\nmkdir -p ~/.gnupg ~/.ssh\n\n# Настройка Python окружения\nlog \"Настраиваем Python окружение...\"\npython3 -m venv .venv || { log \"Предупреждение: не удалось создать виртуальное окружение\"; }\nif [ -f .venv/bin/activate ]; then\n    source .venv/bin/activate\n    # Обновление pip до последней версии\n    python3 -m pip install --upgrade pip || { log \"Ошибка: не удалось обновить pip\"; exit 1; }\n    pip install --upgrade setuptools wheel || { log \"Предупреждение: не удалось обновить setuptools и wheel\"; }\n    if [ -f requirements.txt ]; then\n        log \"Устанавливаем зависимости из requirements.txt...\"\n        pip install -r requirements.txt || { log \"Ошибка: не удалось установить зависимости\"; exit 1; }\n    fi\nfi\n\n# Ensure proper GPG environment\nexport GPG_TTY=$(tty)\nchmod 700 ~/.gnupg\necho \"disable-ipv6\" > ~/.gnupg/dirmngr.conf\necho \"keyserver hkps://keys.openpgp.org\" > ~/.gnupg/gpg.conf\n\n# Enhanced GPG Setup\nmkdir -p ~/.gnupg\nchmod 700 ~/.gnupg\n\n# Базовая конфигурация GPG\ncat > ~/.gnupg/gpg.conf <<EOF\nuse-agent\npinentry-mode loopback\nno-tty\nEOF\n\n# Конфигурация GPG агента\ncat > ~/.gnupg/gpg-agent.conf <<EOF\nallow-loopback-pinentry\nenable-ssh-support\npinentry-program /usr/bin/pinentry-tty\ndefault-cache-ttl 34560000\nmax-cache-ttl 34560000\nEOF\n\n# Перезапуск GPG агента\ngpgconf --kill all\ngpg-agent --daemon --allow-loopback-pinentry\n\n# Установка переменных окружения\nexport GPG_TTY=$(tty)\necho 'export GPG_TTY=$(tty)' >> ~/.bashrc\n\n# Improved package installation with checks\ninstall_packages() {\n    local packages=(\"$@\")\n    for pkg in \"${packages[@]}\"; do\n        if ! dpkg -l | grep -q \"^ii.*$pkg\"; then\n            sudo apt-get install -y \"$pkg\" || log \"Warning: Failed to install $pkg\"\n        fi\n    done\n}\n\n# Install required packages safely\ninstall_packages gnupg2 pinentry-tty gpg-agent rng-tools haveged\n\n# Создание нового ключа если не существует\nif ! gpg --list-secret-keys --keyid-format=long | grep -q \"oleg1203@gmail.com\"; then\n    # Check for existing backup\n    if [ -d \"$HOME/.gnupg.bak\" ]; then\n        log \"Found GPG backup, restoring...\"\n        cp -r \"$HOME/.gnupg.bak/\"* \"$HOME/.gnupg/\"\n    else\n        log \"Generating new GPG key...\"\n        gpg --batch --gen-key <<EOF\n%echo Generating a basic OpenPGP key\nKey-Type: RSA\nKey-Length: 4096\nSubkey-Type: RSA\nSubkey-Length: 4096\nName-Real: Oleg Kizyma\nName-Email: oleg1203@gmail.com\nExpire-Date: 0\n%no-protection\n%commit\n%echo done\nEOF\n    fi\nfi\n\n# Настройка Git для использования GPG\nKEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)\nif [ ! -z \"$KEY_ID\" ]; then\n    git config --global user.signingkey \"$KEY_ID\"\n    git config --global commit.gpgsign true\n    git config --global gpg.program $(which gpg)\nfi\n\n# Тест подписи\nlog \"test\" | gpg --clearsign || log \"GPG test signing failed\"\n\n# Add more entropy\nsudo apt-get update && sudo apt-get install -y rng-tools haveged || true\nsudo service haveged start || true\n\necho \"allow-loopback-pinentry\" >> ~/.gnupg/gpg-agent.conf\ngpgconf --kill gpg-agent\n\n# Setup Git hooks\nlog \"Setting up Git hooks...\"\nmkdir -p /workspace/.git/hooks\n\ncat > /workspace/.git/hooks/post-commit <<EOF\n#!/bin/bash\nset -e\n\n# Run backup script without auto-signing\n/workspace/.devcontainer/init-scripts/backup.sh\nEOF\n\nchmod +x /workspace/.git/hooks/post-commit\nchmod +x /workspace/.devcontainer/init-scripts/backup.sh\n\n# Improved shell detection and compatibility\nSHELL_TYPE=\"$(basename \"$SHELL\")\"\nif [ \"$SHELL_TYPE\" = \"bash\" ]; then\n    RCFILE=\"$HOME/.bashrc\"\nelif [ \"$SHELL_TYPE\" = \"zsh\" ]; then\n    RCFILE=\"$HOME/.zshrc\"\nelse\n    RCFILE=\"$HOME/.profile\"\nfi\n\n# Shell customization with safe defaults\nif [ -f \"$HOME/.bashrc\" ]; then\n    # Remove any existing prompt configuration\n    sed -i '/PROMPT_CONFIGURED/d' \"$HOME/.bashrc\"\n    sed -i '/parse_git_branch/d' \"$HOME/.bashrc\"\n    \n    # Add git branch parser and prompt configuration\n    cat >> \"$HOME/.bashrc\" <<EOF\n# Git branch parser\nparse_git_branch() {\n    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/(\\1)/'\n}\n\n# Prompt configuration\nif [ -z \"\\${PROMPT_CONFIGURED:-}\" ]; then\n    export PROMPT_CONFIGURED=1\n    PS1='\\[\\033[01;32m\\](\\$) \\u\\[\\033[00m\\] ➜ \\[\\033[01;34m\\]\\w\\[\\033[91m\\]\\$(parse_git_branch)\\[\\033[00m\\]\\$ '\nfi\nEOF\nfi\n\n# Add GPG environment variables to bashrc\ncat >> ~/.bashrc <<-EOF\nexport GPG_TTY=\\$(tty)\nexport SSH_AUTH_SOCK=\\$(gpgconf --list-dirs agent-ssh-socket)\ngpg-connect-agent updatestartuptty /bye >/dev/null\nEOF\n\n# Simpler Ollama check\ncheck_ollama() {\n    log \"Checking Ollama API availability...\"\n    local response\n    \n    response=$(curl -s http://${OLLAMA_API_HOST:-172.17.0.1}:${OLLAMA_API_PORT:-11434} || echo \"Failed\")\n    \n    if [[ \"$response\" == *\"Ollama is running\"* ]]; then\n        log \"Ollama is running and ready!\"\n        return 0\n    else\n        log \"ERROR: Ollama not running. Response: $response\"\n        return 1\n    fi\n}\n\n# Запуск model.py в фоновому режимі\nlog \"Запускаємо model.py...\"\nnohup python3 /workspace/model.py > /tmp/model.log 2>&1 & \nMODEL_PID=$!\nlog \"model.py запущений в фоновому режимі (PID: $MODEL_PID)\"\n\n# Перевірка запуску model.py\nsleep 5\nif ps -p $MODEL_PID > /dev/null; then\n    log \"model.py успішно працює\"\nelse\n    log \"Помилка: model.py не вдалося запустити\"\n    exit 1\nfi\n\n# Run health check at the end\nif ! check_ollama; then\n    log \"WARNING: Ollama not available, but continuing...\"\nfi\n\nlog \"=== Container initialization complete ===\"\nexit 0\n\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/.devcontainer/init-scripts/init.sh"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "ccc9c9ac-17e4-4356-89be-0d74e4edc326"
+          }
+        },
+        {
+          "name": "devcontainer.json",
+          "description": "/workspace/.devcontainer/devcontainer.json",
+          "content": "```/workspace/.devcontainer/devcontainer.json\n{\n    \"name\": \"Python 3\",\n    \"workspaceMount\": \"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached\",\n    \"workspaceFolder\": \"/workspace\",\n    \"image\": \"mcr.microsoft.com/devcontainers/python:1-3.12\",\n    \"remoteUser\": \"vscode\",\n    \"updateRemoteUserUID\": true,\n    \"containerUser\": \"vscode\",\n    \"remoteEnv\": {\n        \"GIT_SSH_COMMAND\": \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\",\n        \"SYNC_LOCALHOST_KUBECONFIG\": \"true\",\n        \"LOCAL_WORKSPACE_FOLDER\": \"${localWorkspaceFolder}\",\n        \"VIRTUAL_ENV_PROMPT\": \"($$$) \",\n        \"SHELL\": \"/bin/bash\",\n        \"GPG_TTY\": \"/dev/pts/0\",\n        \"GNUPGHOME\": \"/home/vscode/.gnupg\",\n        \"SSH_AUTH_SOCK\": \"/run/host-services/ssh-auth.sock\",\n        \"GPG_KEY\": \"oleg1203@gmail.com\"\n    },\n    \"customizations\": {\n        \"vscode\": {\n            \"settings\": {\n                \"editor\": {\n                    \"codeActionsOnSave\": {\n                        \"source.organizeImports\": true,\n                        \"source.fixAll\": true\n                    },\n                    \"formatOnSave\": true,\n                    \"formatOnType\": true,\n                    \"formatOnPaste\": true,\n                    \"defaultFormatter\": \"ms-python.black-formatter\",\n                    \"linkedEditing\": true,\n                    \"stickyScroll.enabled\": true,\n                    \"guides.bracketPairs\": true,\n                    \"bracketPairColorization.enabled\": true,\n                    \"suggest\": {\n                        \"snippetsPreventQuickSuggestions\": false,\n                        \"insertMode\": \"replace\",\n                        \"showMethods\": true,\n                        \"showFunctions\": true,\n                        \"showVariables\": true,\n                        \"showClasses\": true,\n                        \"filterGraceful\": true,\n                        \"shareSuggestSelections\": true,\n                        \"showStatusBar\": true,\n                        \"preview\": true\n                    },\n                    \"formatOnSaveMode\": \"modifications\",\n                    \"showProgress\": true,\n                    \"renderWhitespace\": \"selection\",\n                    \"minimap\": {\n                        \"enabled\": true,\n                        \"renderCharacters\": false,\n                        \"showSlider\": \"always\",\n                        \"maxColumn\": 120\n                    },\n                    \"guides\": {\n                        \"bracketPairs\": true,\n                        \"highlightActiveBracketPair\": true,\n                        \"indentation\": true,\n                        \"highlightActiveIndentation\": true\n                    }\n                },\n                \"files.autoSave\": \"afterDelay\",\n                \"files.autoSaveDelay\": 3000,\n                \"python.formatting.provider\": \"black\",\n                \"python.formatting.blackArgs\": [\n                    \"--line-length\",\n                    \"88\"\n                ],\n                \"python.linting.enabled\": true,\n                \"python.linting.pylintEnabled\": true,\n                \"python.linting.flake8Enabled\": true,\n                \"python.linting.flake8Args\": [\n                    \"--max-line-length=88\",\n                    \"--ignore=E203,W503\"\n                ],\n                \"python.sortImports.args\": [\n                    \"--profile\",\n                    \"black\"\n                ],\n                \"python.sortImports.path\": \"${workspaceFolder}/.venv/bin/isort\",\n                \"python.sortImports.organizeImports\": true,\n                \"python.analysis.languageServerMode\": \"default\",\n                \"python.analysis.indexing\": true,\n                \"python.analysis.autoImportCompletions\": true,\n                \"python.analysis.autoSearchPaths\": true,\n                \"python.analysis.completeFunctionParens\": true,\n                \"python.analysis.typeCheckingMode\": \"basic\",\n                \"python.testing.pytestEnabled\": true,\n                \"python.testing.unittestEnabled\": false,\n                \"python.testing.autoTestDiscoverOnSaveEnabled\": true,\n                \"python.testing.autoTestLaunchType\": \"background\",\n                \"python.testing.autoTestLaunchArgs\": [\n                    \"--disable-warnings\",\n                    \"--show-capture=stdout\"\n                ],\n                \"python.testing.autoTestLaunchPythonArgs\": [\n                    \"-m\",\n                    \"pytest\"\n                ],\n                \"python.testing.pytestArgs\": [\n                    \"--cov=.\",\n                    \"--cov-report=xml\",\n                    \"-v\"\n                ],\n                \"coverage-gutters.showGutterCoverage\": true,\n                \"coverage-gutters.showLineCoverage\": true,\n                \"coverage-gutters.showRulerCoverage\": true,\n                \"editor.suggestSelection\": \"recentlyUsed\",\n                \"editor.tabCompletion\": \"on\",\n                \"editor.acceptSuggestionOnCommitCharacter\": true,\n                \"editor.acceptSuggestionOnEnter\": \"smart\",\n                \"editor.quickSuggestions\": {\n                    \"other\": \"on\",\n                    \"comments\": \"on\",\n                    \"strings\": \"on\"\n                },\n                \"editor.inlineSuggest.enabled\": true,\n                \"editor.suggest.preview\": true,\n                \"editor.suggest.showStatusBar\": true,\n                \"extensions.autoUpdate\": true,\n                \"extensions.autoCheckUpdates\": true,\n                \"git.autofetch\": true,\n                \"git.confirmSync\": false,\n                \"git.enableCommitSigning\": true,\n                \"git.postCommitCommand\": \"push\",\n                \"git.enableSmartCommit\": true,\n                \"git.autoStash\": true,\n                \"git.autoSync\": true,\n                \"git.name\": \"Oleg Kizyma\",\n                \"git.email\": \"oleg1203@gmail.com\",\n                \"update.mode\": \"default\",\n                \"update.channel\": \"insiders\",\n                \"remote.extensionKind\": {\n                    \"*\": [\n                        \"workspace\"\n                    ]\n                },\n                \"dev.containers.defaultExtensions\": [],\n                \"dev.containers.copyGitConfig\": false,\n                \"dev.containers.gitCredentialsHelper\": \"cache\",\n                \"dev.containers.workspaceMountConsistency\": \"cached\",\n                \"github.copilot.includeFilePatterns\": [],\n                \"continue.includeFilePatterns\": [],\n                \"terminal.integrated\": {\n                    \"tabs\": {\n                        \"title\": \"${process}${separator}${sequence}\",\n                        \"description\": \"${task}${separator}${local}${separator}${cwd}\",\n                        \"separator\": \" - \"\n                    },\n                    \"defaultProfile\": {\n                        \"linux\": \"bash\"\n                    },\n                    \"shellIntegration\": {\n                        \"decorationsEnabled\": \"true\",\n                        \"enabled\": \"true\"\n                    },\n                    \"fontSize\": \"14\",\n                    \"fontFamily\": \"Menlo, Monaco, 'Courier New', monospace\"\n                },\n                \"workbench\": {\n                    \"editor.showTabs\": true,\n                    \"statusBar.visible\": true,\n                    \"activity.showFilterInStatusBar\": true,\n                    \"colorCustomizations\": {\n                        \"editor.lineHighlightBackground\": \"#1073cf2d\",\n                        \"editor.lineHighlightBorder\": \"#9fced11f\"\n                    }\n                }\n            },\n            \"extensions\": [\n                \"ms-python.python\",           // основное Python расширение первым\n                \"ms-azuretools.vscode-docker\",\n                \"batisteo.vscode-django\",\n                \"dbaeumer.vscode-eslint\",\n                \"github.copilot\",\n                \"github.copilot-chat\",\n                \"eamodio.gitlens\",\n                \"ms-vscode-remote.remote-ssh\",\n                \"ms-vscode-remote.remote-ssh-edit\",\n                \"ms-vscode-remote.remote-explorer\",\n                \"github.vscode-pull-request-github\",\n                \"redhat.vscode-yaml\",\n                \"GitHub.vscode-github-actions\",\n                \"continue.continue\",\n                \"saoudrizwan.claude-dev\",\n                \"ryanluker.vscode-coverage-gutters\",\n                \"GitHub.copilot-chat\",\n                \"GitHub.copilot\",\n                \"magicstack.MagicPython\",\n                // Зависимые от Python расширения в конце\n                \"ms-python.vscode-pylance\",   // языковой сервер\n                \"ms-python.debugpy\",          // дебаггер\n                \"ms-python.black-formatter\",  // форматирование\n                \"ms-python.isort\",           // сортировка импортов\n                \"ms-python.flake8\",          // линтер\n                \"ms-python.autopep8\"         // форматирование\n            ]\n        }\n    },\n    \"portsAttributes\": {\n        \"9000\": {\n            \"label\": \"Hello Remote World\",\n            \"onAutoForward\": \"notify\"\n        }\n    },\n    \"initializeCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"mkdir -p ${localWorkspaceFolder}/.continue\"\n    ],\n    \"mounts\": [\n        \"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached\",\n        \"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached\",\n        \"source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached\"\n    ],\n    \"features\": {\n        \"ghcr.io/devcontainers/features/git:1\": {\n            \"version\": \"latest\",\n            \"ppa\": true\n        },\n        \"ghcr.io/devcontainers/features/github-cli:1\": {},\n        \"ghcr.io/devcontainers/features/common-utils:2\": {\n            \"installZsh\": true,\n            \"upgradePackages\": true,\n            \"username\": \"vscode\",\n            \"userUid\": \"1000\",\n            \"userGid\": \"1000\"\n        }\n    },\n    \"onCreateCommand\": \"sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent\",\n    \"postCreateCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"chmod +x .devcontainer/init-scripts/*.sh && .devcontainer/init-scripts/init.sh\"\n    ],\n    \"postStartCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"for i in {1..60}; do if curl -s http://172.17.0.1:11434 | grep -q 'Ollama is running'; then echo 'Ollama is ready!'; exit 0; fi; echo \\\"Attempt $i/60: Waiting for Ollama...\\\"; sleep 5; done; echo 'Error: Ollama not available after 5 minutes' >&2; exit 0\"\n    ],\n    \"containerEnv\": {\n        \"OLLAMA_API_HOST\": \"172.17.0.1\",\n        \"OLLAMA_API_PORT\": \"11434\",\n        \"OLLAMA_TIMEOUT\": \"300\"\n    }\n}\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/.devcontainer/devcontainer.json"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "ea039317-d127-4fad-b1e6-b0d8ee5a3e7b"
+          }
+        },
+        {
+          "name": "requirements.txt",
+          "description": "/workspace/requirements.txt",
+          "content": "```/workspace/requirements.txt\n# Core dependencies\nrequests>=2.31.0\nwatchdog>=3.0.0\n\n# Development tools\nblack>=24.0.0\nflake8>=7.0.0\npylint>=3.0.0\nisort>=5.13.0\nmypy>=1.8.0\npytest>=8.0.0\npytest-cov>=4.1.0\n\n# Code analysis\nrope>=1.11.0\njedi>=0.19.1\nbandit>=1.7.6\n\n# LSP and formatting\npython-lsp-server[all]>=1.10.0\nautopep8>=2.0.4\nyapf>=0.40.2\n\n# Additional tools\npre-commit>=3.6.0\ncoverage>=7.4.0\nsafety>=3.2.13\n\n# SQLite extensions\nsqlalchemy>=2.0.0\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/requirements.txt"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "c776b0f3-7ee8-4ab4-8a82-5d7b9fab510d"
+          }
+        }
+      ],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/model.py",
+                  "label": "model.py",
+                  "renderInlineAs": null,
+                  "query": "/workspace/model.py",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/.devcontainer/init-scripts/init.sh",
+                  "label": "init.sh",
+                  "renderInlineAs": null,
+                  "query": "/workspace/.devcontainer/init-scripts/init.sh",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/.devcontainer/devcontainer.json",
+                  "label": "devcontainer.json",
+                  "renderInlineAs": null,
+                  "query": "/workspace/.devcontainer/devcontainer.json",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              },
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/requirements.txt",
+                  "label": "requirements.txt",
+                  "renderInlineAs": null,
+                  "query": "/workspace/requirements.txt",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": " WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Started local extension host with pid 92863."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Invoking resolveAuthority(dev-container)..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] obtaining proxy..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] invoking..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][1002ms] waiting..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][2001ms] waiting..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][3001ms] waiting..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][4001ms] waiting..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5001ms] waiting..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5350ms] returned WebSocket(127.0.0.1:33145)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO resolveAuthority(dev-container) returned 'WebSocket(127.0.0.1:33145)' after 5351 ms"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583)..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c)..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583) was successful after 145 ms."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c) was successful after 306 ms."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "webviewElement.ts:486 An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "mountTo @ webviewElement.ts:486"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Old grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "New grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "register @ TMScopeRegistry.ts:46"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Old grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "New grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "register @ TMScopeRegistry.ts:46"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.854Z - Translations initialized."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.856Z - Extension activated!"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Settings Sync: Token updated for the account oleg121203"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Settings Sync: Account status changed from uninitialized to available"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Old grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "New grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "register @ TMScopeRegistry.ts:46"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "TMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Old grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "New grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "register @ TMScopeRegistry.ts:46"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO Settings Sync: Token updated for the account oleg121203"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:425  INFO [perf] Render performance baseline is 13ms"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] did not find any theme files for theme Default Dark Modern"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "EYi @ console.ts:137"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "log.ts:445   ERR [Extension Host] Error handling webview message: {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  \"msg\": {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\","
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"messageType\": \"context/loadSubmenuItems\","
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"data\": {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "      \"title\": \"code\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    }"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  }"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: SQLITE_CORRUPT: database disk image is malformed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] Error handling webview message: {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  \"msg\": {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\","
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"messageType\": \"context/loadSubmenuItems\","
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    \"data\": {"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "      \"title\": \"code\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    }"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  }"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "}"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: SQLITE_CORRUPT: database disk image is malformed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "EYi @ console.ts:137"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "notificationsAlerts.ts:42 SQLITE_CORRUPT: database disk image is malformed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "c @ notificationsAlerts.ts:42"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "index.js:1158 Error loading items for code: Object"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "(anonymous) @ index.js:1158"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] rejected promise not handled within 1 second: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "EYi @ console.ts:137"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] stack trace: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "EYi @ console.ts:137"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "mainThreadExtensionService.ts:78 [GitHub.copilot-chat]Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "$onExtensionRuntimeError @ mainThreadExtensionService.ts:78"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "mainThreadExtensionService.ts:79 EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "    at Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "$onExtensionRuntimeError @ mainThreadExtensionService.ts:79"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "console.ts:137 [Extension Host] error when indexing:  Error: SQLITE_CORRUPT: database disk image is malformed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "aaf993e2-bbae-41ef-b212-1d5a0475eb87",
+        "role": "assistant",
+        "content": "Похоже, у вас есть настройки для контейнера разработки с использованием Visual Studio Code, которые включают настройки для Python, установленные зависимости и настройки для анализа кода. Давайте разберем основные компоненты и возможные проблемы, которые могут возникнуть.\n\n### Компоненты и их настройки\n\n1. **model.py**:\n   - Этот файл отвечает за мониторинг изменений в файлах Python и рефакторинг кода с использованием модели Ollama.\n   - Основные функции:\n     - **CodeChangeHandler**: Обрабатывает изменения в файлах.\n     - **OllamaModel**: Взаимодействует с API Ollama для рефакторинга кода.\n     - Основные методы: `start_monitoring`, `on_modified`, `process_file`, `run_analysis_tools`, `run_model`.\n   - Логирование настроено для отслеживания процесса.\n\n2. **init.sh**:\n   - Скрипт инициализации контейнера разработки.\n   - Основные шаги:\n     - Установка прав доступа для скриптов инициализации.\n     - Настройка Git.\n     - Создание необходимых директорий и установка Python окружения.\n     - Установка GPG и настройка Git для использования GPG.\n     - Запуск `model.py` в фоновом режиме.\n   - Логирование настроено для отслеживания процесса.\n\n3. **devcontainer.json**:\n   - Конфигурация контейнера разработки.\n   - Основные настройки:\n     - Имя контейнера, путь монтирования и образ.\n     - Установленные расширения и их настройки.\n     - Переменные окружения и команды для инициализации.\n   - Компоненты:\n     - `settings`: Настройки редактора и Python.\n     - `extensions`: Установленные расширения.\n     - `postCreateCommand`: Команда для инициализации контейнера.\n     - `postStartCommand`: Команда для запуска контейнера.\n\n4. **requirements.txt**:\n   - Список зависимостей для Python проекта.\n   - Основные зависимости:\n     - `requests` и `watchdog`: Для мониторинга изменений и взаимодействия с API.\n     - Инструменты для анализа кода: `pylint`, `flake8`, `mypy`, `black`, `isort`, `bandit`.\n\n### Возможные проблемы и решения\n\n1. **Ошибка SQLITE_CORRUPT**:\n   - Проблема с базой данных SQLite, которая используется одним из расширений или инструментов.\n   - Решение: Переустановите или обновите расширение или инструмент, который использует базу данных. В данном случае, это может быть связано с расширением `GitHub.copilot-chat`.\n\n2. **Ошибка ENOENT: no such file or directory**:\n   - Проблема с отсутствующим файлом или директорией.\n   - Решение: Проверьте пути и убедитесь, что все файлы и директории существуют. Возможно, необходимо установить или создать недостающие компоненты.\n\n3. **Проблемы с запуском `model.py`**:\n   - Убедитесь, что `model.py` запускается корректно и не падает с ошибками.\n   - Решение: Проверьте логи (`/tmp/model.log`) и убедитесь, что скрипт запускается без ошибок.\n\n4. **Проблемы с Ollama API**:\n   - Проблема с доступом к API Ollama.\n   - Решение: Убедитесь, что Ollama API доступен и работает. Проверьте конфигурацию сети и доступность API.\n\n5. **Проблемы с расширениями и их настройками**:\n   - Убедитесь, что все расширения установлены и настроены правильно.\n   - Решение: Проверьте логи ошибок и убедитесь, что расширения запускаются без ошибок.\n\n6. **Проблемы с настройкой Git**:\n   - Проблема с настройкой Git, которая может повлиять на работу с репозиторием.\n   - Решение: Убедитесь, что все шаги настройки Git выполнены правильно и не вызывают ошибок.\n\n### Заключение\n\nСледуя этим рекомендациям, вы должны быть способны диагностировать и решить большинство проблем, связанных с конфигурацией и работой контейнера разработки. Если проблема сохраняется, рекомендуется более подробно изучить логи и выполнить дополнительные шаги по устранению неполадок."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/model.py\n# Standard library imports\nimport logging\nimport subprocess\nimport time\nfrom pathlib import Path\n\n# Third-party imports\nimport requests\nfrom watchdog.events import FileSystemEventHandler\nfrom watchdog.observers import Observer\n\n# Налаштування логування\nlogging.basicConfig(\n    level=logging.INFO,\n    format='%(asctime)s - %(levelname)s - %(message)s'\n)\n\n\nclass CodeChangeHandler(FileSystemEventHandler):\n    def __init__(self, model):\n        self.model = model\n        self.last_modified = {}\n\n    def on_modified(self, event):\n        if event.src_path.endswith('.py'):\n            current_time = time.time()\n            if (event.src_path not in self.last_modified or\n                    current_time - self.last_modified[event.src_path] > 3):\n                self.last_modified[event.src_path] = current_time\n                self.process_file(event.src_path)\n\n    def process_file(self, filepath):\n        try:\n            with open(filepath, 'r') as f:\n                code = f.read()\n            logging.info(\n                f\"Обробка файлу: {filepath}\"\n            )\n            \n            # Рефакторинг коду\n            result = self.model.run_model(f\"Refactor this code:\\n{code}\")\n            if result:\n                # Створення резервної копії з часовою міткою\n                timestamp = time.strftime(\"%Y%m%d-%H%M%S\")\n                backup_path = f\"{filepath}.{timestamp}.bak\"\n                Path(filepath).rename(backup_path)\n                logging.info(\n                    f\"Створено резервну копію: {backup_path}\"\n                )\n\n                with open(filepath, 'w') as f:\n                    f.write(result)\n                logging.info(\n                    f\"Успішно рефакторовано: {filepath}\"\n                )\n\n            # Аналіз коду на помилки та правильність імпортів\n            self.run_analysis_tools(filepath)\n        except Exception as e:\n            logging.error(\n                f\"Помилка обробки {filepath}: {e}\"\n            )\n            return False\n        return True\n\n    def run_analysis_tools(self, filepath):\n        tools = [\n            [\"pylint\", filepath],\n            [\"flake8\", filepath],\n            [\"mypy\", filepath],\n            [\"black\", \"--check\", filepath],\n            [\"isort\", \"--check-only\", filepath]\n        ]\n        for tool in tools:\n            try:\n                result = subprocess.run(tool, capture_output=True, text=True)\n                if result.returncode != 0:\n                    logging.warning(\n                        f\"Проблеми з {tool[0]} для {filepath}:\\n\"\n                        f\"{result.stdout}\\n{result.stderr}\"\n                    )\n                else:\n                    logging.info(\n                        f\"{tool[0]} пройшов успішно для {filepath}\"\n                    )\n            except Exception as e:\n                logging.error(\n                    f\"Помилка запуску {tool[0]} для {filepath}: {e}\"\n                )\n\nclass OllamaModel:\n    def __init__(self, api_base=\"http://172.17.0.1:11434\", model=\"qwen2.5-coder:1.5b\"):\n        self.api_base = api_base\n        self.model = model\n        self.completion_options = {\n            \"temperature\": 0.7,\n            \"max_tokens\": 1024,\n            \"top_p\": 0.9,\n            \"top_k\": 30\n        }\n\n    def run_model(self, input_text):\n        endpoint = f\"{self.api_base}/api/generate\"\n        payload = {\n            \"model\": self.model,\n            \"prompt\": input_text,\n            **self.completion_options\n        }\n\n        try:\n            response = requests.post(endpoint, json=payload)\n            response.raise_for_status()\n            return response.json()['response']\n        except requests.exceptions.RequestException as e:\n            logging.error(f\"Error calling Ollama API: {e}\")\n            return None\n\n    def start_monitoring(self, path=\"/workspace\"):\n        event_handler = CodeChangeHandler(self)\n        observer = Observer()\n        observer.schedule(event_handler, path, recursive=True)\n        observer.start()\n        return observer\n\n\nif __name__ == \"__main__\":\n    model = OllamaModel()\n    observer = model.start_monitoring()\n    try:\n        while True:\n            time.sleep(1)\n    except KeyboardInterrupt:\n        observer.stop()\n    observer.join()\n\n```\n\n```/workspace/.devcontainer/init-scripts/init.sh\n#!/bin/bash\n\n# Enable better error handling and logging\nset -euo pipefail\nexec 1> >(tee -a \"/tmp/init-script.log\") 2>&1\n\n# Ensure script is run with bash\nif [ -z \"$BASH_VERSION\" ]; then\n    exec bash \"$0\" \"$@\"\nfi\n\n# Add logging function\nlog() {\n    echo \"[$(date)] $1\"\n}\n\necho \"=== Starting container initialization ===\"\n\n# Установка прав на выполнение всех скриптов\nfind .devcontainer/init-scripts -name \"*.sh\" -exec chmod +x {} \\;\n\n# Запуск permissions.sh\nlog \"Running permissions.sh...\"\n.devcontainer/init-scripts/permissions.sh || { log \"permissions.sh failed\"; exit 1; }\n\n# Git configuration\nlog \"Configuring Git...\"\ngit config --global user.name \"Oleg Kizyma\"\ngit config --global user.email \"oleg1203@gmail.com\"\ngit config --global core.editor \"code --wait\"\ngit config --global pull.rebase true\ngit config --global push.autoSetupRemote true\ngit config --global push.default current\n\n# Запуск check_git_config.sh\nlog \"Running check_git_config.sh...\"\n.devcontainer/init-scripts/check_git_config.sh || { log \"check_git_config.sh failed\"; exit 1; }\n\n# Save current branch if repository exists\nCURRENT_BRANCH=\"\"\nif [ -d .git ]; then\n    CURRENT_BRANCH=$(git branch --show-current || echo \"main\")\n    log \"Current branch: $CURRENT_BRANCH\"\nfi\n\n# Create directories\nmkdir -p ~/.gnupg ~/.ssh\n\n# Настройка Python окружения\nlog \"Настраиваем Python окружение...\"\npython3 -m venv .venv || { log \"Предупреждение: не удалось создать виртуальное окружение\"; }\nif [ -f .venv/bin/activate ]; then\n    source .venv/bin/activate\n    # Обновление pip до последней версии\n    python3 -m pip install --upgrade pip || { log \"Ошибка: не удалось обновить pip\"; exit 1; }\n    pip install --upgrade setuptools wheel || { log \"Предупреждение: не удалось обновить setuptools и wheel\"; }\n    if [ -f requirements.txt ]; then\n        log \"Устанавливаем зависимости из requirements.txt...\"\n        pip install -r requirements.txt || { log \"Ошибка: не удалось установить зависимости\"; exit 1; }\n    fi\nfi\n\n# Ensure proper GPG environment\nexport GPG_TTY=$(tty)\nchmod 700 ~/.gnupg\necho \"disable-ipv6\" > ~/.gnupg/dirmngr.conf\necho \"keyserver hkps://keys.openpgp.org\" > ~/.gnupg/gpg.conf\n\n# Enhanced GPG Setup\nmkdir -p ~/.gnupg\nchmod 700 ~/.gnupg\n\n# Базовая конфигурация GPG\ncat > ~/.gnupg/gpg.conf <<EOF\nuse-agent\npinentry-mode loopback\nno-tty\nEOF\n\n# Конфигурация GPG агента\ncat > ~/.gnupg/gpg-agent.conf <<EOF\nallow-loopback-pinentry\nenable-ssh-support\npinentry-program /usr/bin/pinentry-tty\ndefault-cache-ttl 34560000\nmax-cache-ttl 34560000\nEOF\n\n# Перезапуск GPG агента\ngpgconf --kill all\ngpg-agent --daemon --allow-loopback-pinentry\n\n# Установка переменных окружения\nexport GPG_TTY=$(tty)\necho 'export GPG_TTY=$(tty)' >> ~/.bashrc\n\n# Improved package installation with checks\ninstall_packages() {\n    local packages=(\"$@\")\n    for pkg in \"${packages[@]}\"; do\n        if ! dpkg -l | grep -q \"^ii.*$pkg\"; then\n            sudo apt-get install -y \"$pkg\" || log \"Warning: Failed to install $pkg\"\n        fi\n    done\n}\n\n# Install required packages safely\ninstall_packages gnupg2 pinentry-tty gpg-agent rng-tools haveged\n\n# Создание нового ключа если не существует\nif ! gpg --list-secret-keys --keyid-format=long | grep -q \"oleg1203@gmail.com\"; then\n    # Check for existing backup\n    if [ -d \"$HOME/.gnupg.bak\" ]; then\n        log \"Found GPG backup, restoring...\"\n        cp -r \"$HOME/.gnupg.bak/\"* \"$HOME/.gnupg/\"\n    else\n        log \"Generating new GPG key...\"\n        gpg --batch --gen-key <<EOF\n%echo Generating a basic OpenPGP key\nKey-Type: RSA\nKey-Length: 4096\nSubkey-Type: RSA\nSubkey-Length: 4096\nName-Real: Oleg Kizyma\nName-Email: oleg1203@gmail.com\nExpire-Date: 0\n%no-protection\n%commit\n%echo done\nEOF\n    fi\nfi\n\n# Настройка Git для использования GPG\nKEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)\nif [ ! -z \"$KEY_ID\" ]; then\n    git config --global user.signingkey \"$KEY_ID\"\n    git config --global commit.gpgsign true\n    git config --global gpg.program $(which gpg)\nfi\n\n# Тест подписи\nlog \"test\" | gpg --clearsign || log \"GPG test signing failed\"\n\n# Add more entropy\nsudo apt-get update && sudo apt-get install -y rng-tools haveged || true\nsudo service haveged start || true\n\necho \"allow-loopback-pinentry\" >> ~/.gnupg/gpg-agent.conf\ngpgconf --kill gpg-agent\n\n# Setup Git hooks\nlog \"Setting up Git hooks...\"\nmkdir -p /workspace/.git/hooks\n\ncat > /workspace/.git/hooks/post-commit <<EOF\n#!/bin/bash\nset -e\n\n# Run backup script without auto-signing\n/workspace/.devcontainer/init-scripts/backup.sh\nEOF\n\nchmod +x /workspace/.git/hooks/post-commit\nchmod +x /workspace/.devcontainer/init-scripts/backup.sh\n\n# Improved shell detection and compatibility\nSHELL_TYPE=\"$(basename \"$SHELL\")\"\nif [ \"$SHELL_TYPE\" = \"bash\" ]; then\n    RCFILE=\"$HOME/.bashrc\"\nelif [ \"$SHELL_TYPE\" = \"zsh\" ]; then\n    RCFILE=\"$HOME/.zshrc\"\nelse\n    RCFILE=\"$HOME/.profile\"\nfi\n\n# Shell customization with safe defaults\nif [ -f \"$HOME/.bashrc\" ]; then\n    # Remove any existing prompt configuration\n    sed -i '/PROMPT_CONFIGURED/d' \"$HOME/.bashrc\"\n    sed -i '/parse_git_branch/d' \"$HOME/.bashrc\"\n    \n    # Add git branch parser and prompt configuration\n    cat >> \"$HOME/.bashrc\" <<EOF\n# Git branch parser\nparse_git_branch() {\n    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \\(.*\\)/(\\1)/'\n}\n\n# Prompt configuration\nif [ -z \"\\${PROMPT_CONFIGURED:-}\" ]; then\n    export PROMPT_CONFIGURED=1\n    PS1='\\[\\033[01;32m\\](\\$) \\u\\[\\033[00m\\] ➜ \\[\\033[01;34m\\]\\w\\[\\033[91m\\]\\$(parse_git_branch)\\[\\033[00m\\]\\$ '\nfi\nEOF\nfi\n\n# Add GPG environment variables to bashrc\ncat >> ~/.bashrc <<-EOF\nexport GPG_TTY=\\$(tty)\nexport SSH_AUTH_SOCK=\\$(gpgconf --list-dirs agent-ssh-socket)\ngpg-connect-agent updatestartuptty /bye >/dev/null\nEOF\n\n# Simpler Ollama check\ncheck_ollama() {\n    log \"Checking Ollama API availability...\"\n    local response\n    \n    response=$(curl -s http://${OLLAMA_API_HOST:-172.17.0.1}:${OLLAMA_API_PORT:-11434} || echo \"Failed\")\n    \n    if [[ \"$response\" == *\"Ollama is running\"* ]]; then\n        log \"Ollama is running and ready!\"\n        return 0\n    else\n        log \"ERROR: Ollama not running. Response: $response\"\n        return 1\n    fi\n}\n\n# Запуск model.py в фоновому режимі\nlog \"Запускаємо model.py...\"\nnohup python3 /workspace/model.py > /tmp/model.log 2>&1 & \nMODEL_PID=$!\nlog \"model.py запущений в фоновому режимі (PID: $MODEL_PID)\"\n\n# Перевірка запуску model.py\nsleep 5\nif ps -p $MODEL_PID > /dev/null; then\n    log \"model.py успішно працює\"\nelse\n    log \"Помилка: model.py не вдалося запустити\"\n    exit 1\nfi\n\n# Run health check at the end\nif ! check_ollama; then\n    log \"WARNING: Ollama not available, but continuing...\"\nfi\n\nlog \"=== Container initialization complete ===\"\nexit 0\n\n```\n\n```/workspace/.devcontainer/devcontainer.json\n{\n    \"name\": \"Python 3\",\n    \"workspaceMount\": \"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached\",\n    \"workspaceFolder\": \"/workspace\",\n    \"image\": \"mcr.microsoft.com/devcontainers/python:1-3.12\",\n    \"remoteUser\": \"vscode\",\n    \"updateRemoteUserUID\": true,\n    \"containerUser\": \"vscode\",\n    \"remoteEnv\": {\n        \"GIT_SSH_COMMAND\": \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\",\n        \"SYNC_LOCALHOST_KUBECONFIG\": \"true\",\n        \"LOCAL_WORKSPACE_FOLDER\": \"${localWorkspaceFolder}\",\n        \"VIRTUAL_ENV_PROMPT\": \"($$$) \",\n        \"SHELL\": \"/bin/bash\",\n        \"GPG_TTY\": \"/dev/pts/0\",\n        \"GNUPGHOME\": \"/home/vscode/.gnupg\",\n        \"SSH_AUTH_SOCK\": \"/run/host-services/ssh-auth.sock\",\n        \"GPG_KEY\": \"oleg1203@gmail.com\"\n    },\n    \"customizations\": {\n        \"vscode\": {\n            \"settings\": {\n                \"editor\": {\n                    \"codeActionsOnSave\": {\n                        \"source.organizeImports\": true,\n                        \"source.fixAll\": true\n                    },\n                    \"formatOnSave\": true,\n                    \"formatOnType\": true,\n                    \"formatOnPaste\": true,\n                    \"defaultFormatter\": \"ms-python.black-formatter\",\n                    \"linkedEditing\": true,\n                    \"stickyScroll.enabled\": true,\n                    \"guides.bracketPairs\": true,\n                    \"bracketPairColorization.enabled\": true,\n                    \"suggest\": {\n                        \"snippetsPreventQuickSuggestions\": false,\n                        \"insertMode\": \"replace\",\n                        \"showMethods\": true,\n                        \"showFunctions\": true,\n                        \"showVariables\": true,\n                        \"showClasses\": true,\n                        \"filterGraceful\": true,\n                        \"shareSuggestSelections\": true,\n                        \"showStatusBar\": true,\n                        \"preview\": true\n                    },\n                    \"formatOnSaveMode\": \"modifications\",\n                    \"showProgress\": true,\n                    \"renderWhitespace\": \"selection\",\n                    \"minimap\": {\n                        \"enabled\": true,\n                        \"renderCharacters\": false,\n                        \"showSlider\": \"always\",\n                        \"maxColumn\": 120\n                    },\n                    \"guides\": {\n                        \"bracketPairs\": true,\n                        \"highlightActiveBracketPair\": true,\n                        \"indentation\": true,\n                        \"highlightActiveIndentation\": true\n                    }\n                },\n                \"files.autoSave\": \"afterDelay\",\n                \"files.autoSaveDelay\": 3000,\n                \"python.formatting.provider\": \"black\",\n                \"python.formatting.blackArgs\": [\n                    \"--line-length\",\n                    \"88\"\n                ],\n                \"python.linting.enabled\": true,\n                \"python.linting.pylintEnabled\": true,\n                \"python.linting.flake8Enabled\": true,\n                \"python.linting.flake8Args\": [\n                    \"--max-line-length=88\",\n                    \"--ignore=E203,W503\"\n                ],\n                \"python.sortImports.args\": [\n                    \"--profile\",\n                    \"black\"\n                ],\n                \"python.sortImports.path\": \"${workspaceFolder}/.venv/bin/isort\",\n                \"python.sortImports.organizeImports\": true,\n                \"python.analysis.languageServerMode\": \"default\",\n                \"python.analysis.indexing\": true,\n                \"python.analysis.autoImportCompletions\": true,\n                \"python.analysis.autoSearchPaths\": true,\n                \"python.analysis.completeFunctionParens\": true,\n                \"python.analysis.typeCheckingMode\": \"basic\",\n                \"python.testing.pytestEnabled\": true,\n                \"python.testing.unittestEnabled\": false,\n                \"python.testing.autoTestDiscoverOnSaveEnabled\": true,\n                \"python.testing.autoTestLaunchType\": \"background\",\n                \"python.testing.autoTestLaunchArgs\": [\n                    \"--disable-warnings\",\n                    \"--show-capture=stdout\"\n                ],\n                \"python.testing.autoTestLaunchPythonArgs\": [\n                    \"-m\",\n                    \"pytest\"\n                ],\n                \"python.testing.pytestArgs\": [\n                    \"--cov=.\",\n                    \"--cov-report=xml\",\n                    \"-v\"\n                ],\n                \"coverage-gutters.showGutterCoverage\": true,\n                \"coverage-gutters.showLineCoverage\": true,\n                \"coverage-gutters.showRulerCoverage\": true,\n                \"editor.suggestSelection\": \"recentlyUsed\",\n                \"editor.tabCompletion\": \"on\",\n                \"editor.acceptSuggestionOnCommitCharacter\": true,\n                \"editor.acceptSuggestionOnEnter\": \"smart\",\n                \"editor.quickSuggestions\": {\n                    \"other\": \"on\",\n                    \"comments\": \"on\",\n                    \"strings\": \"on\"\n                },\n                \"editor.inlineSuggest.enabled\": true,\n                \"editor.suggest.preview\": true,\n                \"editor.suggest.showStatusBar\": true,\n                \"extensions.autoUpdate\": true,\n                \"extensions.autoCheckUpdates\": true,\n                \"git.autofetch\": true,\n                \"git.confirmSync\": false,\n                \"git.enableCommitSigning\": true,\n                \"git.postCommitCommand\": \"push\",\n                \"git.enableSmartCommit\": true,\n                \"git.autoStash\": true,\n                \"git.autoSync\": true,\n                \"git.name\": \"Oleg Kizyma\",\n                \"git.email\": \"oleg1203@gmail.com\",\n                \"update.mode\": \"default\",\n                \"update.channel\": \"insiders\",\n                \"remote.extensionKind\": {\n                    \"*\": [\n                        \"workspace\"\n                    ]\n                },\n                \"dev.containers.defaultExtensions\": [],\n                \"dev.containers.copyGitConfig\": false,\n                \"dev.containers.gitCredentialsHelper\": \"cache\",\n                \"dev.containers.workspaceMountConsistency\": \"cached\",\n                \"github.copilot.includeFilePatterns\": [],\n                \"continue.includeFilePatterns\": [],\n                \"terminal.integrated\": {\n                    \"tabs\": {\n                        \"title\": \"${process}${separator}${sequence}\",\n                        \"description\": \"${task}${separator}${local}${separator}${cwd}\",\n                        \"separator\": \" - \"\n                    },\n                    \"defaultProfile\": {\n                        \"linux\": \"bash\"\n                    },\n                    \"shellIntegration\": {\n                        \"decorationsEnabled\": \"true\",\n                        \"enabled\": \"true\"\n                    },\n                    \"fontSize\": \"14\",\n                    \"fontFamily\": \"Menlo, Monaco, 'Courier New', monospace\"\n                },\n                \"workbench\": {\n                    \"editor.showTabs\": true,\n                    \"statusBar.visible\": true,\n                    \"activity.showFilterInStatusBar\": true,\n                    \"colorCustomizations\": {\n                        \"editor.lineHighlightBackground\": \"#1073cf2d\",\n                        \"editor.lineHighlightBorder\": \"#9fced11f\"\n                    }\n                }\n            },\n            \"extensions\": [\n                \"ms-python.python\",           // основное Python расширение первым\n                \"ms-azuretools.vscode-docker\",\n                \"batisteo.vscode-django\",\n                \"dbaeumer.vscode-eslint\",\n                \"github.copilot\",\n                \"github.copilot-chat\",\n                \"eamodio.gitlens\",\n                \"ms-vscode-remote.remote-ssh\",\n                \"ms-vscode-remote.remote-ssh-edit\",\n                \"ms-vscode-remote.remote-explorer\",\n                \"github.vscode-pull-request-github\",\n                \"redhat.vscode-yaml\",\n                \"GitHub.vscode-github-actions\",\n                \"continue.continue\",\n                \"saoudrizwan.claude-dev\",\n                \"ryanluker.vscode-coverage-gutters\",\n                \"GitHub.copilot-chat\",\n                \"GitHub.copilot\",\n                \"magicstack.MagicPython\",\n                // Зависимые от Python расширения в конце\n                \"ms-python.vscode-pylance\",   // языковой сервер\n                \"ms-python.debugpy\",          // дебаггер\n                \"ms-python.black-formatter\",  // форматирование\n                \"ms-python.isort\",           // сортировка импортов\n                \"ms-python.flake8\",          // линтер\n                \"ms-python.autopep8\"         // форматирование\n            ]\n        }\n    },\n    \"portsAttributes\": {\n        \"9000\": {\n            \"label\": \"Hello Remote World\",\n            \"onAutoForward\": \"notify\"\n        }\n    },\n    \"initializeCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"mkdir -p ${localWorkspaceFolder}/.continue\"\n    ],\n    \"mounts\": [\n        \"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached\",\n        \"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached\",\n        \"source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached\"\n    ],\n    \"features\": {\n        \"ghcr.io/devcontainers/features/git:1\": {\n            \"version\": \"latest\",\n            \"ppa\": true\n        },\n        \"ghcr.io/devcontainers/features/github-cli:1\": {},\n        \"ghcr.io/devcontainers/features/common-utils:2\": {\n            \"installZsh\": true,\n            \"upgradePackages\": true,\n            \"username\": \"vscode\",\n            \"userUid\": \"1000\",\n            \"userGid\": \"1000\"\n        }\n    },\n    \"onCreateCommand\": \"sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent\",\n    \"postCreateCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"chmod +x .devcontainer/init-scripts/*.sh && .devcontainer/init-scripts/init.sh\"\n    ],\n    \"postStartCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"for i in {1..60}; do if curl -s http://172.17.0.1:11434 | grep -q 'Ollama is running'; then echo 'Ollama is ready!'; exit 0; fi; echo \\\"Attempt $i/60: Waiting for Ollama...\\\"; sleep 5; done; echo 'Error: Ollama not available after 5 minutes' >&2; exit 0\"\n    ],\n    \"containerEnv\": {\n        \"OLLAMA_API_HOST\": \"172.17.0.1\",\n        \"OLLAMA_API_PORT\": \"11434\",\n        \"OLLAMA_TIMEOUT\": \"300\"\n    }\n}\n```\n\n```/workspace/requirements.txt\n# Core dependencies\nrequests>=2.31.0\nwatchdog>=3.0.0\n\n# Development tools\nblack>=24.0.0\nflake8>=7.0.0\npylint>=3.0.0\nisort>=5.13.0\nmypy>=1.8.0\npytest>=8.0.0\npytest-cov>=4.1.0\n\n# Code analysis\nrope>=1.11.0\njedi>=0.19.1\nbandit>=1.7.6\n\n# LSP and formatting\npython-lsp-server[all]>=1.10.0\nautopep8>=2.0.4\nyapf>=0.40.2\n\n# Additional tools\npre-commit>=3.6.0\ncoverage>=7.4.0\nsafety>=3.2.13\n\n# SQLite extensions\nsqlalchemy>=2.0.0\n```\n\nmodel.py init.sh devcontainer.json requirements.txt \nWARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-vscode.vscode-selfhost-test-provider' wants API proposal 'attributableCoverage' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.python' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:435  WARN Via 'product.json#extensionEnabledApiProposals' extension 'ms-python.debugpy' wants API proposal 'contribIssueReporter' but that proposal DOES NOT EXIST. Likely, the proposal has been finalized (check 'vscode.d.ts') or was abandoned.\nlog.ts:425  INFO Started local extension host with pid 92863.\nlog.ts:425  INFO Invoking resolveAuthority(dev-container)...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] obtaining proxy...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][0ms] invoking...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][1002ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][2001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][3001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][4001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5001ms] waiting...\nlog.ts:425  INFO [LocalProcess0][resolveAuthority(dev-container,1)][5350ms] returned WebSocket(127.0.0.1:33145)\nlog.ts:425  INFO resolveAuthority(dev-container) returned 'WebSocket(127.0.0.1:33145)' after 5351 ms\nlog.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583)...\nlog.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c)...\nlog.ts:425  INFO Creating a socket (renderer-Management-14d96e29-5187-4f82-b25d-8b0893474583) was successful after 145 ms.\nlog.ts:425  INFO Creating a socket (renderer-ExtensionHost-f340acaf-159e-4795-b6f8-f74cee34105c) was successful after 306 ms.\nwebviewElement.ts:486 An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing.\nmountTo @ webviewElement.ts:486\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage\nregister @ TMScopeRegistry.ts:46\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json\nregister @ TMScopeRegistry.ts:46\nconsole.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.854Z - Translations initialized.\nconsole.ts:137 [Extension Host] [INFO] 2024-12-18T22:19:42.856Z - Extension activated!\nlog.ts:425  INFO Settings Sync: Token updated for the account oleg121203\nlog.ts:425  INFO Settings Sync: Account status changed from uninitialized to available\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.python.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/python/syntaxes/MagicPython.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/magicstack.magicpython-1.1.0/grammars/MagicPython.tmLanguage\nregister @ TMScopeRegistry.ts:46\nTMScopeRegistry.ts:46 Overwriting grammar scope name to file mapping for scope source.yaml.\nOld grammar file: file:///Applications/Visual%20Studio%20Code.app/Contents/Resources/app/extensions/yaml/syntaxes/yaml.tmLanguage.json.\nNew grammar file: vscode-remote://dev-container%2B7b22686f737450617468223a222f686f6d652f6465762f45564f4c5554494f4e222c226c6f63616c446f636b6572223a66616c73652c22636f6e66696746696c65223a7b22246d6964223a312c2270617468223a222f686f6d652f6465762f45564f4c5554494f4e2f2e646576636f6e7461696e65722f646576636f6e7461696e65722e6a736f6e222c22736368656d65223a227673636f64652d66696c65486f7374227d7d@ssh-remote%2B7b22686f73744e616d65223a224e494d4441227d/home/vscode/.vscode-server/extensions/redhat.vscode-yaml-1.15.0/syntaxes/yaml.tmLanguage.json\nregister @ TMScopeRegistry.ts:46\nlog.ts:425  INFO Settings Sync: Token updated for the account oleg121203\nlog.ts:425  INFO [perf] Render performance baseline is 13ms\nconsole.ts:137 [Extension Host] did not find any theme files for theme Default Dark Modern\nEYi @ console.ts:137\nlog.ts:445   ERR [Extension Host] Error handling webview message: {\n\"msg\": {\n\"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\",\n\"messageType\": \"context/loadSubmenuItems\",\n\"data\": {\n\"title\": \"code\"\n}\n}\n}\nError: SQLITE_CORRUPT: database disk image is malformed\nconsole.ts:137 [Extension Host] Error handling webview message: {\n\"msg\": {\n\"messageId\": \"441411ef-7bb0-46e1-bd6a-85583b8b546e\",\n\"messageType\": \"context/loadSubmenuItems\",\n\"data\": {\n\"title\": \"code\"\n}\n}\n}\nError: SQLITE_CORRUPT: database disk image is malformed\nEYi @ console.ts:137\nnotificationsAlerts.ts:42 SQLITE_CORRUPT: database disk image is malformed\nc @ notificationsAlerts.ts:42\nindex.js:1158 Error loading items for code: Object\n(anonymous) @ index.js:1158\nconsole.ts:137 [Extension Host] rejected promise not handled within 1 second: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nEYi @ console.ts:137\nconsole.ts:137 [Extension Host] stack trace: EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nat Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)\nat Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)\nat Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)\nEYi @ console.ts:137\nmainThreadExtensionService.ts:78 [GitHub.copilot-chat]Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\n$onExtensionRuntimeError @ mainThreadExtensionService.ts:78\nmainThreadExtensionService.ts:79 EntryNotFound (FileSystemError): Error: ENOENT: no such file or directory, stat '/workspace/.continue/index/lancedb/workspacemainvectordbOllama2nomic-embed-textlatest500.lance/_versions/.tmp_40.manifest_d8bed01b-b8ab-451f-a984-39fc646326f6#1'\nat Function.e (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:9057)\nat Object.stat (file:///vscode/vscode-server/bin/linux-x64/42b266171e51a016313f47d0c48aca9295b9cbb2/out/vs/workbench/api/node/extensionHostProcess.js:115:7007)\nat Sh.value (/home/vscode/.vscode-server/extensions/github.copilot-chat-0.23.2/dist/extension.js:397:14992)\n$onExtensionRuntimeError @ mainThreadExtensionService.ts:79\nconsole.ts:137 [Extension Host] error when indexing:  Error: SQLITE_CORRUPT: database disk image is malformed\n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    }
+  ]
+}

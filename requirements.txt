@@ -38,3 +38,9 @@ python-lsp-server[all]==1.10.0
 transformers==4.33.0
 torch==2.0.1
 pytorch-lightning==1.8.5
+
+# Основные зависимости для модели
+torch>=2.0.1
+transformers>=4.33.0
+sentencepiece>=0.1.99
+accelerate>=0.20.3

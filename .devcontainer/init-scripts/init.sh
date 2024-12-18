@@ -51,7 +51,9 @@ log "Настраиваем Python окружение..."
 python3 -m venv .venv || { log "Предупреждение: не удалось создать виртуальное окружение"; }
 if [ -f .venv/bin/activate ]; then
     source .venv/bin/activate
-    pip install --upgrade pip setuptools wheel || { log "Предупреждение: не удалось обновить pip"; }
+    # Обновление pip до последней версии
+    python3 -m pip install --upgrade pip || { log "Ошибка: не удалось обновить pip"; exit 1; }
+    pip install --upgrade setuptools wheel || { log "Предупреждение: не удалось обновить setuptools и wheel"; }
     if [ -f requirements.txt ]; then
         log "Устанавливаем зависимости из requirements.txt..."
         pip install -r requirements.txt || { log "Ошибка: не удалось установить зависимости"; exit 1; }

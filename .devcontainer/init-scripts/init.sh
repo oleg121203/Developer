@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Enable better error handling and logging
+set -euo pipefail
+exec 1> >(tee -a "/tmp/init-script.log") 2>&1
+
+echo "[$(date)] Starting initialization script..."
+
+# Add logging function
+log() {
+    echo "[$(date)] $1"
+}
+
 # Ensure script is run with bash
 if [ -z "$BASH_VERSION" ]; then
     exec bash "$0" "$@"
@@ -14,11 +25,11 @@ echo "=== Starting container initialization ==="
 find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
 
 # Запуск permissions.sh
-echo "Running permissions.sh..."
-.devcontainer/init-scripts/permissions.sh || { echo "permissions.sh failed"; exit 1; }
+log "Running permissions.sh..."
+.devcontainer/init-scripts/permissions.sh || { log "permissions.sh failed"; exit 1; }
 
 # Git configuration
-echo "Configuring Git..."
+log "Configuring Git..."
 git config --global user.name "Oleg Kizyma"
 git config --global user.email "oleg1203@gmail.com"
 git config --global core.editor "code --wait"
@@ -27,27 +38,27 @@ git config --global push.autoSetupRemote true
 git config --global push.default current
 
 # Запуск check_git_config.sh
-echo "Running check_git_config.sh..."
-.devcontainer/init-scripts/check_git_config.sh || { echo "check_git_config.sh failed"; exit 1; }
+log "Running check_git_config.sh..."
+.devcontainer/init-scripts/check_git_config.sh || { log "check_git_config.sh failed"; exit 1; }
 
 # Save current branch if repository exists
 CURRENT_BRANCH=""
 if [ -d .git ]; then
     CURRENT_BRANCH=$(git branch --show-current || echo "main")
-    echo "Current branch: $CURRENT_BRANCH"
+    log "Current branch: $CURRENT_BRANCH"
 fi
 
 # Create directories
 mkdir -p ~/.gnupg ~/.ssh
 
 # Python setup
-echo "Setting up Python environment..."
-python3 -m venv .venv || echo "Warning: venv creation failed, continuing..."
+log "Setting up Python environment..."
+python3 -m venv .venv || log "Warning: venv creation failed, continuing..."
 if [ -f .venv/bin/activate ]; then
     source .venv/bin/activate
-    pip install --upgrade pip setuptools wheel || echo "Warning: base package installation failed"
+    pip install --upgrade pip setuptools wheel || log "Warning: base package installation failed"
     if [ -f requirements.txt ]; then
-        pip install -r requirements.txt || echo "Warning: requirements installation failed"
+        pip install -r requirements.txt || log "Warning: requirements installation failed"
     fi
 fi
 
@@ -90,7 +101,7 @@ install_packages() {
     local packages=("$@")
     for pkg in "${packages[@]}"; do
         if ! dpkg -l | grep -q "^ii.*$pkg"; then
-            sudo apt-get install -y "$pkg" || echo "Warning: Failed to install $pkg"
+            sudo apt-get install -y "$pkg" || log "Warning: Failed to install $pkg"
         fi
     done
 }
@@ -102,10 +113,10 @@ install_packages gnupg2 pinentry-tty gpg-agent rng-tools haveged
 if ! gpg --list-secret-keys --keyid-format=long | grep -q "oleg1203@gmail.com"; then
     # Check for existing backup
     if [ -d "$HOME/.gnupg.bak" ]; then
-        echo "Found GPG backup, restoring..."
+        log "Found GPG backup, restoring..."
         cp -r "$HOME/.gnupg.bak/"* "$HOME/.gnupg/"
     else
-        echo "Generating new GPG key..."
+        log "Generating new GPG key..."
         gpg --batch --gen-key <<EOF
 %echo Generating a basic OpenPGP key
 Key-Type: RSA
@@ -131,7 +142,7 @@ if [ ! -z "$KEY_ID" ]; then
 fi
 
 # Тест подписи
-echo "test" | gpg --clearsign || echo "GPG test signing failed"
+log "test" | gpg --clearsign || log "GPG test signing failed"
 
 # Add more entropy
 sudo apt-get update && sudo apt-get install -y rng-tools haveged || true
@@ -141,7 +152,7 @@ echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
 gpgconf --kill gpg-agent
 
 # Setup Git hooks
-echo "Setting up Git hooks..."
+log "Setting up Git hooks..."
 mkdir -p /workspace/.git/hooks
 
 cat > /workspace/.git/hooks/post-commit <<EOF
@@ -165,19 +176,20 @@ else
     RCFILE="$HOME/.profile"
 fi
 
-# Better git branch parsing without $$ usage
-parse_git_branch() {
-    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
 # Shell customization with safe defaults
 if [ -f "$HOME/.bashrc" ]; then
     # Remove any existing prompt configuration
     sed -i '/PROMPT_CONFIGURED/d' "$HOME/.bashrc"
+    sed -i '/parse_git_branch/d' "$HOME/.bashrc"
     
-    # Add new prompt configuration with guard
+    # Add git branch parser and prompt configuration
     cat >> "$HOME/.bashrc" <<EOF
-# Added by devcontainer init script
+# Git branch parser
+parse_git_branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+# Prompt configuration
 if [ -z "\${PROMPT_CONFIGURED:-}" ]; then
     export PROMPT_CONFIGURED=1
     PS1='\[\033[01;32m\](\$) \u\[\033[00m\] ➜ \[\033[01;34m\]\w\[\033[91m\]\$(parse_git_branch)\[\033[00m\]\$ '
@@ -192,5 +204,26 @@ export SSH_AUTH_SOCK=\$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 EOF
 
-echo "=== Container initialization complete ==="
+# Simpler Ollama check
+check_ollama() {
+    log "Checking Ollama API availability..."
+    local response
+    
+    response=$(curl -s http://${OLLAMA_API_HOST:-172.17.0.1}:${OLLAMA_API_PORT:-11434} || echo "Failed")
+    
+    if [[ "$response" == *"Ollama is running"* ]]; then
+        log "Ollama is running and ready!"
+        return 0
+    else
+        log "ERROR: Ollama not running. Response: $response"
+        return 1
+    fi
+}
+
+# Run health check at the end
+if ! check_ollama; then
+    log "WARNING: Ollama not available, but continuing..."
+fi
+
+log "=== Container initialization complete ==="
 exit 0

@@ -26,3 +26,6 @@
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":5418,"generatedTokens":193}
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":5779,"generatedTokens":170}
 {"model":"gemma2-9b-it","provider":"groq","promptTokens":3963,"generatedTokens":688}
+{"model":"gemma2-9b-it","provider":"groq","promptTokens":4688,"generatedTokens":80}
+{"model":"gemma2-9b-it","provider":"groq","promptTokens":3186,"generatedTokens":552}
+{"model":"gemma2-9b-it","provider":"groq","promptTokens":5295,"generatedTokens":396}

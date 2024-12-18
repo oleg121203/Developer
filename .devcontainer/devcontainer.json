@@ -171,7 +171,11 @@
             "onAutoForward": "notify"
         }
     },
-    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
+    "initializeCommand": [
+        "/bin/bash",
+        "-c",
+        "mkdir -p ${localWorkspaceFolder}/.continue"
+    ],
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
@@ -195,11 +199,16 @@
     "postCreateCommand": [
         "/bin/bash",
         "-c",
-        "chmod +x .devcontainer/init-scripts/init.sh && .devcontainer/init-scripts/init.sh"
+        "chmod +x .devcontainer/init-scripts/*.sh && .devcontainer/init-scripts/init.sh"
     ],
     "postStartCommand": [
         "/bin/bash",
         "-c",
-        "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
-    ]
+        "for i in {1..60}; do if curl -s http://172.17.0.1:11434 | grep -q 'Ollama is running'; then echo 'Ollama is ready!'; exit 0; fi; echo \"Attempt $i/60: Waiting for Ollama...\"; sleep 5; done; echo 'Error: Ollama not available after 5 minutes' >&2; exit 0"
+    ],
+    "containerEnv": {
+        "OLLAMA_API_HOST": "172.17.0.1",
+        "OLLAMA_API_PORT": "11434",
+        "OLLAMA_TIMEOUT": "300"
+    }
 }

@@ -1,11 +1,12 @@
 import logging
-import requests
-import time
 import subprocess
-import magicpython
+import time
 from pathlib import Path
-from watchdog.observers import Observer
+
+import magicpython
+import requests
 from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
 
 # Налаштування логування
 logging.basicConfig(

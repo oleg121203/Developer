@@ -6,80 +6,32 @@
     "remoteUser": "vscode",
     "updateRemoteUserUID": true,
     "containerUser": "vscode",
+
     "remoteEnv": {
         "GIT_SSH_COMMAND": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
         "SYNC_LOCALHOST_KUBECONFIG": "true",
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-        "VIRTUAL_ENV_PROMPT": "($$$) ",
+        "VIRTUAL_ENV_PROMPT": "(venv) ",
         "SHELL": "/bin/bash",
         "GPG_TTY": "/dev/pts/0",
         "GNUPGHOME": "/home/vscode/.gnupg",
         "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock",
         "GPG_KEY": "oleg1203@gmail.com"
     },
+
     "customizations": {
         "vscode": {
             "settings": {
+                // Editor settings
                 "editor.formatOnSave": true,
                 "editor.formatOnSaveMode": "file",
-                "files.autoSave": "afterDelay",
-                "files.autoSaveDelay": 1000,
-                "python.formatting.provider": "black",
-                "python.formatting.blackArgs": [
-                    "--line-length",
-                    "88"
-                ],
-                "python.linting.enabled": true,
-                "python.linting.pylintEnabled": true,
-                "python.linting.flake8Enabled": true,
-                "python.linting.flake8Args": [
-                    "--max-line-length=88",
-                    "--ignore=E203,W503"
-                ],
-                "python.sortImports.args": [
-                    "--profile",
-                    "black"
-                ],
-                "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
-                "python.sortImports.organizeImports": true,
-                "python.analysis.languageServerMode": "default",
-                "python.analysis.indexing": true,
-                "python.analysis.autoImportCompletions": true,
-                "python.analysis.autoSearchPaths": true,
-                "python.analysis.completeFunctionParens": true,
-                "python.analysis.typeCheckingMode": "basic",
-                "python.testing.pytestEnabled": true,
-                "python.testing.unittestEnabled": false,
-                "python.testing.autoTestDiscoverOnSaveEnabled": true,
-                "python.testing.autoTestLaunchType": "background",
-                "python.testing.autoTestLaunchArgs": [
-                    "--disable-warnings",
-                    "--show-capture=stdout"
-                ],
-                "python.testing.autoTestLaunchPythonArgs": [
-                    "-m",
-                    "pytest"
-                ],
-                "python.testing.pytestArgs": [
-                    "--cov=.",
-                    "--cov-report=xml",
-                    "-v"
-                ],
-                "coverage-gutters.showGutterCoverage": true,
-                "coverage-gutters.showLineCoverage": true,
-                "coverage-gutters.showRulerCoverage": true,
+                "editor.defaultFormatter": "ms-python.black-formatter",
                 "editor.suggest.snippetsPreventQuickSuggestions": false,
                 "editor.suggest.insertMode": "replace",
                 "editor.suggestSelection": "first",
                 "editor.tabCompletion": "on",
                 "editor.acceptSuggestionOnCommitCharacter": true,
                 "editor.acceptSuggestionOnEnter": "on",
-                "editor.codeActionsOnSave": {
-                    "source.organizeImports": true,
-                    "source.fixAll": true,
-                    "source.fixAll.eslint": true
-                },
-                "editor.defaultFormatter": "ms-python.black-formatter",
                 "editor.suggest.showMethods": true,
                 "editor.suggest.showFunctions": true,
                 "editor.suggest.showVariables": true,
@@ -89,8 +41,46 @@
                     "comments": true,
                     "strings": true
                 },
-                "extensions.autoUpdate": true,
-                "extensions.autoCheckUpdates": true,
+
+                // Files settings
+                "files.autoSave": "afterDelay",
+                "files.autoSaveDelay": 3000,
+
+                // Python settings
+                "python.formatting.provider": "black",
+                "python.formatting.blackArgs": ["--line-length", "88"],
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true,
+                "python.linting.flake8Enabled": true,
+                "python.linting.flake8Args": ["--max-line-length=88", "--ignore=E203,W503"],
+                "python.sortImports.args": ["--profile", "black"],
+                "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
+                "python.sortImports.organizeImports": true,
+                "python.analysis.languageServerMode": "default",
+                "python.analysis.indexing": true,
+                "python.analysis.autoImportCompletions": true,
+                "python.analysis.autoSearchPaths": true,
+                "python.analysis.completeFunctionParens": true,
+                "python.analysis.typeCheckingMode": "basic",
+
+                // Testing settings
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false,
+                "python.testing.autoTestDiscoverOnSaveEnabled": true,
+                "python.testing.autoTestLaunchType": "background",
+                "python.testing.autoTestLaunchArgs": [
+                    "--disable-warnings",
+                    "--show-capture=stdout"
+                ],
+                "python.testing.autoTestLaunchPythonArgs": ["-m", "pytest"],
+                "python.testing.pytestArgs": ["--cov=.", "--cov-report=xml", "-v"],
+
+                // Coverage settings
+                "coverage-gutters.showGutterCoverage": true,
+                "coverage-gutters.showLineCoverage": true,
+                "coverage-gutters.showRulerCoverage": true,
+
+                // Git settings
                 "git.autofetch": true,
                 "git.confirmSync": false,
                 "git.enableCommitSigning": true,
@@ -100,26 +90,34 @@
                 "git.autoSync": true,
                 "git.name": "Oleg Kizyma",
                 "git.email": "oleg1203@gmail.com",
+
+                // Update settings
                 "update.mode": "default",
                 "update.channel": "insiders",
+                "extensions.autoUpdate": true,
+                "extensions.autoCheckUpdates": true,
+
+                // Remote settings
                 "remote.extensionKind": {
-                    "*": [
-                        "workspace"
-                    ]
+                    "*": ["workspace"]
                 },
                 "dev.containers.defaultExtensions": [],
                 "dev.containers.copyGitConfig": false,
                 "dev.containers.gitCredentialsHelper": "cache",
                 "dev.containers.workspaceMountConsistency": "cached",
-                "github.copilot.includeFilePatterns": [],
-                "continue.includeFilePatterns": []
+
+                // Editor actions
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": "explicit",
+                    "source.fixAll": "explicit",
+                    "source.fixAll.eslint": "explicit"
+                }
             },
             "extensions": [
                 "ms-python.python",
                 "ms-python.vscode-pylance",
                 "ms-python.black-formatter",
                 "ms-python.isort",
-                "ms-python.autopep8",
                 "ms-python.flake8",
                 "ms-azuretools.vscode-docker",
                 "batisteo.vscode-django",
@@ -135,24 +133,24 @@
                 "GitHub.vscode-github-actions",
                 "continue.continue",
                 "saoudrizwan.claude-dev",
-                "ryanluker.vscode-coverage-gutters",
-                "GitHub.copilot-chat",
-                "GitHub.copilot"
+                "ryanluker.vscode-coverage-gutters"
             ]
         }
     },
+
     "portsAttributes": {
         "9000": {
             "label": "Hello Remote World",
             "onAutoForward": "notify"
         }
     },
-    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
+
     "mounts": [
         "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
         "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
         "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
     ],
+
     "features": {
         "ghcr.io/devcontainers/features/git:1": {
             "version": "latest",
@@ -167,17 +165,23 @@
             "userGid": "1000"
         }
     },
+
+    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
+    
     "onCreateCommand": "sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent",
+    
     "postCreateCommand": [
         "/bin/bash",
         "-c",
         "chmod +x .devcontainer/init-scripts/init.sh && .devcontainer/init-scripts/init.sh"
     ],
+    
     "postStartCommand": [
         "/bin/bash",
         "-c",
         "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
     ],
+    
     "postSaveCommand": [
         "/bin/bash",
         "-c",

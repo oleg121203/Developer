@@ -75,6 +75,7 @@
                 "editor.acceptSuggestionOnCommitCharacter": true,
                 "editor.acceptSuggestionOnEnter": "on",
                 "editor.codeActionsOnSave": {
+                    "source.organizeImports": "true",
                     "source.organizeImports": true,
                     "source.fixAll": true,
                     "source.fixAll.eslint": true
@@ -177,5 +178,10 @@
         "/bin/bash",
         "-c",
         "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
+    ],
+    "postSaveCommand": [
+        "/bin/bash",
+        "-c",
+        "if [ \"$CODE_FILE\" != \"\" ]; then black $CODE_FILE; fi"
     ]
 }

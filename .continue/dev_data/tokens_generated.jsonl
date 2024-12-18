@@ -1,1 +1,4 @@
 {"model":"qwen2.5-coder:7b","provider":"ollama","promptTokens":252,"generatedTokens":370}
+{"model":"qwen2.5-coder:7b","provider":"ollama","promptTokens":3733,"generatedTokens":486}
+{"model":"qwen2.5-coder:7b","provider":"ollama","promptTokens":456,"generatedTokens":5}
+{"model":"qwen2.5-coder:7b","provider":"ollama","promptTokens":4287,"generatedTokens":2581}

@@ -104,3 +104,8 @@
 {"model":"qwen2.5:latest","provider":"ollama","promptTokens":3017,"generatedTokens":2601}
 {"model":"qwen2.5:latest","provider":"ollama","promptTokens":4275,"generatedTokens":814}
 {"model":"qwen2.5:latest","provider":"ollama","promptTokens":4597,"generatedTokens":244}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":5555,"generatedTokens":1194}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":1389,"generatedTokens":8}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4874,"generatedTokens":1048}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":1389,"generatedTokens":8}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":3197,"generatedTokens":2686}

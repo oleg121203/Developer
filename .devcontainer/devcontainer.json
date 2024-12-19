@@ -32,34 +32,10 @@
                     "linkedEditing": true,
                     "stickyScroll.enabled": true,
                     "guides.bracketPairs": true,
-                    "bracketPairColorization.enabled": true,
-                    "suggest": {
-                        "snippetsPreventQuickSuggestions": false,
-                        "insertMode": "replace",
-                        "showMethods": true,
-                        "showFunctions": true,
-                        "showVariables": true,
-                        "showClasses": true,
-                        "filterGraceful": true,
-                        "shareSuggestSelections": true,
-                        "showStatusBar": true,
-                        "preview": true
-                    },
-                    "formatOnSaveMode": "modifications",
-                    "showProgress": true,
-                    "renderWhitespace": "selection",
-                    "minimap": {
-                        "enabled": true,
-                        "renderCharacters": false,
-                        "showSlider": "always",
-                        "maxColumn": 120
-                    },
-                    "guides": {
-                        "bracketPairs": true,
-                        "highlightActiveBracketPair": true,
-                        "indentation": true,
-                        "highlightActiveIndentation": true
-                    }
+                    "highlightActiveBracketPair": true,
+                    "indentation": true,
+                    "highlightActiveIndentation": true,
+                    "bracketPairColorization.enabled": true
                 },
                 "files.autoSave": "afterDelay",
                 "files.autoSaveDelay": 15000,
@@ -154,24 +130,35 @@
                 "workbench.editor.showTabs": true,
                 "workbench.statusBar.visible": true,
                 "workbench.colorCustomizations": {
-                    "editor.foreground": "#000000", // Змінює колір тексту в редакторі
-                    "statusBar.panelBackground": "#4A4A4A", // Змінює фон статус-бару панелей
-                    "editor.lineHighlightBackground": "#d417e12d"
+                    // Видалення білого фону
+                    // "editor.background": "#FFFFFF",
+
+                    // Динамічне встановлення кольору тексту редактора
+                    "--vscode-editor-foreground": "var(--vscode-editor-foreground)",
+
+                    // Динамічне встановлення фону статус-бару панелей
+                    "--vscode-status-bar-background": "var(--vscode-status-bar-background)"
+                },
+                "files.associations": {
+                    "*.py": "magicpython",
+                    "*.yaml": "yaml",
+                    "*.yml": "yaml"
                 }
             },
             "extensions": [
-                "ms-python.python",
-                "ms-azuretools.vscode-docker",
-                "batisteo.vscode-django",
-                "dbaeumer.vscode-eslint",
-                "github.copilot",
-                "github.copilot-chat",
-                "eamodio.gitlens",
-                "ms-vscode-remote.remote-ssh",
-                "ms-vscode-remote.remote-ssh-edit",
-                "ms-vscode-remote.remote-explorer",
-                "github.vscode-pull-request-github",
-                "redhat.vscode-yaml",
+                "ms-python.python@2023.20.0",
+                "ms-azuretools.vscode-docker@1.26.0",
+                "batisteo.vscode-django@1.14.0",
+                "dbaeumer.vscode-eslint@2.4.2",
+                "github.copilot@1.105.353",
+                "github.copilot-chat@0.8.0",
+                "eamodio.gitlens@14.3.0",
+                "ms-vscode-remote.remote-ssh@0.102.0",
+                "ms-vscode-remote.remote-ssh-edit@0.86.0",
+                "ms-vscode-remote.remote-explorer@0.4.0",
+                "github.vscode-pull-request-github@0.66.1",
+                "redhat.vscode-yaml@1.15.0",
+                "magicstack.MagicPython@1.1.0",
                 "GitHub.vscode-pull-request-github-actions",
                 "continue.continue",
                 "saoudrizwan.claude-dev",

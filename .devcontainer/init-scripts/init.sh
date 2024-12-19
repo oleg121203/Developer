@@ -16,12 +16,12 @@ log() {
 
 echo "=== Starting container initialization ==="
 
-# Установка прав на выполнение всех скриптов
+# Ensure execution permissions on all scripts in init-scripts folder
 find .devcontainer/init-scripts -name "*.sh" -exec chmod +x {} \;
 
-# Запуск permissions.sh
+# Run permissions.sh
 log "Running permissions.sh..."
-.devcontainer/init-scripts/permissions.sh || { log "permissions.sh failed"; exit 1; }
+./.devcontainer/init-scripts/permissions.sh || { log "permissions.sh failed"; exit 1; }
 
 # Git configuration
 log "Configuring Git..."
@@ -32,9 +32,9 @@ git config --global pull.rebase true
 git config --global push.autoSetupRemote true
 git config --global push.default current
 
-# Запуск check_git_config.sh
+# Run check_git_config.sh
 log "Running check_git_config.sh..."
-.devcontainer/init-scripts/check_git_config.sh || { log "check_git_config.sh failed"; exit 1; }
+./.devcontainer/init-scripts/check_git_config.sh || { log "check_git_config.sh failed"; exit 1; }
 
 # Save current branch if repository exists
 CURRENT_BRANCH=""
@@ -46,17 +46,17 @@ fi
 # Create directories
 mkdir -p ~/.gnupg ~/.ssh
 
-# Настройка Python окружения
-log "Настраиваем Python окружение..."
-python3 -m venv .venv || { log "Предупреждение: не удалось создать виртуальное окружение"; }
+# Setup Python environment
+log "Setting up Python environment..."
+python3 -m venv .venv || { log "Warning: Failed to create virtual environment"; }
 if [ -f .venv/bin/activate ]; then
     source .venv/bin/activate
-    # Обновление pip до последней версии
-    python3 -m pip install --upgrade pip || { log "Ошибка: не удалось обновить pip"; exit 1; }
-    pip install --upgrade setuptools wheel || { log "Предупреждение: не удалось обновить setuptools и wheel"; }
+    # Upgrade pip and install dependencies
+    python3 -m pip install --upgrade pip || { log "Warning: Failed to upgrade pip"; exit 1; }
+    pip install --upgrade setuptools wheel || { log "Warning: Failed to upgrade setuptools and wheel"; }
     if [ -f requirements.txt ]; then
-        log "Устанавливаем зависимости из requirements.txt..."
-        pip install -r requirements.txt || { log "Ошибка: не удалось установить зависимости"; exit 1; }
+        log "Installing dependencies from requirements.txt..."
+        pip install -r requirements.txt || { log "Error: Failed to install dependencies"; exit 1; }
     fi
 fi
 
@@ -70,14 +70,14 @@ echo "keyserver hkps://keys.openpgp.org" > ~/.gnupg/gpg.conf
 mkdir -p ~/.gnupg
 chmod 700 ~/.gnupg
 
-# Базовая конфигурация GPG
+# Base GPG configuration
 cat > ~/.gnupg/gpg.conf <<EOF
 use-agent
 pinentry-mode loopback
 no-tty
 EOF
 
-# Конфигурация GPG агента
+# Configure GPG agent
 cat > ~/.gnupg/gpg-agent.conf <<EOF
 allow-loopback-pinentry
 enable-ssh-support
@@ -86,11 +86,11 @@ default-cache-ttl 34560000
 max-cache-ttl 34560000
 EOF
 
-# Перезапуск GPG агента
+# Restart GPG agent
 gpgconf --kill all
 gpg-agent --daemon --allow-loopback-pinentry
 
-# Установка переменных окружения
+# Set GPG environment variables
 export GPG_TTY=$(tty)
 echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
 
@@ -107,7 +107,7 @@ install_packages() {
 # Install required packages safely
 install_packages gnupg2 pinentry-tty gpg-agent rng-tools haveged
 
-# Создание нового ключа если не существует
+# Generate new GPG key if it doesn't exist
 if ! gpg --list-secret-keys --keyid-format=long | grep -q "oleg1203@gmail.com"; then
     # Check for existing backup
     if [ -d "$HOME/.gnupg.bak" ]; then
@@ -131,7 +131,7 @@ EOF
     fi
 fi
 
-# Настройка Git для использования GPG
+# Configure Git to use GPG
 KEY_ID=$(gpg --list-secret-keys --keyid-format=long | grep sec | head -n 1 | cut -d'/' -f2 | cut -d' ' -f1)
 if [ ! -z "$KEY_ID" ]; then
     git config --global user.signingkey "$KEY_ID"
@@ -139,15 +139,13 @@ if [ ! -z "$KEY_ID" ]; then
     git config --global gpg.program $(which gpg)
 fi
 
-# Тест подписи
-log "test" | gpg --clearsign || log "GPG test signing failed"
+# Test GPG signing
+log "Testing GPG signing..."
+echo "test" | gpg --clearsign || log "GPG test signing failed"
 
 # Add more entropy
 sudo apt-get update && sudo apt-get install -y rng-tools haveged || true
 sudo service haveged start || true
-
-echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
-gpgconf --kill gpg-agent
 
 # Setup Git hooks
 log "Setting up Git hooks..."
@@ -218,18 +216,18 @@ check_ollama() {
     fi
 }
 
-# Запуск model.py в фоновому режимі
-log "Запускаємо model.py..."
-nohup python3 /workspace/model.py > /tmp/model.log 2>&1 & 
+# Run model.py in background
+log "Starting model.py..."
+nohup python3 /workspace/model.py > /tmp/model.log 2>&1 &
 MODEL_PID=$!
-log "model.py запущений в фоновому режимі (PID: $MODEL_PID)"
+log "model.py started (PID: $MODEL_PID)"
 
-# Перевірка запуску model.py
+# Check if model.py is running
 sleep 5
 if ps -p $MODEL_PID > /dev/null; then
-    log "model.py успішно працює"
+    log "model.py is running"
 else
-    log "Помилка: model.py не вдалося запустити"
+    log "Error: model.py failed to start"
     exit 1
 fi
 
@@ -240,3 +238,16 @@ fi
 
 log "=== Container initialization complete ==="
 exit 0
+Основ
+
+
+
+
+
+
+
+
+Qwen 2.5
+⌘⏎ @codebase
+
+⏎

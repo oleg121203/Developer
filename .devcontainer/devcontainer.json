@@ -1,44 +1,79 @@
 {
     "name": "Python 3",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-    "workspaceFolder": "/workspace",
     "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
     "remoteUser": "vscode",
     "updateRemoteUserUID": true,
     "containerUser": "vscode",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+    "workspaceFolder": "/workspace",
     "remoteEnv": {
         "GIT_SSH_COMMAND": "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null",
         "SYNC_LOCALHOST_KUBECONFIG": "true",
         "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
-        "VIRTUAL_ENV_PROMPT": "($$$) ",
+        "VIRTUAL_ENV_PROMPT": "(dev) ",
         "SHELL": "/bin/bash",
         "GPG_TTY": "/dev/pts/0",
         "GNUPGHOME": "/home/vscode/.gnupg",
         "SSH_AUTH_SOCK": "/run/host-services/ssh-auth.sock",
         "GPG_KEY": "oleg1203@gmail.com"
     },
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+        "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
+    ],
+    "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
+    "postCreateCommand": [
+        "sh",
+        "-c",
+        "export PATH=/custom/python/installation/bin:$PATH && \
+        which python3 && python3 --version && \
+        which pip3 && pip3 --version && \
+        sudo chown -R vscode:vscode /home/vscode && \
+        sudo chmod 700 /home/vscode/.ssh /home/vscode/.gnupg /home/vscode/.continue && \
+        sudo chown -R vscode:vscode /workspace && \
+        sudo chmod 755 /workspace && \
+        /bin/bash /workspace/.devcontainer/init-scripts/init.sh"
+    ],
+    "onCreateCommand": "sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent",
+    "postStartCommand": [
+        "/bin/bash",
+        "-c",
+        "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
+    ],
+    "postSaveCommand": [
+        "/bin/bash",
+        "-c",
+        "if [ \"$CODE_FILE\" != \"\" ]; then black $CODE_FILE; fi"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": true
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "upgradePackages": true,
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000"
+        },
+        "ghcr.io/devcontainers/features/python:1": "none"
+    },
+    "settingsSync": {
+        "configuration": true,
+        "fileAssociations": false,
+        "ignore": [
+            "*.pyc",
+            "**/node_modules/**"
+        ],
+        "proxy": false
+    },
     "customizations": {
         "vscode": {
             "settings": {
-                "editor": {
-                    "codeActionsOnSave": {
-                        "source.organizeImports": true,
-                        "source.fixAll": true
-                    },
-                    "formatOnSave": true,
-                    "formatOnType": true,
-                    "formatOnPaste": true,
-                    "defaultFormatter": "ms-python.black-formatter",
-                    "linkedEditing": true,
-                    "stickyScroll.enabled": true,
-                    "guides.bracketPairs": true,
-                    "highlightActiveBracketPair": true,
-                    "indentation": true,
-                    "highlightActiveIndentation": true,
-                    "bracketPairColorization.enabled": true
-                },
-                "files.autoSave": "afterDelay",
-                "files.autoSaveDelay": 15000,
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
                 "python.formatting.provider": "black",
                 "python.formatting.blackArgs": [
                     "--line-length",
@@ -95,6 +130,7 @@
                 "editor.inlineSuggest.enabled": true,
                 "editor.suggest.preview": true,
                 "editor.suggest.showStatusBar": true,
+                "editor.formatOnSave": true,
                 "extensions.autoUpdate": true,
                 "extensions.autoCheckUpdates": true,
                 "git.autofetch": true,
@@ -130,46 +166,39 @@
                 "workbench.editor.showTabs": true,
                 "workbench.statusBar.visible": true,
                 "workbench.colorCustomizations": {
-                    // Видалення білого фону
-                    // "editor.background": "#FFFFFF",
-
-                    // Динамічне встановлення кольору тексту редактора
                     "--vscode-editor-foreground": "var(--vscode-editor-foreground)",
-
-                    // Динамічне встановлення фону статус-бару панелей
                     "--vscode-status-bar-background": "var(--vscode-status-bar-background)"
                 },
                 "files.associations": {
-                    "*.py": "magicpython",
+                    "*.py": "python",
                     "*.yaml": "yaml",
                     "*.yml": "yaml"
                 }
             },
             "extensions": [
-                "ms-python.python@2023.20.0",
-                "ms-azuretools.vscode-docker@1.26.0",
-                "batisteo.vscode-django@1.14.0",
-                "dbaeumer.vscode-eslint@2.4.2",
-                "github.copilot@1.105.353",
-                "github.copilot-chat@0.8.0",
-                "eamodio.gitlens@14.3.0",
-                "ms-vscode-remote.remote-ssh@0.102.0",
-                "ms-vscode-remote.remote-ssh-edit@0.86.0",
-                "ms-vscode-remote.remote-explorer@0.4.0",
-                "github.vscode-pull-request-github@0.66.1",
-                "redhat.vscode-yaml@1.15.0",
-                "magicstack.MagicPython@1.1.0",
-                "GitHub.vscode-pull-request-github-actions",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.black-formatter",
+                "ms-python.isort",
+                "ms-python.autopep8",
+                "ms-python.flake8",
+                "ms-azuretools.vscode-docker",
+                "batisteo.vscode-django",
+                "dbaeumer.vscode-eslint",
+                "github.copilot",
+                "github.copilot-chat",
+                "eamodio.gitlens",
+                "ms-vscode-remote.remote-ssh",
+                "ms-vscode-remote.remote-ssh-edit",
+                "ms-vscode-remote.remote-explorer",
+                "github.vscode-pull-request-github",
+                "redhat.vscode-yaml",
+                "GitHub.vscode-github-actions",
                 "continue.continue",
                 "saoudrizwan.claude-dev",
                 "ryanluker.vscode-coverage-gutters",
-                "magicstack.MagicPython",
-                "ms-python.vscode-pylance",
-                "ms-python.debugpy",
-                "ms-python.black-formatter",
-                "ms-python.isort",
-                "ms-python.flake8",
-                "ms-python.autopep8"
+                "GitHub.copilot-chat",
+                "GitHub.copilot"
             ]
         }
     },
@@ -177,42 +206,6 @@
         "9000": {
             "label": "Hello Remote World",
             "onAutoForward": "notify"
-        }
-    },
-    "initializeCommand": [
-        "/bin/bash",
-        "-c",
-        "mkdir -p ${localWorkspaceFolder}/.continue"
-    ],
-    "mounts": [
-        "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
-        "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached"
-    ],
-    "bindMounts": [
-        {
-            "source": "${localEnv:HOME}/.gnupg",
-            "target": "/home/vscode/.gnupg",
-            "type": "bind",
-            "consistency": "cached"
-        },
-        {
-            "source": "${localWorkspaceFolder}/.continue",
-            "target": "/home/vscode/.continue",
-            "type": "bind",
-            "consistency": "cached"
-        }
-    ],
-    "features": {
-        "ghcr.io/devcontainers/features/git:1": {
-            "version": "latest",
-            "ppa": true
-        },
-        "ghcr.io/devcontainers/features/github-cli:1": {},
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": true,
-            "upgradePackages": true,
-            "username": "vscode"
         }
     }
 }

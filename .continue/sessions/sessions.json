@@ -118,5 +118,47 @@
     "title": "Improve documentation, error handling",
     "dateCreated": "1734568058974",
     "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "81364bf4-76e1-4ab9-a170-ea81d38186c7",
+    "title": "Improve documentation, error handling",
+    "dateCreated": "1734568771590",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "63856559-f174-4156-af49-63503694f999",
+    "title": "Перевірте л",
+    "dateCreated": "1734568879394",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "bb31c6a3-52fa-4be8-a7e0-8fce1a8397d7",
+    "title": "Діагностика проблеми",
+    "dateCreated": "1734573435542",
+    "workspaceDirectory": "/workspaces/EVOLUTION"
+  },
+  {
+    "sessionId": "e67044fc-0564-442d-b747-50127063ff40",
+    "title": "Вирішення помил",
+    "dateCreated": "1734573458816",
+    "workspaceDirectory": "/workspaces/EVOLUTION"
+  },
+  {
+    "sessionId": "4cb9c00b-816c-458a-b6ee-f48a14f7d07a",
+    "title": "Fixing postCreateCommand in",
+    "dateCreated": "1734578966402",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "435181c8-70d7-44f4-a410-159d1724cb1c",
+    "title": "Fixing postCreateCommand property",
+    "dateCreated": "1734579820066",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "c34ebaaf-4a46-4a7f-aed9-e38915880b3d",
+    "title": "Fixing devcontainer.json and",
+    "dateCreated": "1734579831013",
+    "workspaceDirectory": "/workspace"
   }
 ]

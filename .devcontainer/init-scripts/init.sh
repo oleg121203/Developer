@@ -238,16 +238,3 @@ fi
 
 log "=== Container initialization complete ==="
 exit 0
-Основ
-
-
-
-
-
-
-
-
-Qwen 2.5
-⌘⏎ @codebase
-
-⏎

@@ -1,0 +1,891 @@
+{
+  "sessionId": "cdb919f7-c174-4eb7-8b83-18000f0479ff",
+  "title": "Fixing devcontainer.json and",
+  "workspaceDirectory": "/workspace",
+  "history": [
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "devcontainer.json /usr/local/bin/python3\nPython 3.12.8\n/usr/local/bin/pip3\npip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)\n/workspace/.devcontainer/init-scripts/init.sh: line 1: No: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 5: Aa: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 7: @devcontainer.json: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 10: Qwen: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 11: ⌘⏎: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 13: ⏎: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 14: 2: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 15: Для: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 17: Перевірте: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 212: log: command not found\n-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA512\ntest\n-----BEGIN PGP SIGNATURE-----\niQIzBAEBCgAdFiEEFABnT11uO/lCbaOnnuPicVxed+sFAmdjliAACgkQnuPicVxe\nd+tgFg/+O98qkpCGaAA8vuFLAn5AQYNtjdJ9mMV7LUAA6TpLtgKFgLI4Tth4Z9KG\nKfGJqyNC0FxwnpEx5l+VsAakvof0jjsmH1rc01obp8ZrJr+Xi3PtYf1UyiiNhKi7\nevVbhsu8Kec7WJoML6nUgq4iC85yKAYX1FlU29k5zBmXkQntYvmyk8R9NcIrjFKA\nwfB2ngJYMgqXyC0jKfImpN3M2gcpdacri3xm5pSmqkaUJ2Wz02CUq/qtOg3QmeSS\nKqCat/+RJ59B6kKv6h/o1B5Xl3dItFLQIU5ed18athS4cEfh3+tSCKugKD059xSj\nPzZy7AlQ4gCdt71zFIN+txGSuZquEpEf2tQ8YJsdwOr5YpGoFquVevstq4jDnfFT\nDVwo8X/hqCLAYu5Fl+PPkw3amFg27Xf0Ua5ZoS73JBDL1r8Fx8SKQEooJfYZaGbk\nwOzKLLjai8Lvcy2sgJd1Zb97YQMlX1Wf9HFMyDvUJ3rOyLbl+kOEK01etW2JcasI\nlKoEFwbVYG8gmDYkb0OUmkhB8+nXeViY7zuwUR44M3rpcKOw1MHRjk8glXMRXkh0\nRWmp0EhItY56VrS9BOY6xoGW5b8IRIbf8HZ8qLY+YmbDUSu0Tt2q7JbGqfm3D6cF\nu5kE5XDW+bIiFA7zbAp7A8sfeHkdklu6KkUS5Z+vUHNwZSfJY9o=\n=2eqd\n-----END PGP SIGNATURE-----\nHit:1 https://dl.yarnpkg.com/debian stable InRelease\nHit:2 http://deb.debian.org/debian bookworm InRelease       \nHit:3 http://deb.debian.org/debian bookworm-updates InRelease\nHit:4 http://deb.debian.org/debian-security bookworm-security InRelease\nReading package lists... Done\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\nNote, selecting 'rng-tools-debian' instead of 'rng-tools'\nThe following additional packages will be installed:\nlibhavege2 libkmod2 udev\nSuggested packages:\napparmor\nThe following NEW packages will be installed:\nhaveged libhavege2 libkmod2 rng-tools-debian udev\n0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.\nNeed to get 1856 kB of archives.\nAfter this operation, 11.4 MB of additional disk space will be used.\nGet:1 http://deb.debian.org/debian bookworm/main amd64 libhavege2 amd64 1.9.14-1+b1 [25.0 kB]\nGet:2 http://deb.debian.org/debian bookworm/main amd64 haveged amd64 1.9.14-1+b1 [37.4 kB]\nGet:3 http://deb.debian.org/debian bookworm/main amd64 libkmod2 amd64 30+20221128-1 [57.9 kB]\nGet:4 http://deb.debian.org/debian bookworm/main amd64 udev amd64 252.31-1~deb12u1 [1688 kB]\nGet:5 http://deb.debian.org/debian bookworm/main amd64 rng-tools-debian amd64 2.3 [48.3 kB]\nFetched 1856 kB in 0s (5257 kB/s)          \nSelecting previously unselected package libhavege2:amd64.\n(Reading database ... 29883 files and directories currently installed.)\nPreparing to unpack .../libhavege2_1.9.14-1+b1_amd64.deb ...\nUnpacking libhavege2:amd64 (1.9.14-1+b1) ...\nSelecting previously unselected package haveged.\nPreparing to unpack .../haveged_1.9.14-1+b1_amd64.deb ...\nUnpacking haveged (1.9.14-1+b1) ...\nSelecting previously unselected package libkmod2:amd64.\nPreparing to unpack .../libkmod2_30+20221128-1_amd64.deb ...\nUnpacking libkmod2:amd64 (30+20221128-1) ...\nSelecting previously unselected package udev.\nPreparing to unpack .../udev_252.31-1~deb12u1_amd64.deb ...\nUnpacking udev (252.31-1~deb12u1) ...\nSelecting previously unselected package rng-tools-debian.\nPreparing to unpack .../rng-tools-debian_2.3_amd64.deb ...\nUnpacking rng-tools-debian (2.3) ...\nSetting up libhavege2:amd64 (1.9.14-1+b1) ...\nSetting up libkmod2:amd64 (30+20221128-1) ...\nSetting up haveged (1.9.14-1+b1) ...\ninvoke-rc.d: could not determine current runlevel\ninvoke-rc.d: policy-rc.d denied execution of start.\nSetting up udev (252.31-1~deb12u1) ...\nA chroot environment has been detected, udev not started.\nSetting up rng-tools-debian (2.3) ...\ninvoke-rc.d: could not determine current runlevel\ninvoke-rc.d: policy-rc.d denied execution of start.\nProcessing triggers for man-db (2.11.2-2) ...\nProcessing triggers for libc-bin (2.36-9+deb12u9) ...\nhaveged: command socket is listening at fd 3\n/workspace/.devcontainer/init-scripts/init.sh: line 220: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 289: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 292: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 299: log: command not found\n[130122 ms] postCreateCommand failed with exit code 1. Skipping any further user-provided commands.\nГотово. Нажмите любую клавишу, чтобы закрыть терминал."
+          }
+        ],
+        "id": "ec79dd42-e719-497a-80a5-b072f3e58cf6"
+      },
+      "contextItems": [
+        {
+          "name": "devcontainer.json",
+          "description": "/workspace/.devcontainer/devcontainer.json",
+          "content": "```/workspace/.devcontainer/devcontainer.json\n{\n    \"name\": \"Python 3\",\n    \"image\": \"mcr.microsoft.com/devcontainers/python:1-3.12\",\n    \"remoteUser\": \"vscode\",\n    \"updateRemoteUserUID\": true,\n    \"containerUser\": \"vscode\",\n    \"workspaceMount\": \"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached\",\n    \"workspaceFolder\": \"/workspace\",\n    \"remoteEnv\": {\n        \"GIT_SSH_COMMAND\": \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\",\n        \"SYNC_LOCALHOST_KUBECONFIG\": \"true\",\n        \"LOCAL_WORKSPACE_FOLDER\": \"${localWorkspaceFolder}\",\n        \"VIRTUAL_ENV_PROMPT\": \"(dev) \",\n        \"SHELL\": \"/bin/bash\",\n        \"GPG_TTY\": \"/dev/pts/0\",\n        \"GNUPGHOME\": \"/home/vscode/.gnupg\",\n        \"SSH_AUTH_SOCK\": \"/run/host-services/ssh-auth.sock\",\n        \"GPG_KEY\": \"oleg1203@gmail.com\"\n    },\n    \"mounts\": [\n        \"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached\",\n        \"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached\",\n        \"source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached\"\n    ],\n    \"initializeCommand\": \"mkdir -p ${localWorkspaceFolder}/.continue\",\n    \"postCreateCommand\": [\n        \"sh\",\n        \"-c\",\n        \"export PATH=/custom/python/installation/bin:$PATH && \\\n        which python3 && python3 --version && \\\n        which pip3 && pip3 --version && \\\n        sudo chown -R vscode:vscode /home/vscode && \\\n        sudo chmod 700 /home/vscode/.ssh /home/vscode/.gnupg /home/vscode/.continue && \\\n        sudo chown -R vscode:vscode /workspace && \\\n        sudo chmod 755 /workspace && \\\n        /bin/bash /workspace/.devcontainer/init-scripts/init.sh\"\n    ],\n    \"onCreateCommand\": \"sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent\",\n    \"postStartCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'\"\n    ],\n    \"postSaveCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"if [ \\\"$CODE_FILE\\\" != \\\"\\\" ]; then black $CODE_FILE; fi\"\n    ],\n    \"features\": {\n        \"ghcr.io/devcontainers/features/git:1\": {\n            \"version\": \"latest\",\n            \"ppa\": true\n        },\n        \"ghcr.io/devcontainers/features/github-cli:1\": {},\n        \"ghcr.io/devcontainers/features/common-utils:2\": {\n            \"installZsh\": true,\n            \"upgradePackages\": true,\n            \"username\": \"vscode\",\n            \"userUid\": \"1000\",\n            \"userGid\": \"1000\"\n        },\n        \"ghcr.io/devcontainers/features/python:1\": \"none\"\n    },\n    \"settingsSync\": {\n        \"configuration\": true,\n        \"fileAssociations\": false,\n        \"ignore\": [\n            \"*.pyc\",\n            \"**/node_modules/**\"\n        ],\n        \"proxy\": false\n    },\n    \"customizations\": {\n        \"vscode\": {\n            \"settings\": {\n                \"python.defaultInterpreterPath\": \"/usr/local/bin/python\",\n                \"python.formatting.provider\": \"black\",\n                \"python.formatting.blackArgs\": [\n                    \"--line-length\",\n                    \"88\"\n                ],\n                \"python.linting.enabled\": true,\n                \"python.linting.pylintEnabled\": true,\n                \"python.linting.flake8Enabled\": true,\n                \"python.linting.flake8Args\": [\n                    \"--max-line-length=88\",\n                    \"--ignore=E203,W503\"\n                ],\n                \"python.sortImports.args\": [\n                    \"--profile\",\n                    \"black\"\n                ],\n                \"python.sortImports.path\": \"${workspaceFolder}/.venv/bin/isort\",\n                \"python.sortImports.organizeImports\": true,\n                \"python.analysis.languageServerMode\": \"default\",\n                \"python.analysis.indexing\": true,\n                \"python.analysis.autoImportCompletions\": true,\n                \"python.analysis.autoSearchPaths\": true,\n                \"python.analysis.completeFunctionParens\": true,\n                \"python.analysis.typeCheckingMode\": \"basic\",\n                \"python.testing.pytestEnabled\": true,\n                \"python.testing.unittestEnabled\": false,\n                \"python.testing.autoTestDiscoverOnSaveEnabled\": true,\n                \"python.testing.autoTestLaunchType\": \"background\",\n                \"python.testing.autoTestLaunchArgs\": [\n                    \"--disable-warnings\",\n                    \"--show-capture=stdout\"\n                ],\n                \"python.testing.autoTestLaunchPythonArgs\": [\n                    \"-m\",\n                    \"pytest\"\n                ],\n                \"python.testing.pytestArgs\": [\n                    \"--cov=.\",\n                    \"--cov-report=xml\",\n                    \"-v\"\n                ],\n                \"coverage-gutters.showGutterCoverage\": true,\n                \"coverage-gutters.showLineCoverage\": true,\n                \"coverage-gutters.showRulerCoverage\": true,\n                \"editor.suggestSelection\": \"recentlyUsed\",\n                \"editor.tabCompletion\": \"on\",\n                \"editor.acceptSuggestionOnCommitCharacter\": true,\n                \"editor.acceptSuggestionOnEnter\": \"smart\",\n                \"editor.quickSuggestions\": {\n                    \"other\": \"on\",\n                    \"comments\": \"on\",\n                    \"strings\": \"on\"\n                },\n                \"editor.inlineSuggest.enabled\": true,\n                \"editor.suggest.preview\": true,\n                \"editor.suggest.showStatusBar\": true,\n                \"editor.formatOnSave\": true,\n                \"extensions.autoUpdate\": true,\n                \"extensions.autoCheckUpdates\": true,\n                \"git.autofetch\": true,\n                \"git.confirmSync\": false,\n                \"git.enableCommitSigning\": true,\n                \"git.postCommitCommand\": \"push\",\n                \"git.enableSmartCommit\": true,\n                \"git.autoStash\": true,\n                \"git.autoSync\": true,\n                \"git.name\": \"Oleg Kizyma\",\n                \"git.email\": \"oleg1203@gmail.com\",\n                \"update.mode\": \"default\",\n                \"update.channel\": \"insiders\",\n                \"remote.extensionKind\": {\n                    \"*\": [\n                        \"workspace\"\n                    ]\n                },\n                \"dev.containers.defaultExtensions\": [],\n                \"dev.containers.copyGitConfig\": false,\n                \"dev.containers.gitCredentialsHelper\": \"cache\",\n                \"dev.containers.workspaceMountConsistency\": \"cached\",\n                \"github.copilot.includeFilePatterns\": [],\n                \"continue.includeFilePatterns\": [],\n                \"terminal.integrated.tabs.title\": \"${process}${separator}${sequence}\",\n                \"terminal.integrated.tabs.description\": \"${task}${separator}${local}${separator}${cwd}\",\n                \"terminal.integrated.tabs.separator\": \" - \",\n                \"terminal.integrated.defaultProfile.linux\": \"bash\",\n                \"terminal.integrated.shellIntegration.decorationsEnabled\": true,\n                \"terminal.integrated.shellIntegration.enabled\": true,\n                \"terminal.integrated.fontSize\": 12,\n                \"terminal.integrated.fontFamily\": \"Menlo, Monaco, 'Courier New', monospace\",\n                \"workbench.editor.showTabs\": true,\n                \"workbench.statusBar.visible\": true,\n                \"workbench.colorCustomizations\": {\n                    \"--vscode-editor-foreground\": \"var(--vscode-editor-foreground)\",\n                    \"--vscode-status-bar-background\": \"var(--vscode-status-bar-background)\"\n                },\n                \"files.associations\": {\n                    \"*.py\": \"python\",\n                    \"*.yaml\": \"yaml\",\n                    \"*.yml\": \"yaml\"\n                }\n            },\n            \"extensions\": [\n                \"ms-python.python\",\n                \"ms-python.vscode-pylance\",\n                \"ms-python.black-formatter\",\n                \"ms-python.isort\",\n                \"ms-python.autopep8\",\n                \"ms-python.flake8\",\n                \"ms-azuretools.vscode-docker\",\n                \"batisteo.vscode-django\",\n                \"dbaeumer.vscode-eslint\",\n                \"github.copilot\",\n                \"github.copilot-chat\",\n                \"eamodio.gitlens\",\n                \"ms-vscode-remote.remote-ssh\",\n                \"ms-vscode-remote.remote-ssh-edit\",\n                \"ms-vscode-remote.remote-explorer\",\n                \"github.vscode-pull-request-github\",\n                \"redhat.vscode-yaml\",\n                \"GitHub.vscode-github-actions\",\n                \"continue.continue\",\n                \"saoudrizwan.claude-dev\",\n                \"ryanluker.vscode-coverage-gutters\",\n                \"GitHub.copilot-chat\",\n                \"GitHub.copilot\"\n            ]\n        }\n    },\n    \"portsAttributes\": {\n        \"9000\": {\n            \"label\": \"Hello Remote World\",\n            \"onAutoForward\": \"notify\"\n        }\n    }\n}\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/.devcontainer/devcontainer.json"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "e28e7580-40db-4311-a94f-e82b5da4246a"
+          }
+        }
+      ],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/.devcontainer/devcontainer.json",
+                  "label": "devcontainer.json",
+                  "renderInlineAs": null,
+                  "query": "/workspace/.devcontainer/devcontainer.json",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " /usr/local/bin/python3"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Python 3.12.8"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/usr/local/bin/pip3"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "pip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 1: No: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 5: Aa: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 7: @devcontainer.json: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 10: Qwen: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 11: ⌘⏎: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 13: ⏎: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 14: 2: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 15: Для: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 17: Перевірте: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 212: log: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-----BEGIN PGP SIGNED MESSAGE-----"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hash: SHA512"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "test"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-----BEGIN PGP SIGNATURE-----"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "iQIzBAEBCgAdFiEEFABnT11uO/lCbaOnnuPicVxed+sFAmdjliAACgkQnuPicVxe"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "d+tgFg/+O98qkpCGaAA8vuFLAn5AQYNtjdJ9mMV7LUAA6TpLtgKFgLI4Tth4Z9KG"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "KfGJqyNC0FxwnpEx5l+VsAakvof0jjsmH1rc01obp8ZrJr+Xi3PtYf1UyiiNhKi7"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "evVbhsu8Kec7WJoML6nUgq4iC85yKAYX1FlU29k5zBmXkQntYvmyk8R9NcIrjFKA"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "wfB2ngJYMgqXyC0jKfImpN3M2gcpdacri3xm5pSmqkaUJ2Wz02CUq/qtOg3QmeSS"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "KqCat/+RJ59B6kKv6h/o1B5Xl3dItFLQIU5ed18athS4cEfh3+tSCKugKD059xSj"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PzZy7AlQ4gCdt71zFIN+txGSuZquEpEf2tQ8YJsdwOr5YpGoFquVevstq4jDnfFT"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "DVwo8X/hqCLAYu5Fl+PPkw3amFg27Xf0Ua5ZoS73JBDL1r8Fx8SKQEooJfYZaGbk"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "wOzKLLjai8Lvcy2sgJd1Zb97YQMlX1Wf9HFMyDvUJ3rOyLbl+kOEK01etW2JcasI"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "lKoEFwbVYG8gmDYkb0OUmkhB8+nXeViY7zuwUR44M3rpcKOw1MHRjk8glXMRXkh0"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "RWmp0EhItY56VrS9BOY6xoGW5b8IRIbf8HZ8qLY+YmbDUSu0Tt2q7JbGqfm3D6cF"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "u5kE5XDW+bIiFA7zbAp7A8sfeHkdklu6KkUS5Z+vUHNwZSfJY9o="
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "=2eqd"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-----END PGP SIGNATURE-----"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hit:1 https://dl.yarnpkg.com/debian stable InRelease"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hit:2 http://deb.debian.org/debian bookworm InRelease       "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hit:3 http://deb.debian.org/debian bookworm-updates InRelease"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Hit:4 http://deb.debian.org/debian-security bookworm-security InRelease"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Reading package lists... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Reading package lists... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Building dependency tree... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Reading state information... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Note, selecting 'rng-tools-debian' instead of 'rng-tools'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The following additional packages will be installed:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  libhavege2 libkmod2 udev"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Suggested packages:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  apparmor"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "The following NEW packages will be installed:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  haveged libhavege2 libkmod2 rng-tools-debian udev"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Need to get 1856 kB of archives."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "After this operation, 11.4 MB of additional disk space will be used."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Get:1 http://deb.debian.org/debian bookworm/main amd64 libhavege2 amd64 1.9.14-1+b1 [25.0 kB]"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Get:2 http://deb.debian.org/debian bookworm/main amd64 haveged amd64 1.9.14-1+b1 [37.4 kB]"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Get:3 http://deb.debian.org/debian bookworm/main amd64 libkmod2 amd64 30+20221128-1 [57.9 kB]"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Get:4 http://deb.debian.org/debian bookworm/main amd64 udev amd64 252.31-1~deb12u1 [1688 kB]"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Get:5 http://deb.debian.org/debian bookworm/main amd64 rng-tools-debian amd64 2.3 [48.3 kB]"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Fetched 1856 kB in 0s (5257 kB/s)          "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Selecting previously unselected package libhavege2:amd64."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "(Reading database ... 29883 files and directories currently installed.)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preparing to unpack .../libhavege2_1.9.14-1+b1_amd64.deb ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Unpacking libhavege2:amd64 (1.9.14-1+b1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Selecting previously unselected package haveged."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preparing to unpack .../haveged_1.9.14-1+b1_amd64.deb ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Unpacking haveged (1.9.14-1+b1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Selecting previously unselected package libkmod2:amd64."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preparing to unpack .../libkmod2_30+20221128-1_amd64.deb ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Unpacking libkmod2:amd64 (30+20221128-1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Selecting previously unselected package udev."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preparing to unpack .../udev_252.31-1~deb12u1_amd64.deb ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Unpacking udev (252.31-1~deb12u1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Selecting previously unselected package rng-tools-debian."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Preparing to unpack .../rng-tools-debian_2.3_amd64.deb ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Unpacking rng-tools-debian (2.3) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up libhavege2:amd64 (1.9.14-1+b1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up libkmod2:amd64 (30+20221128-1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up haveged (1.9.14-1+b1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "invoke-rc.d: could not determine current runlevel"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "invoke-rc.d: policy-rc.d denied execution of start."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up udev (252.31-1~deb12u1) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "A chroot environment has been detected, udev not started."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up rng-tools-debian (2.3) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "invoke-rc.d: could not determine current runlevel"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "invoke-rc.d: policy-rc.d denied execution of start."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Processing triggers for man-db (2.11.2-2) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Processing triggers for libc-bin (2.36-9+deb12u9) ..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "haveged: command socket is listening at fd 3"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 220: log: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 289: log: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 292: log: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "/workspace/.devcontainer/init-scripts/init.sh: line 299: log: command not found"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "[130122 ms] postCreateCommand failed with exit code 1. Skipping any further user-provided commands."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Готово. Нажмите любую клавишу, чтобы закрыть терминал."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "c4350b00-d163-4a1e-95a6-2bc96abe54b7",
+        "role": "assistant",
+        "content": "It looks like there are several issues with your `devcontainer.json` file and the `init.sh` script.\n\nHere are some observations and suggestions:\n\n1. The `init.sh` script has several syntax errors, such as `No: command not found`, `Aa: command not found`, and others. These errors suggest that the script is not properly formatted or contains invalid commands.\n2. The script is trying to execute commands like `log` without specifying the full path or command. You should specify the full path to the `log` command or ensure that it is in the system's PATH.\n3. The script is trying to execute commands like `Qwen` and `⌘⏎`, which are not valid commands. Remove these lines or replace them with valid commands.\n4. The script is trying to execute a PGP-signed message, which is not a valid command. Remove this section or replace it with a valid command.\n5. The script is trying to install packages using `apt-get`, but the package manager is not configured correctly. Ensure that you have the correct package manager configuration and that the package manager is installed.\n6. The script is trying to set up a chroot environment, but it's not clear why this is necessary. Remove this section or ensure that it's properly configured.\n\nTo fix these issues, I recommend the following:\n\n1. Review the `init.sh` script and remove any invalid or unnecessary commands.\n2. Ensure that all commands in the script are properly formatted and have the correct syntax.\n3. Specify the full path to any commands that are not in the system's PATH.\n4. Remove any sections of the script that are not necessary or are causing errors.\n5. Test the script in a shell environment to ensure that it runs correctly before running it in the dev container.\n\nAdditionally, I recommend reviewing the `devcontainer.json` file to ensure that it's properly configured and that all settings are correct."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Autodetect - llama3-70b-8192",
+          "prompt": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\nНалаштовано оптимальні параметри для роботи з вашими моделями.<|eot_id|>\n<|start_header_id|>user<|end_header_id|>\n```/workspace/.devcontainer/devcontainer.json\n{\n    \"name\": \"Python 3\",\n    \"image\": \"mcr.microsoft.com/devcontainers/python:1-3.12\",\n    \"remoteUser\": \"vscode\",\n    \"updateRemoteUserUID\": true,\n    \"containerUser\": \"vscode\",\n    \"workspaceMount\": \"source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached\",\n    \"workspaceFolder\": \"/workspace\",\n    \"remoteEnv\": {\n        \"GIT_SSH_COMMAND\": \"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null\",\n        \"SYNC_LOCALHOST_KUBECONFIG\": \"true\",\n        \"LOCAL_WORKSPACE_FOLDER\": \"${localWorkspaceFolder}\",\n        \"VIRTUAL_ENV_PROMPT\": \"(dev) \",\n        \"SHELL\": \"/bin/bash\",\n        \"GPG_TTY\": \"/dev/pts/0\",\n        \"GNUPGHOME\": \"/home/vscode/.gnupg\",\n        \"SSH_AUTH_SOCK\": \"/run/host-services/ssh-auth.sock\",\n        \"GPG_KEY\": \"oleg1203@gmail.com\"\n    },\n    \"mounts\": [\n        \"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached\",\n        \"source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind,consistency=cached\",\n        \"source=${localWorkspaceFolder}/.continue,target=/home/vscode/.continue,type=bind,consistency=cached\"\n    ],\n    \"initializeCommand\": \"mkdir -p ${localWorkspaceFolder}/.continue\",\n    \"postCreateCommand\": [\n        \"sh\",\n        \"-c\",\n        \"export PATH=/custom/python/installation/bin:$PATH && \\\n        which python3 && python3 --version && \\\n        which pip3 && pip3 --version && \\\n        sudo chown -R vscode:vscode /home/vscode && \\\n        sudo chmod 700 /home/vscode/.ssh /home/vscode/.gnupg /home/vscode/.continue && \\\n        sudo chown -R vscode:vscode /workspace && \\\n        sudo chmod 755 /workspace && \\\n        /bin/bash /workspace/.devcontainer/init-scripts/init.sh\"\n    ],\n    \"onCreateCommand\": \"sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent\",\n    \"postStartCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'\"\n    ],\n    \"postSaveCommand\": [\n        \"/bin/bash\",\n        \"-c\",\n        \"if [ \\\"$CODE_FILE\\\" != \\\"\\\" ]; then black $CODE_FILE; fi\"\n    ],\n    \"features\": {\n        \"ghcr.io/devcontainers/features/git:1\": {\n            \"version\": \"latest\",\n            \"ppa\": true\n        },\n        \"ghcr.io/devcontainers/features/github-cli:1\": {},\n        \"ghcr.io/devcontainers/features/common-utils:2\": {\n            \"installZsh\": true,\n            \"upgradePackages\": true,\n            \"username\": \"vscode\",\n            \"userUid\": \"1000\",\n            \"userGid\": \"1000\"\n        },\n        \"ghcr.io/devcontainers/features/python:1\": \"none\"\n    },\n    \"settingsSync\": {\n        \"configuration\": true,\n        \"fileAssociations\": false,\n        \"ignore\": [\n            \"*.pyc\",\n            \"**/node_modules/**\"\n        ],\n        \"proxy\": false\n    },\n    \"customizations\": {\n        \"vscode\": {\n            \"settings\": {\n                \"python.defaultInterpreterPath\": \"/usr/local/bin/python\",\n                \"python.formatting.provider\": \"black\",\n                \"python.formatting.blackArgs\": [\n                    \"--line-length\",\n                    \"88\"\n                ],\n                \"python.linting.enabled\": true,\n                \"python.linting.pylintEnabled\": true,\n                \"python.linting.flake8Enabled\": true,\n                \"python.linting.flake8Args\": [\n                    \"--max-line-length=88\",\n                    \"--ignore=E203,W503\"\n                ],\n                \"python.sortImports.args\": [\n                    \"--profile\",\n                    \"black\"\n                ],\n                \"python.sortImports.path\": \"${workspaceFolder}/.venv/bin/isort\",\n                \"python.sortImports.organizeImports\": true,\n                \"python.analysis.languageServerMode\": \"default\",\n                \"python.analysis.indexing\": true,\n                \"python.analysis.autoImportCompletions\": true,\n                \"python.analysis.autoSearchPaths\": true,\n                \"python.analysis.completeFunctionParens\": true,\n                \"python.analysis.typeCheckingMode\": \"basic\",\n                \"python.testing.pytestEnabled\": true,\n                \"python.testing.unittestEnabled\": false,\n                \"python.testing.autoTestDiscoverOnSaveEnabled\": true,\n                \"python.testing.autoTestLaunchType\": \"background\",\n                \"python.testing.autoTestLaunchArgs\": [\n                    \"--disable-warnings\",\n                    \"--show-capture=stdout\"\n                ],\n                \"python.testing.autoTestLaunchPythonArgs\": [\n                    \"-m\",\n                    \"pytest\"\n                ],\n                \"python.testing.pytestArgs\": [\n                    \"--cov=.\",\n                    \"--cov-report=xml\",\n                    \"-v\"\n                ],\n                \"coverage-gutters.showGutterCoverage\": true,\n                \"coverage-gutters.showLineCoverage\": true,\n                \"coverage-gutters.showRulerCoverage\": true,\n                \"editor.suggestSelection\": \"recentlyUsed\",\n                \"editor.tabCompletion\": \"on\",\n                \"editor.acceptSuggestionOnCommitCharacter\": true,\n                \"editor.acceptSuggestionOnEnter\": \"smart\",\n                \"editor.quickSuggestions\": {\n                    \"other\": \"on\",\n                    \"comments\": \"on\",\n                    \"strings\": \"on\"\n                },\n                \"editor.inlineSuggest.enabled\": true,\n                \"editor.suggest.preview\": true,\n                \"editor.suggest.showStatusBar\": true,\n                \"editor.formatOnSave\": true,\n                \"extensions.autoUpdate\": true,\n                \"extensions.autoCheckUpdates\": true,\n                \"git.autofetch\": true,\n                \"git.confirmSync\": false,\n                \"git.enableCommitSigning\": true,\n                \"git.postCommitCommand\": \"push\",\n                \"git.enableSmartCommit\": true,\n                \"git.autoStash\": true,\n                \"git.autoSync\": true,\n                \"git.name\": \"Oleg Kizyma\",\n                \"git.email\": \"oleg1203@gmail.com\",\n                \"update.mode\": \"default\",\n                \"update.channel\": \"insiders\",\n                \"remote.extensionKind\": {\n                    \"*\": [\n                        \"workspace\"\n                    ]\n                },\n                \"dev.containers.defaultExtensions\": [],\n                \"dev.containers.copyGitConfig\": false,\n                \"dev.containers.gitCredentialsHelper\": \"cache\",\n                \"dev.containers.workspaceMountConsistency\": \"cached\",\n                \"github.copilot.includeFilePatterns\": [],\n                \"continue.includeFilePatterns\": [],\n                \"terminal.integrated.tabs.title\": \"${process}${separator}${sequence}\",\n                \"terminal.integrated.tabs.description\": \"${task}${separator}${local}${separator}${cwd}\",\n                \"terminal.integrated.tabs.separator\": \" - \",\n                \"terminal.integrated.defaultProfile.linux\": \"bash\",\n                \"terminal.integrated.shellIntegration.decorationsEnabled\": true,\n                \"terminal.integrated.shellIntegration.enabled\": true,\n                \"terminal.integrated.fontSize\": 12,\n                \"terminal.integrated.fontFamily\": \"Menlo, Monaco, 'Courier New', monospace\",\n                \"workbench.editor.showTabs\": true,\n                \"workbench.statusBar.visible\": true,\n                \"workbench.colorCustomizations\": {\n                    \"--vscode-editor-foreground\": \"var(--vscode-editor-foreground)\",\n                    \"--vscode-status-bar-background\": \"var(--vscode-status-bar-background)\"\n                },\n                \"files.associations\": {\n                    \"*.py\": \"python\",\n                    \"*.yaml\": \"yaml\",\n                    \"*.yml\": \"yaml\"\n                }\n            },\n            \"extensions\": [\n                \"ms-python.python\",\n                \"ms-python.vscode-pylance\",\n                \"ms-python.black-formatter\",\n                \"ms-python.isort\",\n                \"ms-python.autopep8\",\n                \"ms-python.flake8\",\n                \"ms-azuretools.vscode-docker\",\n                \"batisteo.vscode-django\",\n                \"dbaeumer.vscode-eslint\",\n                \"github.copilot\",\n                \"github.copilot-chat\",\n                \"eamodio.gitlens\",\n                \"ms-vscode-remote.remote-ssh\",\n                \"ms-vscode-remote.remote-ssh-edit\",\n                \"ms-vscode-remote.remote-explorer\",\n                \"github.vscode-pull-request-github\",\n                \"redhat.vscode-yaml\",\n                \"GitHub.vscode-github-actions\",\n                \"continue.continue\",\n                \"saoudrizwan.claude-dev\",\n                \"ryanluker.vscode-coverage-gutters\",\n                \"GitHub.copilot-chat\",\n                \"GitHub.copilot\"\n            ]\n        }\n    },\n    \"portsAttributes\": {\n        \"9000\": {\n            \"label\": \"Hello Remote World\",\n            \"onAutoForward\": \"notify\"\n        }\n    }\n}\n```\n\ndevcontainer.json /usr/local/bin/python3\nPython 3.12.8\n/usr/local/bin/pip3\npip 24.3.1 from /usr/local/lib/python3.12/site-packages/pip (python 3.12)\n/workspace/.devcontainer/init-scripts/init.sh: line 1: No: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 5: Aa: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 7: @devcontainer.json: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 10: Qwen: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 11: ⌘⏎: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 13: ⏎: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 14: 2: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 15: Для: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 17: Перевірте: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 212: log: command not found\n-----BEGIN PGP SIGNED MESSAGE-----\nHash: SHA512\ntest\n-----BEGIN PGP SIGNATURE-----\niQIzBAEBCgAdFiEEFABnT11uO/lCbaOnnuPicVxed+sFAmdjliAACgkQnuPicVxe\nd+tgFg/+O98qkpCGaAA8vuFLAn5AQYNtjdJ9mMV7LUAA6TpLtgKFgLI4Tth4Z9KG\nKfGJqyNC0FxwnpEx5l+VsAakvof0jjsmH1rc01obp8ZrJr+Xi3PtYf1UyiiNhKi7\nevVbhsu8Kec7WJoML6nUgq4iC85yKAYX1FlU29k5zBmXkQntYvmyk8R9NcIrjFKA\nwfB2ngJYMgqXyC0jKfImpN3M2gcpdacri3xm5pSmqkaUJ2Wz02CUq/qtOg3QmeSS\nKqCat/+RJ59B6kKv6h/o1B5Xl3dItFLQIU5ed18athS4cEfh3+tSCKugKD059xSj\nPzZy7AlQ4gCdt71zFIN+txGSuZquEpEf2tQ8YJsdwOr5YpGoFquVevstq4jDnfFT\nDVwo8X/hqCLAYu5Fl+PPkw3amFg27Xf0Ua5ZoS73JBDL1r8Fx8SKQEooJfYZaGbk\nwOzKLLjai8Lvcy2sgJd1Zb97YQMlX1Wf9HFMyDvUJ3rOyLbl+kOEK01etW2JcasI\nlKoEFwbVYG8gmDYkb0OUmkhB8+nXeViY7zuwUR44M3rpcKOw1MHRjk8glXMRXkh0\nRWmp0EhItY56VrS9BOY6xoGW5b8IRIbf8HZ8qLY+YmbDUSu0Tt2q7JbGqfm3D6cF\nu5kE5XDW+bIiFA7zbAp7A8sfeHkdklu6KkUS5Z+vUHNwZSfJY9o=\n=2eqd\n-----END PGP SIGNATURE-----\nHit:1 https://dl.yarnpkg.com/debian stable InRelease\nHit:2 http://deb.debian.org/debian bookworm InRelease       \nHit:3 http://deb.debian.org/debian bookworm-updates InRelease\nHit:4 http://deb.debian.org/debian-security bookworm-security InRelease\nReading package lists... Done\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\nNote, selecting 'rng-tools-debian' instead of 'rng-tools'\nThe following additional packages will be installed:\nlibhavege2 libkmod2 udev\nSuggested packages:\napparmor\nThe following NEW packages will be installed:\nhaveged libhavege2 libkmod2 rng-tools-debian udev\n0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.\nNeed to get 1856 kB of archives.\nAfter this operation, 11.4 MB of additional disk space will be used.\nGet:1 http://deb.debian.org/debian bookworm/main amd64 libhavege2 amd64 1.9.14-1+b1 [25.0 kB]\nGet:2 http://deb.debian.org/debian bookworm/main amd64 haveged amd64 1.9.14-1+b1 [37.4 kB]\nGet:3 http://deb.debian.org/debian bookworm/main amd64 libkmod2 amd64 30+20221128-1 [57.9 kB]\nGet:4 http://deb.debian.org/debian bookworm/main amd64 udev amd64 252.31-1~deb12u1 [1688 kB]\nGet:5 http://deb.debian.org/debian bookworm/main amd64 rng-tools-debian amd64 2.3 [48.3 kB]\nFetched 1856 kB in 0s (5257 kB/s)          \nSelecting previously unselected package libhavege2:amd64.\n(Reading database ... 29883 files and directories currently installed.)\nPreparing to unpack .../libhavege2_1.9.14-1+b1_amd64.deb ...\nUnpacking libhavege2:amd64 (1.9.14-1+b1) ...\nSelecting previously unselected package haveged.\nPreparing to unpack .../haveged_1.9.14-1+b1_amd64.deb ...\nUnpacking haveged (1.9.14-1+b1) ...\nSelecting previously unselected package libkmod2:amd64.\nPreparing to unpack .../libkmod2_30+20221128-1_amd64.deb ...\nUnpacking libkmod2:amd64 (30+20221128-1) ...\nSelecting previously unselected package udev.\nPreparing to unpack .../udev_252.31-1~deb12u1_amd64.deb ...\nUnpacking udev (252.31-1~deb12u1) ...\nSelecting previously unselected package rng-tools-debian.\nPreparing to unpack .../rng-tools-debian_2.3_amd64.deb ...\nUnpacking rng-tools-debian (2.3) ...\nSetting up libhavege2:amd64 (1.9.14-1+b1) ...\nSetting up libkmod2:amd64 (30+20221128-1) ...\nSetting up haveged (1.9.14-1+b1) ...\ninvoke-rc.d: could not determine current runlevel\ninvoke-rc.d: policy-rc.d denied execution of start.\nSetting up udev (252.31-1~deb12u1) ...\nA chroot environment has been detected, udev not started.\nSetting up rng-tools-debian (2.3) ...\ninvoke-rc.d: could not determine current runlevel\ninvoke-rc.d: policy-rc.d denied execution of start.\nProcessing triggers for man-db (2.11.2-2) ...\nProcessing triggers for libc-bin (2.36-9+deb12u9) ...\nhaveged: command socket is listening at fd 3\n/workspace/.devcontainer/init-scripts/init.sh: line 220: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 289: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 292: log: command not found\n/workspace/.devcontainer/init-scripts/init.sh: line 299: log: command not found\n[130122 ms] postCreateCommand failed with exit code 1. Skipping any further user-provided commands.\nГотово. Нажмите любую клавишу, чтобы закрыть терминал.<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n",
+          "completion": "It looks like there are several issues with your `devcontainer.json` file and the `init.sh` script.\n\nHere are some observations and suggestions:\n\n1. The `init.sh` script has several syntax errors, such as `No: command not found`, `Aa: command not found`, and others. These errors suggest that the script is not properly formatted or contains invalid commands.\n2. The script is trying to execute commands like `log` without specifying the full path or command. You should specify the full path to the `log` command or ensure that it is in the system's PATH.\n3. The script is trying to execute commands like `Qwen` and `⌘⏎`, which are not valid commands. Remove these lines or replace them with valid commands.\n4. The script is trying to execute a PGP-signed message, which is not a valid command. Remove this section or replace it with a valid command.\n5. The script is trying to install packages using `apt-get`, but the package manager is not configured correctly. Ensure that you have the correct package manager configuration and that the package manager is installed.\n6. The script is trying to set up a chroot environment, but it's not clear why this is necessary. Remove this section or ensure that it's properly configured.\n\nTo fix these issues, I recommend the following:\n\n1. Review the `init.sh` script and remove any invalid or unnecessary commands.\n2. Ensure that all commands in the script are properly formatted and have the correct syntax.\n3. Specify the full path to any commands that are not in the system's PATH.\n4. Remove any sections of the script that are not necessary or are causing errors.\n5. Test the script in a shell environment to ensure that it runs correctly before running it in the dev container.\n\nAdditionally, I recommend reviewing the `devcontainer.json` file to ensure that it's properly configured and that all settings are correct.",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "llama3-70b-8192",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    }
+  ]
+}

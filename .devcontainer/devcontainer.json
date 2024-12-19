@@ -1,5 +1,5 @@
 {
-    "name": "Python 3",
+    "name": "My Development Container",
     "image": "mcr.microsoft.com/devcontainers/python:1-3.12",
     "remoteUser": "vscode",
     "updateRemoteUserUID": true,
@@ -24,27 +24,15 @@
     ],
     "initializeCommand": "mkdir -p ${localWorkspaceFolder}/.continue",
     "postCreateCommand": [
-        "sh",
+        "/bin/bash",
         "-c",
-        "export PATH=/custom/python/installation/bin:$PATH && \
-        which python3 && python3 --version && \
-        which pip3 && pip3 --version && \
-        sudo chown -R vscode:vscode /home/vscode && \
-        sudo chmod 700 /home/vscode/.ssh /home/vscode/.gnupg /home/vscode/.continue && \
-        sudo chown -R vscode:vscode /workspace && \
-        sudo chmod 755 /workspace && \
-        /bin/bash /workspace/.devcontainer/init-scripts/init.sh"
+        "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
     ],
     "onCreateCommand": "sudo apt-get update && sudo apt-get install -y gnupg2 pinentry-tty gpg-agent",
     "postStartCommand": [
         "/bin/bash",
         "-c",
         "until curl -s http://172.17.0.1:11434/api/health >/dev/null; do echo 'Waiting for Ollama...'; sleep 2; done && echo 'Ollama is ready!'"
-    ],
-    "postSaveCommand": [
-        "/bin/bash",
-        "-c",
-        "if [ \"$CODE_FILE\" != \"\" ]; then black $CODE_FILE; fi"
     ],
     "features": {
         "ghcr.io/devcontainers/features/git:1": {
@@ -59,65 +47,18 @@
             "userUid": "1000",
             "userGid": "1000"
         },
-        "ghcr.io/devcontainers/features/python:1": "none"
-    },
-    "settingsSync": {
-        "configuration": true,
-        "fileAssociations": false,
-        "ignore": [
-            "*.pyc",
-            "**/node_modules/**"
-        ],
-        "proxy": false
+        "ghcr.io/devcontainers/features.python:1": "none"
     },
     "customizations": {
         "vscode": {
             "settings": {
                 "python.defaultInterpreterPath": "/usr/local/bin/python",
-                "python.formatting.provider": "black",
-                "python.formatting.blackArgs": [
-                    "--line-length",
-                    "88"
-                ],
-                "python.linting.enabled": true,
-                "python.linting.pylintEnabled": true,
-                "python.linting.flake8Enabled": true,
-                "python.linting.flake8Args": [
-                    "--max-line-length=88",
-                    "--ignore=E203,W503"
-                ],
-                "python.sortImports.args": [
-                    "--profile",
-                    "black"
-                ],
-                "python.sortImports.path": "${workspaceFolder}/.venv/bin/isort",
-                "python.sortImports.organizeImports": true,
-                "python.analysis.languageServerMode": "default",
-                "python.analysis.indexing": true,
-                "python.analysis.autoImportCompletions": true,
-                "python.analysis.autoSearchPaths": true,
-                "python.analysis.completeFunctionParens": true,
-                "python.analysis.typeCheckingMode": "basic",
-                "python.testing.pytestEnabled": true,
-                "python.testing.unittestEnabled": false,
-                "python.testing.autoTestDiscoverOnSaveEnabled": true,
-                "python.testing.autoTestLaunchType": "background",
-                "python.testing.autoTestLaunchArgs": [
-                    "--disable-warnings",
-                    "--show-capture=stdout"
-                ],
-                "python.testing.autoTestLaunchPythonArgs": [
-                    "-m",
-                    "pytest"
-                ],
-                "python.testing.pytestArgs": [
-                    "--cov=.",
-                    "--cov-report=xml",
-                    "-v"
-                ],
-                "coverage-gutters.showGutterCoverage": true,
-                "coverage-gutters.showLineCoverage": true,
-                "coverage-gutters.showRulerCoverage": true,
+                // Настройки редактора
+                "editor.formatOnSave": true,
+                "editor.defaultFormatter": "ms-python.black-formatter",
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": "explicit"
+                },
                 "editor.suggestSelection": "recentlyUsed",
                 "editor.tabCompletion": "on",
                 "editor.acceptSuggestionOnCommitCharacter": true,
@@ -130,7 +71,42 @@
                 "editor.inlineSuggest.enabled": true,
                 "editor.suggest.preview": true,
                 "editor.suggest.showStatusBar": true,
-                "editor.formatOnSave": true,
+                // Настройки форматирования
+                "black-formatter.args": [
+                    "--line-length",
+                    "88",
+                    "--target-version",
+                    "py312",
+                    "--skip-string-normalization"
+                ],
+                "isort.args": [
+                    "--profile",
+                    "black",
+                    "--line-length",
+                    "88"
+                ],
+                // Линтинг
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true,
+                "python.linting.flake8Enabled": true,
+                "python.linting.flake8Args": [
+                    "--max-line-length=88",
+                    "--ignore=E203,W503"
+                ],
+                // Анализ кода
+                "python.analysis.languageServerMode": "default",
+                "python.analysis.typeCheckingMode": "basic",
+                "python.analysis.autoImportCompletions": true,
+                // Тестирование
+                "python.testing.pytestEnabled": true,
+                "python.testing.unittestEnabled": false,
+                "python.testing.autoTestDiscoverOnSaveEnabled": true,
+                "python.testing.pytestArgs": [
+                    "--cov=.",
+                    "--cov-report=xml",
+                    "-v"
+                ],
+                // Прочие настройки
                 "extensions.autoUpdate": true,
                 "extensions.autoCheckUpdates": true,
                 "git.autofetch": true,
@@ -159,11 +135,11 @@
                 "terminal.integrated.tabs.description": "${task}${separator}${local}${separator}${cwd}",
                 "terminal.integrated.tabs.separator": " - ",
                 "terminal.integrated.defaultProfile.linux": "bash",
-                "terminal.integrated.shellIntegration.decorationsEnabled": true,
+                "terminal.integrated.shellIntegration.decorationsEnabled": "both",
                 "terminal.integrated.shellIntegration.enabled": true,
                 "terminal.integrated.fontSize": 12,
                 "terminal.integrated.fontFamily": "Menlo, Monaco, 'Courier New', monospace",
-                "workbench.editor.showTabs": true,
+                "workbench.editor.showTabs": "multiple",
                 "workbench.statusBar.visible": true,
                 "workbench.colorCustomizations": {
                     "--vscode-editor-foreground": "var(--vscode-editor-foreground)",
@@ -173,6 +149,10 @@
                     "*.py": "python",
                     "*.yaml": "yaml",
                     "*.yml": "yaml"
+                },
+                "files.exclude": {
+                    "**/*.pyc": true,
+                    "**/node_modules/**": true
                 }
             },
             "extensions": [
@@ -193,12 +173,10 @@
                 "ms-vscode-remote.remote-explorer",
                 "github.vscode-pull-request-github",
                 "redhat.vscode-yaml",
-                "GitHub.vscode-github-actions",
+                "GitHub.vscode-pull-request-github-actions",
                 "continue.continue",
                 "saoudrizwan.claude-dev",
-                "ryanluker.vscode-coverage-gutters",
-                "GitHub.copilot-chat",
-                "GitHub.copilot"
+                "ryanluker.vscode-coverage-gutters"
             ]
         }
     },

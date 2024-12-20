@@ -216,3 +216,4 @@
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":28868,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":1206,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":25805,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":1206,"generatedTokens":0}

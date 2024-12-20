@@ -178,5 +178,47 @@
     "title": "Fixing code formatting issues with",
     "dateCreated": "1734615391290",
     "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "b484455d-80ef-4e36-a7d5-e4814fb9e3b1",
+    "title": "Summarize the Black formatter",
+    "dateCreated": "1734649232489",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "c23a6ee1-fe4a-4de1-874a-a18e271ca09f",
+    "title": "Automate PostgreSQL server setup with",
+    "dateCreated": "1734649385736",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "54334cab-a4f4-4575-9547-6d07a26c15da",
+    "title": "Add Qwen2.5",
+    "dateCreated": "1734650963494",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "2f5a8a65-a252-4167-a47a-4a0514e53199",
+    "title": "Видалення лиш",
+    "dateCreated": "1734653414826",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "a0f97f97-4bf0-4e19-9278-63ec2a715c7c",
+    "title": "Fixing script errors and installing",
+    "dateCreated": "1734700766577",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "16ecb5fa-56b3-4b28-8633-0b5bfd43cfbc",
+    "title": "Fix script removing unnecessary justfile",
+    "dateCreated": "1734719436624",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "21f74d9c-814d-4d94-b256-015a3b02fc44",
+    "title": "Визначення та виправ",
+    "dateCreated": "1734720701800",
+    "workspaceDirectory": "/workspace"
   }
 ]

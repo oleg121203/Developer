@@ -118,6 +118,19 @@
         "topP": 0.9,
         "topK": 40
       }
+    },
+    {
+      "title": "Qwen2.5 14B",
+      "provider": "ollama",
+      "model": "qwen2.5:14b",
+      "apiBase": "http://85.238.101.154:11434",
+      "contextLength": 8192,
+      "completionOptions": {
+        "temperature": 0.7,
+        "maxTokens": 2048,
+        "topP": 0.9,
+        "topK": 50
+      }
     }
   ],
   "tabAutocompleteModel": {

@@ -220,3 +220,14 @@
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":2897,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":2106,"generatedTokens":0}
 {"model":"mistral-large-latest","provider":"mistral","promptTokens":4923,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":6551,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":2106,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":8592,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":15388,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":2106,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":4736,"generatedTokens":2001}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":17414,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":19430,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":23709,"generatedTokens":0}
+{"model":"mistral-large-latest","provider":"mistral","promptTokens":25754,"generatedTokens":0}
+{"model":"qwen2.5:latest","provider":"ollama","promptTokens":4404,"generatedTokens":2479}

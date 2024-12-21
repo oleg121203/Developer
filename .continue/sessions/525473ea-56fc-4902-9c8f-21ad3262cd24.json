@@ -1,0 +1,873 @@
+{
+  "sessionId": "525473ea-56fc-4902-9c8f-21ad3262cd24",
+  "title": "Troubleshooting",
+  "workspaceDirectory": "/workspace",
+  "history": [
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "install_pgai.sh \ncopying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai\nrunning install_egg_info\nCopying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda\nStored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed"
+          }
+        ],
+        "id": "e630e79b-f8bc-415e-a022-9061d1b6f931"
+      },
+      "contextItems": [
+        {
+          "name": "install_pgai.sh",
+          "description": "/workspace/install_pgai.sh",
+          "content": "```/workspace/install_pgai.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    \n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/install_pgai.sh"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "2a8197b3-c4fb-4b61-b0bf-b54e88f8b989"
+          }
+        }
+      ],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/install_pgai.sh",
+                  "label": "install_pgai.sh",
+                  "renderInlineAs": null,
+                  "query": "/workspace/install_pgai.sh",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  copying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  running install_egg_info"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Copying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  running install_scripts"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  creating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  creating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/__init__.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/anthropic.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/cohere.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/load_dataset.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/ollama.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/openai.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/secrets.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/utils.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/vectorizer.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/voyageai.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/METADATA'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/WHEEL'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/top_level.txt'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/RECORD'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  removing build/bdist.linux-x86_64/wheel"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Building wheel for pgai (pyproject.toml) ... done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Created wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Stored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully built pgai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing collected packages: pgai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully installed pgai-0.6.1.dev0"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing SQL files..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Found SQL directory: /tmp/pgai/projects/extension/sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "BEGIN"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "psql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: SQL syntax check failed"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "3d5fec19-2f3a-412a-b0e4-0a6c798f5526",
+        "role": "assistant",
+        "content": "It appears that the installation script for `pgai` encountered an issue during the SQL syntax check phase. Specifically, the error message indicates that a query returned no rows, which is causing the script to fail. Below are some steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Check the SQL File**:\n   - The error suggests that there is an issue with the SQL file at line 55. Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect line 55.\n   - Ensure that the query at this line is correctly formed and should return rows as expected.\n\n2. **Verify Database Configuration**:\n   - Ensure that the database (`mydb`) and user (`myuser`) are correctly set up and have the necessary permissions.\n   - Verify that the `pgvector` extension is correctly installed and available in the database.\n\n3. **Check Dependencies**:\n   - Ensure that all necessary PostgreSQL dependencies are correctly installed and available.\n   - Verify that the PostgreSQL version matches the expected version (`16`).\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n5. **Manual Execution**:\n   - Try manually executing the SQL commands in the PostgreSQL console to see if the error persists.\n   - This can help identify if the issue is with the script or the SQL commands themselves.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then"
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/install_pgai.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    \n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n\n```\n\ninstall_pgai.sh \ncopying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai\nrunning install_egg_info\nCopying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda\nStored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    },
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "продовжи з місця де закінчив"
+          }
+        ],
+        "id": "63810d30-582f-4a3e-b7f0-60fc80316031"
+      },
+      "contextItems": [],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "продовжи з місця де закінчив"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "976ff33e-1776-426d-b005-a7ae2e0b5eea",
+        "role": "assistant",
+        "content": "```bash\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```\n\n### Additional Debugging Steps\n\nIf the issue persists, consider the following additional steps:\n\n1. **Manual SQL Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n2. **Check SQL File Content**:\n   - Open the SQL file `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect the content around line 55.\n   - Ensure that all queries are correctly formed and should return the expected results.\n\n3. **Database Logs**:\n   - Check the PostgreSQL logs for any additional error messages that might provide more context.\n   ```bash\n   tail -f /var/log/postgresql/postgresql-16-main.log\n   ```\n\n4. **Verify Extension Dependencies**:\n   - Ensure that all required extensions (`plpgsql`, `vector`) are correctly installed and available in the database.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\"\n   ```\n\n5. **Check for Typos or Syntax Errors**:\n   - Ensure there are no typos or syntax errors in the SQL file. Sometimes, even a small typo can cause the script to fail.\n\nBy following these steps, you should be able to identify and resolve the issue causing the SQL syntax check to fail. If the problem persists, consider reaching out to the maintainers of the `pgai` extension for further assistance."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/install_pgai.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    \n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n\n```\n\ninstall_pgai.sh \ncopying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai\nrunning install_egg_info\nCopying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda\nStored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\n\n<assistant>\nIt appears that the installation script for `pgai` encountered an issue during the SQL syntax check phase. Specifically, the error message indicates that a query returned no rows, which is causing the script to fail. Below are some steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Check the SQL File**:\n   - The error suggests that there is an issue with the SQL file at line 55. Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect line 55.\n   - Ensure that the query at this line is correctly formed and should return rows as expected.\n\n2. **Verify Database Configuration**:\n   - Ensure that the database (`mydb`) and user (`myuser`) are correctly set up and have the necessary permissions.\n   - Verify that the `pgvector` extension is correctly installed and available in the database.\n\n3. **Check Dependencies**:\n   - Ensure that all necessary PostgreSQL dependencies are correctly installed and available.\n   - Verify that the PostgreSQL version matches the expected version (`16`).\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n5. **Manual Execution**:\n   - Try manually executing the SQL commands in the PostgreSQL console to see if the error persists.\n   - This can help identify if the issue is with the script or the SQL commands themselves.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n\n<user>\nпродовжи з місця де закінчив\n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    },
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "creating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-f6ntapxm/.tmp-t_fm0rn4/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=1de1c8713374f3391fc0fff7cd2d653ad84328a72223e17a0c2a491158ab0756\nStored in directory: /tmp/pip-ephem-wheel-cache-5sefzdb7/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nCreating pgai.control...\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\nhawk@hawk:~$ "
+          }
+        ],
+        "id": "7074229d-0346-4e59-8b52-82756ff4cc73"
+      },
+      "contextItems": [],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  creating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  creating '/tmp/pip-wheel-f6ntapxm/.tmp-t_fm0rn4/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/__init__.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/anthropic.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/cohere.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/load_dataset.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/ollama.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/openai.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/secrets.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/utils.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/vectorizer.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'ai/voyageai.py'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/METADATA'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/WHEEL'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/top_level.txt'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  adding 'pgai-0.6.1.dev0.dist-info/RECORD'"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  removing build/bdist.linux-x86_64/wheel"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Building wheel for pgai (pyproject.toml) ... done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Created wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=1de1c8713374f3391fc0fff7cd2d653ad84328a72223e17a0c2a491158ab0756"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "  Stored in directory: /tmp/pip-ephem-wheel-cache-5sefzdb7/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully built pgai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing collected packages: pgai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Successfully installed pgai-0.6.1.dev0"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Creating pgai.control..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing SQL files..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Found SQL directory: /tmp/pgai/projects/extension/sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "BEGIN"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "psql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: SQL syntax check failed"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ "
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "e71ea829-75c5-4f74-9859-f8d4b2c05ccf",
+        "role": "assistant",
+        "content": "The error message indicates that the SQL syntax check failed because a query returned no rows. This usually suggests that there is a problem with one of the SQL statements in the script, particularly around line 55 in the SQL file. Let's go through the steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Inspect the SQL File**:\n   - Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql`.\n   - Inspect the content around line 55 to identify the problematic query.\n\n2. **Manual Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n3. **Check for Missing Data**:\n   - Ensure that the query is expected to return rows. If it relies on certain data being present in the database, verify that this data exists.\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        echo \"Running SQL syntax check...\"\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi"
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/install_pgai.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    \n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n\n```\n\ninstall_pgai.sh \ncopying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai\nrunning install_egg_info\nCopying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda\nStored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\n\n<assistant>\nIt appears that the installation script for `pgai` encountered an issue during the SQL syntax check phase. Specifically, the error message indicates that a query returned no rows, which is causing the script to fail. Below are some steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Check the SQL File**:\n   - The error suggests that there is an issue with the SQL file at line 55. Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect line 55.\n   - Ensure that the query at this line is correctly formed and should return rows as expected.\n\n2. **Verify Database Configuration**:\n   - Ensure that the database (`mydb`) and user (`myuser`) are correctly set up and have the necessary permissions.\n   - Verify that the `pgvector` extension is correctly installed and available in the database.\n\n3. **Check Dependencies**:\n   - Ensure that all necessary PostgreSQL dependencies are correctly installed and available.\n   - Verify that the PostgreSQL version matches the expected version (`16`).\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n5. **Manual Execution**:\n   - Try manually executing the SQL commands in the PostgreSQL console to see if the error persists.\n   - This can help identify if the issue is with the script or the SQL commands themselves.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n\n<user>\nпродовжи з місця де закінчив\n\n<assistant>\n```bash\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```\n\n### Additional Debugging Steps\n\nIf the issue persists, consider the following additional steps:\n\n1. **Manual SQL Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n2. **Check SQL File Content**:\n   - Open the SQL file `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect the content around line 55.\n   - Ensure that all queries are correctly formed and should return the expected results.\n\n3. **Database Logs**:\n   - Check the PostgreSQL logs for any additional error messages that might provide more context.\n   ```bash\n   tail -f /var/log/postgresql/postgresql-16-main.log\n   ```\n\n4. **Verify Extension Dependencies**:\n   - Ensure that all required extensions (`plpgsql`, `vector`) are correctly installed and available in the database.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\"\n   ```\n\n5. **Check for Typos or Syntax Errors**:\n   - Ensure there are no typos or syntax errors in the SQL file. Sometimes, even a small typo can cause the script to fail.\n\nBy following these steps, you should be able to identify and resolve the issue causing the SQL syntax check to fail. If the problem persists, consider reaching out to the maintainers of the `pgai` extension for further assistance.\n\n<user>\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-f6ntapxm/.tmp-t_fm0rn4/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=1de1c8713374f3391fc0fff7cd2d653ad84328a72223e17a0c2a491158ab0756\nStored in directory: /tmp/pip-ephem-wheel-cache-5sefzdb7/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nCreating pgai.control...\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\nhawk@hawk:~$ \n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    },
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "продовжи з \necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\""
+          }
+        ],
+        "id": "9d0fc29f-88e1-4c73-902f-c8e1c52c7343"
+      },
+      "contextItems": [],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "продовжи з "
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "echo \"Installing SQL files...\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL_DIR=\"/tmp/pgai/projects/extension/sql\""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "74f445bd-5cb7-483a-b356-258a652f6645",
+        "role": "assistant",
+        "content": "```bash\n        echo \"Running SQL syntax check...\"\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```\n\n### Additional Debugging Steps\n\nIf the issue persists, consider the following additional steps:\n\n1. **Manual SQL Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n2. **Check SQL File Content**:\n   - Open the SQL file `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect the content around line 55.\n   - Ensure that all queries are correctly formed and should return the expected results.\n\n3. **Database Logs**:\n   - Check the PostgreSQL logs for any additional error messages that might provide more context.\n   ```bash\n   tail -f /var/log/postgresql/postgresql-16-main.log\n   ```\n\n4. **Verify Extension Dependencies**:\n   - Ensure that all required extensions (`plpgsql`, `vector`) are correctly installed and available in the database.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\"\n   ```\n\n5. **Check for Typos or Syntax Errors**:\n   - Ensure there are no typos or syntax errors in the SQL file. Sometimes, even a small typo can cause the script to fail.\n\nBy following these steps, you should be able to identify and resolve the issue causing the SQL syntax check to fail. If the problem persists, consider reaching out to the maintainers of the `pgai` extension for further assistance."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/install_pgai.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    \n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n\n```\n\ninstall_pgai.sh \ncopying build/lib/ai/secrets.py -> build/bdist.linux-x86_64/wheel/./ai\nrunning install_egg_info\nCopying pgai.egg-info to build/bdist.linux-x86_64/wheel/./pgai-0.6.1.dev0-py3.12.egg-info\nrunning install_scripts\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-2fv_qbfu/.tmp-0z277p70/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=da1f3fa75d6d3e3a229255816a50c7eb7a8ff8bf357ffad7b83f707a5febbdda\nStored in directory: /tmp/pip-ephem-wheel-cache-xshjb7_2/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\n\n<assistant>\nIt appears that the installation script for `pgai` encountered an issue during the SQL syntax check phase. Specifically, the error message indicates that a query returned no rows, which is causing the script to fail. Below are some steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Check the SQL File**:\n   - The error suggests that there is an issue with the SQL file at line 55. Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect line 55.\n   - Ensure that the query at this line is correctly formed and should return rows as expected.\n\n2. **Verify Database Configuration**:\n   - Ensure that the database (`mydb`) and user (`myuser`) are correctly set up and have the necessary permissions.\n   - Verify that the `pgvector` extension is correctly installed and available in the database.\n\n3. **Check Dependencies**:\n   - Ensure that all necessary PostgreSQL dependencies are correctly installed and available.\n   - Verify that the PostgreSQL version matches the expected version (`16`).\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n5. **Manual Execution**:\n   - Try manually executing the SQL commands in the PostgreSQL console to see if the error persists.\n   - This can help identify if the issue is with the script or the SQL commands themselves.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n\n<user>\nпродовжи з місця де закінчив\n\n<assistant>\n```bash\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nschema = public\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai VERSION '0.6.1-dev';\"\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```\n\n### Additional Debugging Steps\n\nIf the issue persists, consider the following additional steps:\n\n1. **Manual SQL Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n2. **Check SQL File Content**:\n   - Open the SQL file `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql` and inspect the content around line 55.\n   - Ensure that all queries are correctly formed and should return the expected results.\n\n3. **Database Logs**:\n   - Check the PostgreSQL logs for any additional error messages that might provide more context.\n   ```bash\n   tail -f /var/log/postgresql/postgresql-16-main.log\n   ```\n\n4. **Verify Extension Dependencies**:\n   - Ensure that all required extensions (`plpgsql`, `vector`) are correctly installed and available in the database.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\"\n   ```\n\n5. **Check for Typos or Syntax Errors**:\n   - Ensure there are no typos or syntax errors in the SQL file. Sometimes, even a small typo can cause the script to fail.\n\nBy following these steps, you should be able to identify and resolve the issue causing the SQL syntax check to fail. If the problem persists, consider reaching out to the maintainers of the `pgai` extension for further assistance.\n\n<user>\ncreating build/bdist.linux-x86_64/wheel/pgai-0.6.1.dev0.dist-info/WHEEL\ncreating '/tmp/pip-wheel-f6ntapxm/.tmp-t_fm0rn4/pgai-0.6.1.dev0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it\nadding 'ai/__init__.py'\nadding 'ai/anthropic.py'\nadding 'ai/cohere.py'\nadding 'ai/load_dataset.py'\nadding 'ai/ollama.py'\nadding 'ai/openai.py'\nadding 'ai/secrets.py'\nadding 'ai/utils.py'\nadding 'ai/vectorizer.py'\nadding 'ai/voyageai.py'\nadding 'pgai-0.6.1.dev0.dist-info/METADATA'\nadding 'pgai-0.6.1.dev0.dist-info/WHEEL'\nadding 'pgai-0.6.1.dev0.dist-info/top_level.txt'\nadding 'pgai-0.6.1.dev0.dist-info/RECORD'\nremoving build/bdist.linux-x86_64/wheel\nBuilding wheel for pgai (pyproject.toml) ... done\nCreated wheel for pgai: filename=pgai-0.6.1.dev0-py3-none-any.whl size=9534 sha256=1de1c8713374f3391fc0fff7cd2d653ad84328a72223e17a0c2a491158ab0756\nStored in directory: /tmp/pip-ephem-wheel-cache-5sefzdb7/wheels/be/c2/45/094ff76b7f659f9afc3090c77d70f982e2900aab3fb6f25f39\nSuccessfully built pgai\nInstalling collected packages: pgai\nSuccessfully installed pgai-0.6.1.dev0\nCreating pgai.control...\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nBEGIN\nSET\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:55: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nError: SQL syntax check failed\nhawk@hawk:~$ \n\n<assistant>\nThe error message indicates that the SQL syntax check failed because a query returned no rows. This usually suggests that there is a problem with one of the SQL statements in the script, particularly around line 55 in the SQL file. Let's go through the steps to troubleshoot and resolve this issue:\n\n### Steps to Troubleshoot and Resolve\n\n1. **Inspect the SQL File**:\n   - Open the SQL file located at `/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql`.\n   - Inspect the content around line 55 to identify the problematic query.\n\n2. **Manual Execution**:\n   - Manually execute the SQL file to identify the exact line causing the issue.\n   ```bash\n   sudo -u postgres psql -d ${PG_DATABASE} -f /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\n   ```\n   - Check the output for any specific error messages.\n\n3. **Check for Missing Data**:\n   - Ensure that the query is expected to return rows. If it relies on certain data being present in the database, verify that this data exists.\n\n4. **Logging and Debugging**:\n   - Add more detailed logging to the script to capture more information about the error.\n   - You can use `echo` statements to print out the SQL commands being executed and their results.\n\n### Sample Debugging Code\n\nYou can add more detailed logging to the script to capture more information about the error. Here is an example of how you can modify the script to include more detailed logging:\n\n```bash\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector;\"\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    cd \"$extension_dir\" || exit 1\n\n    if [ ! -d \"venv\" ]; then\n        python3 -m venv venv\n    fi\n\n    . venv/bin/activate\n    pip install --upgrade pip\n    pip install -r old_requirements.txt\n\n    python3 build.py build || return 1\n    python3 build.py install || return 1\n\n    deactivate\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\nprepare_sql_files() {\n    local sql_file=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n\n    sed -e 's/@extowner@/postgres/g' \\\n        -e 's/@extschema@/public/g' \\\n        -e 's/@extversion@/0.6.1-dev/g' \\\n        -e 's|@extschema:vector@|vector|g' \\\n        -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \\\n        \"$sql_file\" | grep -v '^--' > \"$tmp_file\"\n\n    {\n        echo \"BEGIN;\"\n        echo \"SET search_path TO public;\"\n        cat \"$tmp_file\"\n        echo \"COMMIT;\"\n    } > \"$output_file\"\n\n    rm -f \"$tmp_file\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n\n    if prepare_sql_files \"${SQL_DIR}/ai--0.6.1-dev.sql\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        echo \"Running SQL syntax check...\"\n        if sudo -u postgres psql -f \"$SQL_OUT\" -v ON_ERROR_STOP=1 template1; then\n            echo \"SQL syntax check passed\"\n        else\n            echo \"Error: SQL syntax check failed\"\n            exit 1\n        fi\n\n<user>\nпродовжи з \necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    }
+  ]
+}

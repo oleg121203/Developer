@@ -114,6 +114,17 @@ prepare_sql_files() {
     local output_file="$2"
     local tmp_file="/tmp/pgai_tmp.sql"
 
+    echo "Processing SQL file: $sql_file"
+
+    if [ ! -f "$sql_file" ]; then
+        echo "Error: Source SQL file not found: $sql_file"
+        return 1
+    fi
+
+    # Save original for debugging
+    cp "$sql_file" "${sql_file}.original"
+
+    echo "Applying SQL transformations..."
     sed -e 's/@extowner@/postgres/g' \
         -e 's/@extschema@/public/g' \
         -e 's/@extversion@/0.6.1-dev/g' \
@@ -122,18 +133,72 @@ prepare_sql_files() {
         "$sql_file" | grep -v '^--' > "$tmp_file"
 
     {
+        echo "\\set ON_ERROR_STOP on"
+        echo "\\set VERBOSITY verbose"
+        echo "\\timing on"
         echo "BEGIN;"
+        echo "SET client_min_messages TO debug1;"
         echo "SET search_path TO public;"
         cat "$tmp_file"
         echo "COMMIT;"
     } > "$output_file"
 
+    # Enhanced SQL validation
+    echo "Pre-checking SQL syntax..."
+    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f "$output_file" --echo-all template1 > "${output_file}.log" 2>&1; then
+        echo "SQL syntax pre-check failed. Log contents:"
+        cat "${output_file}.log"
+        return 1
+    fi
+
     rm -f "$tmp_file"
+    echo "SQL file prepared successfully"
+    return 0
+}
+
+# Add version checking function
+check_versions() {
+    echo "Checking component versions..."
+    local pg_version=$(psql --version | awk '{print $3}' | cut -d. -f1)
+    local python_version=$(python3 --version | awk '{print $2}')
+
+    echo "PostgreSQL version: $pg_version"
+    echo "Python version: $python_version"
+
+    if [ "$pg_version" -lt "13" ]; then
+        echo "Error: PostgreSQL version must be 13 or higher"
+        return 1
+    fi
+}
+
+# Add function to verify installation
+verify_installation() {
+    echo "Performing installation verification..."
+
+    # Check extension presence
+    if ! sudo -u postgres psql -d "$PG_DATABASE" -tAc "SELECT 1 FROM pg_extension WHERE extname = 'pgai';" | grep -q 1; then
+        echo "Error: pgai extension not found in database"
+        return 1
+    fi
+
+    # Check required functions
+    local required_functions=("pgai_query" "pgai_set_service")
+    for func in "${required_functions[@]}"; do
+        if ! sudo -u postgres psql -d "$PG_DATABASE" -tAc "SELECT 1 FROM pg_proc WHERE proname = '$func';" | grep -q 1; then
+            echo "Error: Required function $func not found"
+            return 1
+        fi
+    done
+
+    echo "Installation verification completed successfully"
     return 0
 }
 
 # Main installation
 remove_pgai
+
+# Add version check before installation
+check_versions || exit 1
 
 echo "Installing pgai..."
 cd /tmp
@@ -145,28 +210,40 @@ build_pgai || {
     exit 1
 }
 
+# Обновленная секция установки SQL
 echo "Installing SQL files..."
 SQL_DIR="/tmp/pgai/projects/extension/sql"
 if [ -d "$SQL_DIR" ]; then
     echo "Found SQL directory: $SQL_DIR"
+
+    # Подготавливаем SQL файл
     SQL_OUT="${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql"
-    
     if prepare_sql_files "${SQL_DIR}/ai--0.6.1-dev.sql" "$SQL_OUT"; then
         sudo chown postgres:postgres "$SQL_OUT"
         sudo chmod 644 "$SQL_OUT"
         echo "SQL file installed: $SQL_OUT"
 
-        if sudo -u postgres psql -f "$SQL_OUT" -v ON_ERROR_STOP=1 template1; then
-            echo "SQL syntax check passed"
+        # Проверяем синтаксис
+        echo "Running final SQL validation..."
+        if sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f "$SQL_OUT" template1 > "${SQL_OUT}.final.log" 2>&1; then
+            echo "SQL validation passed"
         else
-            echo "Error: SQL syntax check failed"
+            echo "Error: SQL validation failed. Check ${SQL_OUT}.final.log for details"
+            cat "${SQL_OUT}.final.log"
             exit 1
         fi
     else
         echo "Error: Failed to prepare SQL files"
         exit 1
     fi
+else
+    echo "Error: SQL directory not found: $SQL_DIR"
+    exit 1
 fi
+
+# Ensure the 'ai' schema exists
+echo "Ensuring 'ai' schema exists..."
+sudo -u postgres psql -d ${PG_DATABASE} -c "CREATE SCHEMA IF NOT EXISTS ai;"
 
 # Create control file
 cat > "${PG_EXTENSION_DIR}/pgai.control" << EOL
@@ -184,6 +261,12 @@ systemctl restart postgresql
 sudo -u postgres psql -d ${PG_DATABASE} -c "DROP EXTENSION IF EXISTS pgai;"
 sudo -u postgres psql -d ${PG_DATABASE} -c "CREATE EXTENSION pgai VERSION '0.6.1-dev';"
 
+# Add verification after installation
+verify_installation || {
+    echo "Installation verification failed"
+    exit 1
+}
+
 echo "Verifying installation..."
 sudo -u postgres psql -d ${PG_DATABASE} -c "\dx pgai"
 
@@ -196,3 +279,4 @@ sudo -u postgres psql -d ${PG_DATABASE} -c "SELECT pgai_query('ollama', 'qwen2.5
 echo "Installation completed successfully!"
 echo "System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest)."
 echo "If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script."
+   

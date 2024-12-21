@@ -156,27 +156,47 @@ EOL
 prepare_sql_files() {
     local sql_file="$1"
     local output_file="$2"
-    
-    # Создаем временный файл для обработки
     local tmp_file="/tmp/pgai_tmp.sql"
+
+    echo "Processing SQL file: $sql_file"
     
-    # Заменяем переменные
+    if [ ! -f "$sql_file" ]; then
+        echo "Error: Source SQL file not found: $sql_file"
+        return 1
+    fi
+
+    # Save original for debugging
+    cp "$sql_file" "${sql_file}.original"
+    
+    echo "Applying SQL transformations..."
     sed -e 's/@extowner@/postgres/g' \
         -e 's/@extschema@/public/g' \
         -e 's/@extversion@/0.6.1-dev/g' \
         -e 's|@extschema:vector@|vector|g' \
         -e 's/set local search_path = pg_catalog, pg_temp;/SET search_path = pg_catalog, pg_temp;/g' \
         "$sql_file" | grep -v '^--' > "$tmp_file"
-    
-    # Создаем финальный SQL файл с транзакцией
+
     {
+        echo "\\set ON_ERROR_STOP on"
+        echo "\\set VERBOSITY verbose"
+        echo "\\timing on"
         echo "BEGIN;"
+        echo "SET client_min_messages TO debug1;"
         echo "SET search_path TO public;"
         cat "$tmp_file"
         echo "COMMIT;"
     } > "$output_file"
-    
+
+    # Enhanced SQL validation
+    echo "Pre-checking SQL syntax..."
+    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f "$output_file" --echo-all template1 > "${output_file}.log" 2>&1; then
+        echo "SQL syntax pre-check failed. Log contents:"
+        cat "${output_file}.log"
+        return 1
+    fi
+
     rm -f "$tmp_file"
+    echo "SQL file prepared successfully"
     return 0
 }
 

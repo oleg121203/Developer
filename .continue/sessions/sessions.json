@@ -244,5 +244,89 @@
     "title": "Troubleshoot SQL",
     "dateCreated": "1734736314915",
     "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "2ef31bc9-73fb-49de-ac2c-8310c6d561f5",
+    "title": "Troubleshoot pgai installation",
+    "dateCreated": "1734758127786",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "dc1f61a7-c447-41a4-bdd2-fb7bbec1a895",
+    "title": "Add Qwen2.5",
+    "dateCreated": "1734759561956",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "d9ea9b0e-c09f-422c-aa0e-19b69b8acb4c",
+    "title": "Fix SQL script order to create",
+    "dateCreated": "1734760549737",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "cca36f4c-1e42-4641-8685-d773672a6941",
+    "title": "Resolve PostgreSQL plpython3u",
+    "dateCreated": "1734763299332",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "5f61138b-88d8-4c85-9f99-ccf02356a939",
+    "title": "Troubleshoot failed pgai",
+    "dateCreated": "1734764491897",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "2633f0fc-b2a4-4476-abdc-bc1df72dc289",
+    "title": "Fix unbound PKG_CONFIG",
+    "dateCreated": "1734765235950",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "a10c9a59-3e9e-440b-aee7-508789958425",
+    "title": "Fix `prepare_sql_",
+    "dateCreated": "1734766039032",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "5a180682-ef9d-47ef-a99b-bcee2f64d7b6",
+    "title": "Troubleshoot PostgreSQL extension installation",
+    "dateCreated": "1734766251500",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "5d3764fb-da1f-4d6b-b170-9a6601afa210",
+    "title": "Fix PostgreSQL script error",
+    "dateCreated": "1734768169673",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "8ca6b283-90c1-4ffd-a310-b20964535ddb",
+    "title": "User is greeting and inquiring about",
+    "dateCreated": "1734770639922",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "32f15282-1e98-47cb-bb6f-0aa98ffe529f",
+    "title": "Debug failing pgai extension build",
+    "dateCreated": "1734771558888",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "b42ef83b-9ff8-46d1-9501-08a8ae624e20",
+    "title": "Troubleshoot CMakeLists.",
+    "dateCreated": "1734773259391",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "ffe478f3-985f-478c-a761-64bcfbb2f346",
+    "title": "Activate virtual environment to run O",
+    "dateCreated": "1734774689331",
+    "workspaceDirectory": "/workspace"
+  },
+  {
+    "sessionId": "9577b30a-3077-485b-9b52-b52c946bd29b",
+    "title": "Fix unbound variable error in PL",
+    "dateCreated": "1734777567242",
+    "workspaceDirectory": "/workspace"
   }
 ]

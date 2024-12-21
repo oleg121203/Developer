@@ -1,0 +1,3728 @@
+{
+  "sessionId": "a10c9a59-3e9e-440b-aee7-508789958425",
+  "title": "Fix `prepare_sql_",
+  "workspaceDirectory": "/workspace",
+  "history": [
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "test_set1.sh Removing previous installation of pgai...\nNOTICE:  extension \"pgai\" does not exist, skipping\nDROP EXTENSION\nWARNING: Skipping pgai as it is not installed.\nChecking component versions...\nPostgreSQL version: 16\nPython version: 3.12.3\nChecking for plpython3...\nInstalling plpython3...\nTrying to install postgresql-plpython3-16...\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\npostgresql-plpython3-16 is already the newest version (16.6-0ubuntu0.24.04.1).\n0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.\npostgresql-plpython3-16 installed successfully\nFound installed plpython3 package:\nii  postgresql-plpython3-16              16.6-0ubuntu0.24.04.1                   amd64        PL/Python 3 procedural language for PostgreSQL 16\nInstalling pgai...\nCloning into 'pgai'...\nremote: Enumerating objects: 5789, done.\nremote: Counting objects: 100% (998/998), done.\nremote: Compressing objects: 100% (367/367), done.\nremote: Total 5789 (delta 786), reused 687 (delta 630), pack-reused 4791 (from 2)\nReceiving objects: 100% (5789/5789), 6.12 MiB | 7.57 MiB/s, done.\nResolving deltas: 100% (3667/3667), done.\nInstalling plpython3u extension...\nCREATE EXTENSION\nChecking installation paths...\nCurrent working directory: /tmp/pgai\nChanged to directory: /tmp/pgai/projects/extension\nCreating Python virtual environment...\nInstalling extension files...\n=== Extension installation ===\n./sql/ai.control\n===========================\nInstalling extension libraries...\n=== Library installation ===\n===========================\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL_OUT: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nSetting up permissions for extension directory...\ntotal 4064\ndrwxr-xr-x 2 postgres postgres  20480 Dec 21 07:24 .\ndrwxr-xr-x 7 root     root       4096 Dec 19 15:57 ..\n-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 adminpack--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1535 Nov 25 21:05 adminpack--1.0.sql\n-rw-r--r-- 1 postgres postgres   1682 Nov 25 21:05 adminpack--1.1--2.0.sql\n-rw-r--r-- 1 postgres postgres    595 Nov 25 21:05 adminpack--2.0--2.1.sql\n-rw-r--r-- 1 root     root        176 Nov 25 21:05 adminpack.control\n-rw-r--r-- 1 postgres postgres   7522 Dec 21 07:09 ai--0.1.0--0.2.0.sql\n-rw-r--r-- 1 postgres postgres   8573 Dec 21 07:09 ai--0.1.0.sql\n-rw-r--r-- 1 postgres postgres  12983 Dec 21 07:09 ai--0.2.0--0.3.0.sql\n-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.0--0.4.1.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.0--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.0--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 118394 Dec 21 07:09 ai--0.4.0.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.1--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.1--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.1--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.1.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.5.0--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.5.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.1-dev.sql\n-rw-r--r-- 1 root     root        167 Dec 21 07:09 ai.control\n-rw-r--r-- 1 postgres postgres    931 Nov 25 21:05 amcheck--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    704 Nov 25 21:05 amcheck--1.0.sql\n-rw-r--r-- 1 postgres postgres    705 Nov 25 21:05 amcheck--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    852 Nov 25 21:05 amcheck--1.2--1.3.sql\n-rw-r--r-- 1 root     root        154 Nov 25 21:05 amcheck.control\n-rw-r--r-- 1 postgres postgres    249 Nov 25 21:05 autoinc--1.0.sql\n-rw-r--r-- 1 root     root        149 Nov 25 21:05 autoinc.control\n-rw-r--r-- 1 postgres postgres    666 Nov 25 21:05 bloom--1.0.sql\n-rw-r--r-- 1 root     root        156 Nov 25 21:05 bloom.control\n-rw-r--r-- 1 postgres postgres   1372 Nov 25 21:05 btree_gin--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres  24818 Nov 25 21:05 btree_gin--1.0.sql\n-rw-r--r-- 1 postgres postgres   1445 Nov 25 21:05 btree_gin--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   4571 Nov 25 21:05 btree_gin--1.2--1.3.sql\n-rw-r--r-- 1 root     root        175 Nov 25 21:05 btree_gin.control\n-rw-r--r-- 1 postgres postgres   3739 Nov 25 21:05 btree_gist--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5048 Nov 25 21:05 btree_gist--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1955 Nov 25 21:05 btree_gist--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres  41115 Nov 25 21:05 btree_gist--1.2.sql\n-rw-r--r-- 1 postgres postgres   1932 Nov 25 21:05 btree_gist--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   1872 Nov 25 21:05 btree_gist--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13417 Nov 25 21:05 btree_gist--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   2170 Nov 25 21:05 btree_gist--1.6--1.7.sql\n-rw-r--r-- 1 root     root        178 Nov 25 21:05 btree_gist.control\n-rw-r--r-- 1 postgres postgres   1028 Nov 25 21:05 citext--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3424 Nov 25 21:05 citext--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    850 Nov 25 21:05 citext--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    668 Nov 25 21:05 citext--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   2284 Nov 25 21:05 citext--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13466 Nov 25 21:05 citext--1.4.sql\n-rw-r--r-- 1 postgres postgres    427 Nov 25 21:05 citext--1.5--1.6.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 citext.control\n-rw-r--r-- 1 postgres postgres   1594 Nov 25 21:05 cube--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3815 Nov 25 21:05 cube--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    365 Nov 25 21:05 cube--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   9761 Nov 25 21:05 cube--1.2.sql\n-rw-r--r-- 1 postgres postgres   2387 Nov 25 21:05 cube--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    591 Nov 25 21:05 cube--1.4--1.5.sql\n-rw-r--r-- 1 root     root        157 Nov 25 21:05 cube.control\n-rw-r--r-- 1 postgres postgres    419 Nov 25 21:05 dblink--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2832 Nov 25 21:05 dblink--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   6645 Nov 25 21:05 dblink--1.2.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 dblink.control\n-rw-r--r-- 1 postgres postgres    711 Nov 25 21:05 dict_int--1.0.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 dict_int.control\n-rw-r--r-- 1 postgres postgres    694 Nov 25 21:05 dict_xsyn--1.0.sql\n-rw-r--r-- 1 root     root        179 Nov 25 21:05 dict_xsyn.control\n-rw-r--r-- 1 postgres postgres    671 Nov 25 21:05 earthdistance--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3234 Nov 25 21:05 earthdistance--1.1.sql\n-rw-r--r-- 1 root     root        202 Nov 25 21:05 earthdistance.control\n-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 file_fdw--1.0.sql\n-rw-r--r-- 1 root     root        155 Nov 25 21:05 file_fdw.control\n-rw-r--r-- 1 postgres postgres    748 Dec 20 16:25 flag.sql\n-rw-r--r-- 1 postgres postgres    788 Nov 25 21:05 fuzzystrmatch--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    351 Nov 25 21:05 fuzzystrmatch--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1576 Nov 25 21:05 fuzzystrmatch--1.1.sql\n-rw-r--r-- 1 root     root        190 Nov 25 21:05 fuzzystrmatch.control\n-rw-r--r-- 1 postgres postgres    276 Dec 20 16:25 gated.sql\n-rw-r--r-- 1 postgres postgres   2143 Dec 20 16:25 head.sql\n-rw-r--r-- 1 postgres postgres   1639 Nov 25 21:05 hstore--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    525 Nov 25 21:05 hstore--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   5310 Nov 25 21:05 hstore--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    409 Nov 25 21:05 hstore--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13765 Nov 25 21:05 hstore--1.4.sql\n-rw-r--r-- 1 postgres postgres    455 Nov 25 21:05 hstore--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   1061 Nov 25 21:05 hstore--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 hstore--1.7--1.8.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 hstore.control\n-rw-r--r-- 1 root     root        750 Nov 25 21:05 hstore_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        201 Nov 25 21:05 hstore_plpython3u.control\n-rw-r--r-- 1 postgres postgres    273 Nov 25 21:05 insert_username--1.0.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 insert_username.control\n-rw-r--r-- 1 postgres postgres    897 Nov 25 21:05 intagg--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1089 Nov 25 21:05 intagg--1.1.sql\n-rw-r--r-- 1 root     root        119 Nov 25 21:05 intagg.control\n-rw-r--r-- 1 postgres postgres   1794 Nov 25 21:05 intarray--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5525 Nov 25 21:05 intarray--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    663 Nov 25 21:05 intarray--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres  12293 Nov 25 21:05 intarray--1.2.sql\n-rw-r--r-- 1 postgres postgres    692 Nov 25 21:05 intarray--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    282 Nov 25 21:05 intarray--1.4--1.5.sql\n-rw-r--r-- 1 root     root        191 Nov 25 21:05 intarray.control\n-rw-r--r-- 1 postgres postgres  12333 Nov 25 21:05 isn--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5264 Nov 25 21:05 isn--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres  69885 Nov 25 21:05 isn--1.1.sql\n-rw-r--r-- 1 root     root        175 Nov 25 21:05 isn.control\n-rw-r--r-- 1 root     root        732 Nov 25 21:05 jsonb_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        191 Nov 25 21:05 jsonb_plpython3u.control\n-rw-r--r-- 1 postgres postgres    223 Nov 25 21:05 lo--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    722 Nov 25 21:05 lo--1.1.sql\n-rw-r--r-- 1 root     root        141 Nov 25 21:05 lo.control\n-rw-r--r-- 1 postgres postgres   6336 Nov 25 21:05 ltree--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5217 Nov 25 21:05 ltree--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres  19375 Nov 25 21:05 ltree--1.1.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 ltree.control\n-rw-r--r-- 1 root     root        449 Nov 25 21:05 ltree_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        197 Nov 25 21:05 ltree_plpython3u.control\n-rw-r--r-- 1 postgres postgres   1096 Dec 20 16:25 migration.sql\n-rw-r--r-- 1 postgres postgres    261 Nov 25 21:05 moddatetime--1.0.sql\n-rw-r--r-- 1 root     root        165 Nov 25 21:05 moddatetime.control\n-rw-r--r-- 1 postgres postgres    549 Nov 25 21:05 old_snapshot--1.0.sql\n-rw-r--r-- 1 root     root        168 Nov 25 21:05 old_snapshot.control\n-rw-r--r-- 1 postgres postgres    560 Nov 25 21:05 pageinspect--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1570 Nov 25 21:05 pageinspect--1.10--1.11.sql\n-rw-r--r-- 1 postgres postgres   1165 Nov 25 21:05 pageinspect--1.11--1.12.sql\n-rw-r--r-- 1 postgres postgres    562 Nov 25 21:05 pageinspect--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1946 Nov 25 21:05 pageinspect--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   2566 Nov 25 21:05 pageinspect--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   1347 Nov 25 21:05 pageinspect--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   2252 Nov 25 21:05 pageinspect--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   6262 Nov 25 21:05 pageinspect--1.5.sql\n-rw-r--r-- 1 postgres postgres    698 Nov 25 21:05 pageinspect--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres   1711 Nov 25 21:05 pageinspect--1.7--1.8.sql\n-rw-r--r-- 1 postgres postgres   3398 Nov 25 21:05 pageinspect--1.8--1.9.sql\n-rw-r--r-- 1 postgres postgres    589 Nov 25 21:05 pageinspect--1.9--1.10.sql\n-rw-r--r-- 1 root     root        174 Nov 25 21:05 pageinspect.control\n-rw-r--r-- 1 postgres postgres 133270 Dec 21 07:20 pgai--0.6.1-dev.sql\n-rw-r--r-- 1 root     root        993 Dec 21 07:20 pgai--0.6.1-dev.sql.files.log\n-rw-r--r-- 1 root     root          0 Dec 21 06:10 pgai--0.6.1-dev.sql.log\n-rw-r--r-- 1 root     root         60 Dec 21 07:20 pgai--0.6.1-dev.sql.step1.log\n-rw-r--r-- 1 root     root      14036 Dec 21 07:20 pgai--0.6.1-dev.sql.step2.log\n-rw-r--r-- 1 root     root         85 Dec 21 06:15 pgai--0.6.1-dev.sql.transaction.log\n-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 pg_buffercache--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    271 Nov 25 21:05 pg_buffercache--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    328 Nov 25 21:05 pg_buffercache--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    794 Nov 25 21:05 pg_buffercache--1.2.sql\n-rw-r--r-- 1 postgres postgres   1021 Nov 25 21:05 pg_buffercache--1.3--1.4.sql\n-rw-r--r-- 1 root     root        157 Nov 25 21:05 pg_buffercache.control\n-rw-r--r-- 1 postgres postgres    307 Nov 25 21:05 pgcrypto--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    483 Nov 25 21:05 pgcrypto--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   2346 Nov 25 21:05 pgcrypto--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   5708 Nov 25 21:05 pgcrypto--1.3.sql\n-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgcrypto.control\n-rw-r--r-- 1 postgres postgres    335 Nov 25 21:05 pg_freespacemap--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    377 Nov 25 21:05 pg_freespacemap--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    899 Nov 25 21:05 pg_freespacemap--1.1.sql\n-rw-r--r-- 1 root     root        160 Nov 25 21:05 pg_freespacemap.control\n-rw-r--r-- 1 postgres postgres    281 Nov 25 21:05 pg_prewarm--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    458 Nov 25 21:05 pg_prewarm--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 pg_prewarm--1.1.sql\n-rw-r--r-- 1 root     root        139 Nov 25 21:05 pg_prewarm.control\n-rw-r--r-- 1 postgres postgres    651 Nov 25 21:05 pgrowlocks--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    253 Nov 25 21:05 pgrowlocks--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    555 Nov 25 21:05 pgrowlocks--1.2.sql\n-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgrowlocks.control\n-rw-r--r-- 1 postgres postgres   1246 Nov 25 21:05 pg_stat_statements--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1336 Nov 25 21:05 pg_stat_statements--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1454 Nov 25 21:05 pg_stat_statements--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    345 Nov 25 21:05 pg_stat_statements--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    305 Nov 25 21:05 pg_stat_statements--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   1427 Nov 25 21:05 pg_stat_statements--1.4.sql\n-rw-r--r-- 1 postgres postgres    376 Nov 25 21:05 pg_stat_statements--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres    806 Nov 25 21:05 pg_stat_statements--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres   1744 Nov 25 21:05 pg_stat_statements--1.7--1.8.sql\n-rw-r--r-- 1 postgres postgres   2128 Nov 25 21:05 pg_stat_statements--1.8--1.9.sql\n-rw-r--r-- 1 postgres postgres   2114 Nov 25 21:05 pg_stat_statements--1.9--1.10.sql\n-rw-r--r-- 1 root     root        205 Nov 25 21:05 pg_stat_statements.control\n-rw-r--r-- 1 postgres postgres    400 Nov 25 21:05 pgstattuple--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1435 Nov 25 21:05 pgstattuple--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1126 Nov 25 21:05 pgstattuple--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    623 Nov 25 21:05 pgstattuple--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   5506 Nov 25 21:05 pgstattuple--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   3764 Nov 25 21:05 pgstattuple--1.4.sql\n-rw-r--r-- 1 root     root        147 Nov 25 21:05 pgstattuple.control\n-rw-r--r-- 1 postgres postgres    608 Nov 25 21:05 pg_surgery--1.0.sql\n-rw-r--r-- 1 root     root        168 Nov 25 21:05 pg_surgery.control\n-rw-r--r-- 1 postgres postgres    536 Nov 25 21:05 pg_trgm--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2192 Nov 25 21:05 pg_trgm--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   3498 Nov 25 21:05 pg_trgm--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   2045 Nov 25 21:05 pg_trgm--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   7942 Nov 25 21:05 pg_trgm--1.3.sql\n-rw-r--r-- 1 postgres postgres    858 Nov 25 21:05 pg_trgm--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres    418 Nov 25 21:05 pg_trgm--1.5--1.6.sql\n-rw-r--r-- 1 root     root        192 Nov 25 21:05 pg_trgm.control\n-rw-r--r-- 1 postgres postgres    883 Nov 25 21:05 pg_visibility--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    833 Nov 25 21:05 pg_visibility--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   2825 Nov 25 21:05 pg_visibility--1.1.sql\n-rw-r--r-- 1 root     root        186 Nov 25 21:05 pg_visibility.control\n-rw-r--r-- 1 postgres postgres   1296 Nov 25 21:05 pg_walinspect--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3665 Nov 25 21:05 pg_walinspect--1.0.sql\n-rw-r--r-- 1 root     root        183 Nov 25 21:05 pg_walinspect.control\n-rw-r--r-- 1 postgres postgres    658 Nov 25 21:05 plpgsql--1.0.sql\n-rw-r--r-- 1 root     root        193 Nov 25 21:05 plpgsql.control\n-rw-r--r-- 1 root     root        556 Nov 25 21:05 plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        196 Nov 25 21:05 plpython3u.control\n-rw-r--r-- 1 postgres postgres    626 Nov 25 21:05 postgres_fdw--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    507 Nov 25 21:05 postgres_fdw--1.0.sql\n-rw-r--r-- 1 root     root        172 Nov 25 21:05 postgres_fdw.control\n-rw-r--r-- 1 postgres postgres    343 Nov 25 21:05 refint--1.0.sql\n-rw-r--r-- 1 root     root        169 Nov 25 21:05 refint.control\n-rw-r--r-- 1 postgres postgres   3005 Nov 25 21:05 seg--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    360 Nov 25 21:05 seg--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   8142 Nov 25 21:05 seg--1.1.sql\n-rw-r--r-- 1 postgres postgres   2344 Nov 25 21:05 seg--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    259 Nov 25 21:05 seg--1.3--1.4.sql\n-rw-r--r-- 1 root     root        187 Nov 25 21:05 seg.control\n-rw-r--r-- 1 postgres postgres    375 Nov 25 21:05 sslinfo--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    746 Nov 25 21:05 sslinfo--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1534 Nov 25 21:05 sslinfo--1.2.sql\n-rw-r--r-- 1 root     root        146 Nov 25 21:05 sslinfo.control\n-rw-r--r-- 1 postgres postgres   2153 Nov 25 21:05 tablefunc--1.0.sql\n-rw-r--r-- 1 root     root        189 Nov 25 21:05 tablefunc.control\n-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 tcn--1.0.sql\n-rw-r--r-- 1 root     root        149 Nov 25 21:05 tcn.control\n-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_rows--1.0.sql\n-rw-r--r-- 1 root     root        201 Nov 25 21:05 tsm_system_rows.control\n-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_time--1.0.sql\n-rw-r--r-- 1 root     root        207 Nov 25 21:05 tsm_system_time.control\n-rw-r--r-- 1 postgres postgres    445 Nov 25 21:05 unaccent--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    910 Nov 25 21:05 unaccent--1.1.sql\n-rw-r--r-- 1 root     root        172 Nov 25 21:05 unaccent.control\n-rw-r--r-- 1 postgres postgres    688 Nov 25 21:05 uuid-ossp--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1516 Nov 25 21:05 uuid-ossp--1.1.sql\n-rw-r--r-- 1 root     root        178 Nov 25 21:05 uuid-ossp.control\n-rw-r--r-- 1 root     root       2047 Dec 21 07:24 vector--0.1.0--0.1.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.1--0.1.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.3--0.1.4.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.4--0.1.5.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.5--0.1.6.sql\n-rw-r--r-- 1 root     root        403 Dec 21 07:24 vector--0.1.6--0.1.7.sql\n-rw-r--r-- 1 root     root        396 Dec 21 07:24 vector--0.1.7--0.1.8.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.8--0.2.0.sql\n-rw-r--r-- 1 root     root        744 Dec 21 07:24 vector--0.2.0--0.2.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.1--0.2.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.2--0.2.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.3--0.2.4.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.4--0.2.5.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.5--0.2.6.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.6--0.2.7.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.7--0.3.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.0--0.3.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.1--0.3.2.sql\n-rw-r--r-- 1 root     root        864 Dec 21 07:24 vector--0.3.2--0.4.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.0--0.4.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.1--0.4.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.2--0.4.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.3--0.4.4.sql\n-rw-r--r-- 1 root     root       1426 Dec 21 07:24 vector--0.4.4--0.5.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.5.0--0.5.1.sql\n-rw-r--r-- 1 root     root        243 Dec 21 07:24 vector--0.5.1--0.6.0.sql\n-rw-r--r-- 1 root     root        459 Dec 21 07:24 vector--0.6.0--0.6.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.6.1--0.6.2.sql\n-rw-r--r-- 1 root     root      20375 Dec 21 07:24 vector--0.6.2--0.7.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.0--0.7.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.1--0.7.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.2--0.7.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.3--0.7.4.sql\n-rw-r--r-- 1 root     root       1227 Dec 21 07:24 vector--0.7.4--0.8.0.sql\n-rw-r--r-- 1 root     root      31171 Dec 21 07:24 vector--0.8.0.sql\n-rw-r--r-- 1 root     root        145 Dec 21 07:24 vector.control\n-rw-r--r-- 1 postgres postgres    944 Nov 25 21:05 xml2--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2049 Nov 25 21:05 xml2--1.1.sql\n-rw-r--r-- 1 root     root        182 Nov 25 21:05 xml2.control\nChecking write permissions...\nProcessing SQL files in directory: /tmp/pgai/projects/extension/sql\nAvailable SQL files:\ntotal 1488\n-rw-r--r-- 1 root root   7522 Dec 21 07:24 ai--0.1.0--0.2.0.sql\n-rw-r--r-- 1 root root   8573 Dec 21 07:24 ai--0.1.0.sql\n-rw-r--r-- 1 root root  12983 Dec 21 07:24 ai--0.2.0--0.3.0.sql\n-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.0--0.4.1.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.0--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.0--0.6.0.sql\n-rw-r--r-- 1 root root 118394 Dec 21 07:24 ai--0.4.0.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.1--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.1--0.6.0.sql\n-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.1.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.5.0--0.6.0.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.6.0.sql\n-rw-r--r-- 1 root root    167 Dec 21 07:24 ai.control\n-rw-r--r-- 1 root root    748 Dec 21 07:24 flag.sql\n-rw-r--r-- 1 root root    276 Dec 21 07:24 gated.sql\n-rw-r--r-- 1 root root   2143 Dec 21 07:24 head.sql\ndrwxr-xr-x 2 root root   4096 Dec 21 07:24 idempotent\ndrwxr-xr-x 2 root root   4096 Dec 21 07:24 incremental\n-rw-r--r-- 1 root root   1096 Dec 21 07:24 migration.sql\nAnalyzing original SQL file...\nValidating SQL syntax...\nWarning: SQL validation failed:\nSET\nSET\nStarting main transaction...\nBEGIN\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:59: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nOriginal SQL analysis:\nSET LOCAL statements:\nTransaction blocks:\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nStep 1: Creating schema...\nStep 2: Running main SQL script...\nError: Failed to execute SQL script. Log:\nSET\nSET\nStarting main transaction...\nBEGIN\nSET\nDO\nCREATE TABLE\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:119: ERROR:  pg_extension_config_dump() can only be called from an SQL script executed by CREATE EXTENSION\nCONTEXT:  SQL statement \"SELECT pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '')\"\nPL/pgSQL function inline_code_block line 20 at PERFORM\nSQL statement \"do /*001-vectorizer.sql*/ $migration_body$\nbegin\ncreate table ai.vectorizer\n( id int not null primary key generated by default as identity\n, source_schema name not null\n, source_table name not null\n, source_pk jsonb not null\n, target_schema name not null\n, target_table name not null\n, view_schema name not null\n, view_name name not null\n, trigger_name name not null\n, queue_schema name\n, queue_table name\n, config jsonb not null\n, unique (target_schema, target_table)\n);\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer_id_seq'::pg_catalog.regclass, '');\ncreate table ai.vectorizer_errors\n( id int not null references ai.vectorizer (id) on delete cascade\n, message text\n, details jsonb\n, recorded timestamptz not null default now()\n);\ncreate index on ai.vectorizer_errors (id, recorded);\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');\nend;\n$migration_body$;\"\nPL/pgSQL function inline_code_block line 48 at EXECUTE\nhawk@hawk:~$ "
+          }
+        ],
+        "id": "a019e9fd-9ab5-40c4-a383-32a8dc342e06"
+      },
+      "contextItems": [
+        {
+          "name": "test_set1.sh",
+          "description": "/workspace/test_set1.sh",
+          "content": "```/workspace/test_set1.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\n\n# Проверяем доступные пакеты plpython3\necho \"Checking available plpython3 packages...\"\napt-cache search postgresql-plpython3\n\n# Пробуем разные варианты установки plpython3\ninstall_plpython3() {\n    local versions=(\"postgresql-plpython3-${PG_VERSION}\" \"postgresql-plpython3u-${PG_VERSION}\" \"plpython3\" \"plpython3u\")\n    \n    for pkg in \"${versions[@]}\"; do\n        echo \"Trying to install $pkg...\"\n        if apt-get install -y \"$pkg\" 2>/dev/null; then\n            echo \"$pkg installed successfully\"\n            return 0\n        fi\n    done\n    \n    echo \"Failed to install any plpython3 package. System info:\"\n    lsb_release -a\n    return 1\n}\n\n# Основные зависимости\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Устанавливаем plpython3\ninstall_plpython3 || {\n    echo \"Error: Failed to install plpython3. Please check package availability.\"\n    exit 1\n}\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector and create schemas\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\n\n# Create required schemas\necho \"Creating required schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} <<EOL\nCREATE SCHEMA IF NOT EXISTS vector;\nCREATE SCHEMA IF NOT EXISTS ai;\nCREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;\nEOL\n\n# Verify schemas exist\necho \"Verifying schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dn\" | grep -E \"vector|ai\" || {\n    echo \"Error: Required schemas not created\"\n    exit 1\n}\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    local build_log=\"/tmp/pgai_build.log\"\n    local install_log=\"/tmp/pgai_install.log\"\n    local pkg_config_log=\"/tmp/pgai_pkg_config.log\"\n    \n    # Проверка наличия необходимых утилит\n    for cmd in pg_config pkg-config python3; do\n        if ! command -v \"$cmd\" &> /dev/null; then\n            echo \"Error: Required command '$cmd' not found\"\n            return 1\n        fi\n    done\n    \n    # Определение и экспорт переменных окружения\n    export PG_CONFIG=$(command -v pg_config)\n    export PYTHON_INCLUDE_DIR=$(python3 -c \"import sysconfig; print(sysconfig.get_path('include'))\")\n    export PG_EXTENSION_DIR\n    export PGLIB_DIR\n    export PKG_CONFIG_PATH=\"${PGLIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}\"\n    \n    # Проверка путей установки\n    echo \"Checking installation paths...\"\n    {\n        echo \"=== Installation paths ===\"\n        echo \"PG_CONFIG: $PG_CONFIG\"\n        echo \"PYTHON_INCLUDE_DIR: $PYTHON_INCLUDE_DIR\"\n        echo \"PG_EXTENSION_DIR: $PG_EXTENSION_DIR\"\n        echo \"PGLIB_DIR: $PGLIB_DIR\"\n        echo \"PKG_CONFIG_PATH: $PKG_CONFIG_PATH\"\n        echo \"=========================\"\n    } &> \"$build_log\"\n    \n    # Проверка текущей директории\n    echo \"Current working directory: $(pwd)\"\n    cd \"$extension_dir\" || {\n        echo \"Error: Failed to change to $extension_dir\"\n        return 1\n    }\n    echo \"Changed to directory: $(pwd)\"\n    \n    # Создание и активация venv\n    echo \"Creating Python virtual environment...\"\n    python3 -m venv venv || {\n        echo \"Error: Failed to create virtual environment\"\n        return 1\n    }\n    # shellcheck source=/dev/null\n    . venv/bin/activate\n    \n    # Остальные шаги сборки\n    # ...existing build steps...\n    \n    # Добавляем проверку и копирование библиотек\n    echo \"Installing extension files...\"\n    {\n        echo \"=== Extension installation ===\"\n        # Поиск скомпилированных файлов\n        find . -name \"*.so\" -o -name \"*.control\"\n        # Копирование файлов в нужные директории\n        for file in $(find . -name \"pgai.so\"); do\n            sudo install -v -m 755 \"$file\" \"${PGLIB_DIR}/\"\n        done\n        echo \"===========================\"\n    } | tee -a \"$install_log\"\n    \n    # Установка библиотек с проверкой\n    echo \"Installing extension libraries...\"\n    {\n        echo \"=== Library installation ===\"\n        # Поиск .so файлов\n        find . -name \"*.so\" -type f -print0 | while IFS= read -r -d '' so_file; do\n            echo \"Found library: $so_file\"\n            if [[ \"$so_file\" == *\"pgai\"* ]]; then\n                echo \"Installing $so_file to $PGLIB_DIR\"\n                sudo install -v -m 755 \"$so_file\" \"${PGLIB_DIR}/pgai.so\"\n                echo \"Verifying installation:\"\n                ls -l \"${PGLIB_DIR}/pgai.so\"\n            fi\n        done\n        echo \"===========================\"\n    } | tee -a \"$install_log\"\n    \n    return 0\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n    sudo rm -rf \"${PG_EXTENSION_DIR}/pgai\"  # Remove pgai directory if it exists\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\n# Добавляем новую функцию для очистки SQL\nclean_sql_file() {\n    local input_file=\"$1\"\n    local output_file=\"$2\"\n    \n    # Удаляем вызовы pg_extension_config_dump и комментарии\n    sed -e '/perform.*pg_extension_config_dump/d' \\\n        -e '/^--/d' \\\n        -e '/SELECT.*pg_extension_config_dump/d' \\\n        -e '/^do.*\\$migration_body\\$/,/\\$migration_body\\$;/d' \\\n        -e '/^do language plpgsql/,/\\$block\\$;/d' \\\n        \"$input_file\" > \"$output_file\"\n}\n\nprepare_sql_files() {\n    local sql_dir=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n    local debug_file=\"/tmp/pgai_debug.sql\"\n    \n    echo \"Processing SQL files in directory: $sql_dir\"\n    echo \"Available SQL files:\"\n    ls -l \"$sql_dir\"\n    \n    # Находим последний файл ai--*.sql\n    latest_sql_file=$(find \"$sql_dir\" -maxdepth 1 -type f -name \"ai--*.sql\" -printf \"%T+ %p\\n\" | sort -r | head -n 1 | cut -d' ' -f2-)\n    \n    if [ -z \"$latest_sql_file\" ]; then\n        echo \"Error: No ai--*.sql files found in $sql_dir\"\n        return 1\n    fi\n    \n    # Анализ оригинального файла\n    echo \"Analyzing original SQL file...\"\n    grep -n \"SET LOCAL\" \"$latest_sql_file\" > \"${debug_file}.setlocal.log\"\n    grep -n \"BEGIN\" \"$latest_sql_file\" > \"${debug_file}.transactions.log\"\n    \n    # Формируем SQL с правильными транзакциями\n    {\n        echo \"-- Setup environment\"\n        echo \"\\\\set ON_ERROR_STOP on\"\n        echo \"SET client_min_messages TO warning;\"\n        echo \"SET search_path TO public;\"\n        \n        # Начало основной транзакции\n        echo \"\\\\echo 'Starting main transaction...'\"\n        echo \"BEGIN;\"\n        \n        # Обработка SET LOCAL\n        sed -e '/SET LOCAL/!b' \\\n            -e '/BEGIN/!i BEGIN;' \\\n            -e '/COMMIT/!a COMMIT;' \\\n            \"$latest_sql_file\" | \\\n        sed -e 's/@extowner@/postgres/g' \\\n            -e 's/@extschema@/public/g' \\\n            -e 's/@extversion@/0.6.1-dev/g' \\\n            -e 's|@extschema:vector@|vector|g' \\\n            -e '/^--/d'\n            \n        # Завершение основной транзакции    \n        echo \"COMMIT;\"\n    } > \"$output_file\"\n    \n    # Проверка синтаксиса\n    echo \"Validating SQL syntax...\"\n    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f \"$output_file\" template1 > \"${output_file}.validate.log\" 2>&1; then\n        echo \"Warning: SQL validation failed:\"\n        cat \"${output_file}.validate.log\"\n        echo \"Original SQL analysis:\"\n        echo \"SET LOCAL statements:\"\n        cat \"${debug_file}.setlocal.log\"\n        echo \"Transaction blocks:\"\n        cat \"${debug_file}.transactions.log\"\n    fi\n    \n    return 0\n}\n\n# Add version checking function\ncheck_versions() {\n    echo \"Checking component versions...\"\n    local pg_version=$(psql --version | awk '{print $3}' | cut -d. -f1)\n    local python_version=$(python3 --version | awk '{print $2}')\n\n    echo \"PostgreSQL version: $pg_version\"\n    echo \"Python version: $python_version\"\n    echo \"Checking for plpython3...\"\n\n    # Check if EITHER package is installed\n    if ! dpkg -l | grep -qE \"postgresql-plpython3-${PG_VERSION}|postgresql-plpython3u-${PG_VERSION}\"; then\n        echo \"Installing plpython3...\"\n        install_plpython3 || {\n            echo \"Error: Failed to install plpython3. Check your repositories.\"\n            return 1\n        }\n    fi\n\n    echo \"Found installed plpython3 package:\"\n    dpkg -l | grep -E \"postgresql-plpython3-${PG_VERSION}|postgresql-plpython3u-${PG_VERSION}\"\n\n    if [ \"$pg_version\" -lt \"13\" ]; then\n        echo \"Error: PostgreSQL version must be 13 or higher\"\n        return 1\n    fi\n}\n\n# Add function to verify installation\nverify_installation() {\n    echo \"Performing installation verification...\"\n\n    # Check extension presence\n    if ! sudo -u postgres psql -d \"$PG_DATABASE\" -tAc \"SELECT 1 FROM pg_extension WHERE extname = 'pgai';\" | grep -q 1; then\n        echo \"Error: pgai extension not found in database\"\n        return 1\n    fi\n\n    # Check required functions\n    local required_functions=(\"pgai_query\" \"pgai_set_service\")\n    for func in \"${required_functions[@]}\"; do\n        if ! sudo -u postgres psql -d \"$PG_DATABASE\" -tAc \"SELECT 1 FROM pg_proc WHERE proname = '$func';\" | grep -q 1; then\n            echo \"Error: Required function $func not found\"\n            return 1\n        fi\n    done\n\n    echo \"Installation verification completed successfully\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\n# Add version check before installation\ncheck_versions || exit 1\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\n# Install plpython3u before building pgai\necho \"Installing plpython3u extension...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS plpython3u;\"\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\n# Обновленная секция установки SQL\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    echo \"SQL_OUT: $SQL_OUT\"\n    \n    # Настройка прав доступа для директории расширений\n    echo \"Setting up permissions for extension directory...\"\n    sudo chown postgres:postgres \"${PG_EXTENSION_DIR}\"\n    sudo chmod 755 \"${PG_EXTENSION_DIR}\"\n    \n    # Проверка прав доступа\n    ls -la \"${PG_EXTENSION_DIR}\"\n    echo \"Checking write permissions...\"\n    if ! sudo -u postgres test -w \"${PG_EXTENSION_DIR}\"; then\n        echo \"Error: postgres user cannot write to ${PG_EXTENSION_DIR}\"\n        exit 1\n    fi\n    \n    if prepare_sql_files \"$SQL_DIR\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        # Пошаговое выполнение SQL\n        echo \"Step 1: Creating schema...\"\n        if ! sudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE SCHEMA IF NOT EXISTS ai;\" > \"${SQL_OUT}.step1.log\" 2>&1; then\n            echo \"Error: Failed to create schema. Log:\"\n            cat \"${SQL_OUT}.step1.log\"\n            exit 1\n        fi\n\n        echo \"Step 2: Running main SQL script...\"\n        if ! sudo -u postgres psql -d ${PG_DATABASE} -v ON_ERROR_STOP=on -f \"$SQL_OUT\" > \"${SQL_OUT}.step2.log\" 2>&1; then\n            echo \"Error: Failed to execute SQL script. Log:\"\n            cat \"${SQL_OUT}.step2.log\"\n            exit 1\n        fi\n\n        echo \"SQL installation completed successfully\"\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nelse\n    echo \"Error: SQL directory not found: $SQL_DIR\"\n    exit 1\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Verify control file contents\necho \"Verifying control file...\"\nif grep -q \"schema = public\" \"${PG_EXTENSION_DIR}/pgai.control\"; then\n    echo \"Error: Control file contains schema definition with relocatable = true\"\n    exit 1\nfi\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\necho \"Creating pgai extension...\"\nif ! sudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai;\"; then\n    echo \"Error: Failed to create pgai extension. Checking extension files:\"\n    ls -l \"${PG_EXTENSION_DIR}/pgai\"*\n    ls -l \"${PGLIB_DIR}/pgai\"*\n    exit 1\nfi\n\n# Add verification after installation\nverify_installation || {\n    echo \"Installation verification failed\"\n    exit 1\n}\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/test_set1.sh"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "435c77d2-2fc6-4808-b203-e545a199f45c"
+          }
+        }
+      ],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/test_set1.sh",
+                  "label": "test_set1.sh",
+                  "renderInlineAs": null,
+                  "query": "/workspace/test_set1.sh",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " Removing previous installation of pgai..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "NOTICE:  extension \"pgai\" does not exist, skipping"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "DROP EXTENSION"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "WARNING: Skipping pgai as it is not installed."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking component versions..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL version: 16"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Python version: 3.12.3"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking for plpython3..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing plpython3..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Trying to install postgresql-plpython3-16..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Reading package lists... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Building dependency tree... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Reading state information... Done"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "postgresql-plpython3-16 is already the newest version (16.6-0ubuntu0.24.04.1)."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "postgresql-plpython3-16 installed successfully"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Found installed plpython3 package:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "ii  postgresql-plpython3-16              16.6-0ubuntu0.24.04.1                   amd64        PL/Python 3 procedural language for PostgreSQL 16"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing pgai..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Cloning into 'pgai'..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "remote: Enumerating objects: 5789, done."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "remote: Counting objects: 100% (998/998), done."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "remote: Compressing objects: 100% (367/367), done."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "remote: Total 5789 (delta 786), reused 687 (delta 630), pack-reused 4791 (from 2)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Receiving objects: 100% (5789/5789), 6.12 MiB | 7.57 MiB/s, done."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Resolving deltas: 100% (3667/3667), done."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing plpython3u extension..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CREATE EXTENSION"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking installation paths..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Current working directory: /tmp/pgai"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Changed to directory: /tmp/pgai/projects/extension"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Creating Python virtual environment..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing extension files..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "=== Extension installation ==="
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "./sql/ai.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "==========================="
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing extension libraries..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "=== Library installation ==="
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "==========================="
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Installing SQL files..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Found SQL directory: /tmp/pgai/projects/extension/sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL_OUT: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Setting up permissions for extension directory..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "total 4064"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "drwxr-xr-x 2 postgres postgres  20480 Dec 21 07:24 ."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "drwxr-xr-x 7 root     root       4096 Dec 19 15:57 .."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 adminpack--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1535 Nov 25 21:05 adminpack--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1682 Nov 25 21:05 adminpack--1.1--2.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    595 Nov 25 21:05 adminpack--2.0--2.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        176 Nov 25 21:05 adminpack.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   7522 Dec 21 07:09 ai--0.1.0--0.2.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   8573 Dec 21 07:09 ai--0.1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  12983 Dec 21 07:09 ai--0.2.0--0.3.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.0--0.4.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.0--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.0--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.0--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 118394 Dec 21 07:09 ai--0.4.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.1--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.1--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.1--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.5.0--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.5.0--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.0--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        167 Dec 21 07:09 ai.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    931 Nov 25 21:05 amcheck--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    704 Nov 25 21:05 amcheck--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    705 Nov 25 21:05 amcheck--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    852 Nov 25 21:05 amcheck--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        154 Nov 25 21:05 amcheck.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    249 Nov 25 21:05 autoinc--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        149 Nov 25 21:05 autoinc.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    666 Nov 25 21:05 bloom--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        156 Nov 25 21:05 bloom.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1372 Nov 25 21:05 btree_gin--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  24818 Nov 25 21:05 btree_gin--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1445 Nov 25 21:05 btree_gin--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   4571 Nov 25 21:05 btree_gin--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        175 Nov 25 21:05 btree_gin.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3739 Nov 25 21:05 btree_gist--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5048 Nov 25 21:05 btree_gist--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1955 Nov 25 21:05 btree_gist--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  41115 Nov 25 21:05 btree_gist--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1932 Nov 25 21:05 btree_gist--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1872 Nov 25 21:05 btree_gist--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  13417 Nov 25 21:05 btree_gist--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2170 Nov 25 21:05 btree_gist--1.6--1.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        178 Nov 25 21:05 btree_gist.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1028 Nov 25 21:05 citext--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3424 Nov 25 21:05 citext--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    850 Nov 25 21:05 citext--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    668 Nov 25 21:05 citext--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2284 Nov 25 21:05 citext--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  13466 Nov 25 21:05 citext--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    427 Nov 25 21:05 citext--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        173 Nov 25 21:05 citext.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1594 Nov 25 21:05 cube--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3815 Nov 25 21:05 cube--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    365 Nov 25 21:05 cube--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   9761 Nov 25 21:05 cube--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2387 Nov 25 21:05 cube--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    591 Nov 25 21:05 cube--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        157 Nov 25 21:05 cube.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    419 Nov 25 21:05 dblink--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2832 Nov 25 21:05 dblink--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   6645 Nov 25 21:05 dblink--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        170 Nov 25 21:05 dblink.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    711 Nov 25 21:05 dict_int--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        173 Nov 25 21:05 dict_int.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    694 Nov 25 21:05 dict_xsyn--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        179 Nov 25 21:05 dict_xsyn.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    671 Nov 25 21:05 earthdistance--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3234 Nov 25 21:05 earthdistance--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        202 Nov 25 21:05 earthdistance.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 file_fdw--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        155 Nov 25 21:05 file_fdw.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    748 Dec 20 16:25 flag.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    788 Nov 25 21:05 fuzzystrmatch--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    351 Nov 25 21:05 fuzzystrmatch--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1576 Nov 25 21:05 fuzzystrmatch--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        190 Nov 25 21:05 fuzzystrmatch.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    276 Dec 20 16:25 gated.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2143 Dec 20 16:25 head.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1639 Nov 25 21:05 hstore--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    525 Nov 25 21:05 hstore--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5310 Nov 25 21:05 hstore--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    409 Nov 25 21:05 hstore--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  13765 Nov 25 21:05 hstore--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    455 Nov 25 21:05 hstore--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1061 Nov 25 21:05 hstore--1.6--1.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 hstore--1.7--1.8.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        173 Nov 25 21:05 hstore.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        750 Nov 25 21:05 hstore_plpython3u--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        201 Nov 25 21:05 hstore_plpython3u.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    273 Nov 25 21:05 insert_username--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        170 Nov 25 21:05 insert_username.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    897 Nov 25 21:05 intagg--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1089 Nov 25 21:05 intagg--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        119 Nov 25 21:05 intagg.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1794 Nov 25 21:05 intarray--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5525 Nov 25 21:05 intarray--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    663 Nov 25 21:05 intarray--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  12293 Nov 25 21:05 intarray--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    692 Nov 25 21:05 intarray--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    282 Nov 25 21:05 intarray--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        191 Nov 25 21:05 intarray.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  12333 Nov 25 21:05 isn--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5264 Nov 25 21:05 isn--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  69885 Nov 25 21:05 isn--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        175 Nov 25 21:05 isn.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        732 Nov 25 21:05 jsonb_plpython3u--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        191 Nov 25 21:05 jsonb_plpython3u.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    223 Nov 25 21:05 lo--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    722 Nov 25 21:05 lo--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        141 Nov 25 21:05 lo.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   6336 Nov 25 21:05 ltree--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5217 Nov 25 21:05 ltree--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres  19375 Nov 25 21:05 ltree--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        170 Nov 25 21:05 ltree.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        449 Nov 25 21:05 ltree_plpython3u--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        197 Nov 25 21:05 ltree_plpython3u.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1096 Dec 20 16:25 migration.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    261 Nov 25 21:05 moddatetime--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        165 Nov 25 21:05 moddatetime.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    549 Nov 25 21:05 old_snapshot--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        168 Nov 25 21:05 old_snapshot.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    560 Nov 25 21:05 pageinspect--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1570 Nov 25 21:05 pageinspect--1.10--1.11.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1165 Nov 25 21:05 pageinspect--1.11--1.12.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    562 Nov 25 21:05 pageinspect--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1946 Nov 25 21:05 pageinspect--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2566 Nov 25 21:05 pageinspect--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1347 Nov 25 21:05 pageinspect--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2252 Nov 25 21:05 pageinspect--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   6262 Nov 25 21:05 pageinspect--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    698 Nov 25 21:05 pageinspect--1.6--1.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1711 Nov 25 21:05 pageinspect--1.7--1.8.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3398 Nov 25 21:05 pageinspect--1.8--1.9.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    589 Nov 25 21:05 pageinspect--1.9--1.10.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        174 Nov 25 21:05 pageinspect.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres 133270 Dec 21 07:20 pgai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        993 Dec 21 07:20 pgai--0.6.1-dev.sql.files.log"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root          0 Dec 21 06:10 pgai--0.6.1-dev.sql.log"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root         60 Dec 21 07:20 pgai--0.6.1-dev.sql.step1.log"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root      14036 Dec 21 07:20 pgai--0.6.1-dev.sql.step2.log"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root         85 Dec 21 06:15 pgai--0.6.1-dev.sql.transaction.log"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 pg_buffercache--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    271 Nov 25 21:05 pg_buffercache--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    328 Nov 25 21:05 pg_buffercache--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    794 Nov 25 21:05 pg_buffercache--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1021 Nov 25 21:05 pg_buffercache--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        157 Nov 25 21:05 pg_buffercache.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    307 Nov 25 21:05 pgcrypto--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    483 Nov 25 21:05 pgcrypto--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2346 Nov 25 21:05 pgcrypto--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5708 Nov 25 21:05 pgcrypto--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgcrypto.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    335 Nov 25 21:05 pg_freespacemap--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    377 Nov 25 21:05 pg_freespacemap--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    899 Nov 25 21:05 pg_freespacemap--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        160 Nov 25 21:05 pg_freespacemap.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    281 Nov 25 21:05 pg_prewarm--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    458 Nov 25 21:05 pg_prewarm--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 pg_prewarm--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        139 Nov 25 21:05 pg_prewarm.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    651 Nov 25 21:05 pgrowlocks--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    253 Nov 25 21:05 pgrowlocks--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    555 Nov 25 21:05 pgrowlocks--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgrowlocks.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1246 Nov 25 21:05 pg_stat_statements--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1336 Nov 25 21:05 pg_stat_statements--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1454 Nov 25 21:05 pg_stat_statements--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    345 Nov 25 21:05 pg_stat_statements--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    305 Nov 25 21:05 pg_stat_statements--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1427 Nov 25 21:05 pg_stat_statements--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    376 Nov 25 21:05 pg_stat_statements--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    806 Nov 25 21:05 pg_stat_statements--1.6--1.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1744 Nov 25 21:05 pg_stat_statements--1.7--1.8.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2128 Nov 25 21:05 pg_stat_statements--1.8--1.9.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2114 Nov 25 21:05 pg_stat_statements--1.9--1.10.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        205 Nov 25 21:05 pg_stat_statements.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    400 Nov 25 21:05 pgstattuple--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1435 Nov 25 21:05 pgstattuple--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1126 Nov 25 21:05 pgstattuple--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    623 Nov 25 21:05 pgstattuple--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   5506 Nov 25 21:05 pgstattuple--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3764 Nov 25 21:05 pgstattuple--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        147 Nov 25 21:05 pgstattuple.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    608 Nov 25 21:05 pg_surgery--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        168 Nov 25 21:05 pg_surgery.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    536 Nov 25 21:05 pg_trgm--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2192 Nov 25 21:05 pg_trgm--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3498 Nov 25 21:05 pg_trgm--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2045 Nov 25 21:05 pg_trgm--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   7942 Nov 25 21:05 pg_trgm--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    858 Nov 25 21:05 pg_trgm--1.4--1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    418 Nov 25 21:05 pg_trgm--1.5--1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        192 Nov 25 21:05 pg_trgm.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    883 Nov 25 21:05 pg_visibility--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    833 Nov 25 21:05 pg_visibility--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2825 Nov 25 21:05 pg_visibility--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        186 Nov 25 21:05 pg_visibility.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1296 Nov 25 21:05 pg_walinspect--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3665 Nov 25 21:05 pg_walinspect--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        183 Nov 25 21:05 pg_walinspect.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    658 Nov 25 21:05 plpgsql--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        193 Nov 25 21:05 plpgsql.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        556 Nov 25 21:05 plpython3u--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        196 Nov 25 21:05 plpython3u.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    626 Nov 25 21:05 postgres_fdw--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    507 Nov 25 21:05 postgres_fdw--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        172 Nov 25 21:05 postgres_fdw.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    343 Nov 25 21:05 refint--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        169 Nov 25 21:05 refint.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   3005 Nov 25 21:05 seg--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    360 Nov 25 21:05 seg--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   8142 Nov 25 21:05 seg--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2344 Nov 25 21:05 seg--1.2--1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    259 Nov 25 21:05 seg--1.3--1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        187 Nov 25 21:05 seg.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    375 Nov 25 21:05 sslinfo--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    746 Nov 25 21:05 sslinfo--1.1--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1534 Nov 25 21:05 sslinfo--1.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        146 Nov 25 21:05 sslinfo.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2153 Nov 25 21:05 tablefunc--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        189 Nov 25 21:05 tablefunc.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 tcn--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        149 Nov 25 21:05 tcn.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_rows--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        201 Nov 25 21:05 tsm_system_rows.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_time--1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        207 Nov 25 21:05 tsm_system_time.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    445 Nov 25 21:05 unaccent--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    910 Nov 25 21:05 unaccent--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        172 Nov 25 21:05 unaccent.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    688 Nov 25 21:05 uuid-ossp--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   1516 Nov 25 21:05 uuid-ossp--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        178 Nov 25 21:05 uuid-ossp.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root       2047 Dec 21 07:24 vector--0.1.0--0.1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.1--0.1.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.3--0.1.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.4--0.1.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.5--0.1.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        403 Dec 21 07:24 vector--0.1.6--0.1.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        396 Dec 21 07:24 vector--0.1.7--0.1.8.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.8--0.2.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        744 Dec 21 07:24 vector--0.2.0--0.2.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.1--0.2.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.2--0.2.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.3--0.2.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.4--0.2.5.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.5--0.2.6.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.6--0.2.7.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.7--0.3.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.0--0.3.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.1--0.3.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        864 Dec 21 07:24 vector--0.3.2--0.4.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.0--0.4.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.1--0.4.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.2--0.4.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.3--0.4.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root       1426 Dec 21 07:24 vector--0.4.4--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.5.0--0.5.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        243 Dec 21 07:24 vector--0.5.1--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        459 Dec 21 07:24 vector--0.6.0--0.6.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.6.1--0.6.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root      20375 Dec 21 07:24 vector--0.6.2--0.7.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.0--0.7.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.1--0.7.2.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.2--0.7.3.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.3--0.7.4.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root       1227 Dec 21 07:24 vector--0.7.4--0.8.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root      31171 Dec 21 07:24 vector--0.8.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        145 Dec 21 07:24 vector.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres    944 Nov 25 21:05 xml2--1.0--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 postgres postgres   2049 Nov 25 21:05 xml2--1.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root     root        182 Nov 25 21:05 xml2.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Checking write permissions..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Processing SQL files in directory: /tmp/pgai/projects/extension/sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Available SQL files:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "total 1488"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root   7522 Dec 21 07:24 ai--0.1.0--0.2.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root   8573 Dec 21 07:24 ai--0.1.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root  12983 Dec 21 07:24 ai--0.2.0--0.3.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.0--0.4.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.0--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.0--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 118394 Dec 21 07:24 ai--0.4.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.1--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.1--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.1.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.5.0--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.5.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.6.0.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root    167 Dec 21 07:24 ai.control"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root    748 Dec 21 07:24 flag.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root    276 Dec 21 07:24 gated.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root   2143 Dec 21 07:24 head.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "drwxr-xr-x 2 root root   4096 Dec 21 07:24 idempotent"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "drwxr-xr-x 2 root root   4096 Dec 21 07:24 incremental"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "-rw-r--r-- 1 root root   1096 Dec 21 07:24 migration.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Analyzing original SQL file..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Validating SQL syntax..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Warning: SQL validation failed:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Starting main transaction..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "BEGIN"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "psql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:59: ERROR:  query returned no rows"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Original SQL analysis:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET LOCAL statements:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Transaction blocks:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Step 1: Creating schema..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Step 2: Running main SQL script..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to execute SQL script. Log:"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Starting main transaction..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "BEGIN"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SET"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "DO"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CREATE TABLE"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "psql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:119: ERROR:  pg_extension_config_dump() can only be called from an SQL script executed by CREATE EXTENSION"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "CONTEXT:  SQL statement \"SELECT pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '')\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PL/pgSQL function inline_code_block line 20 at PERFORM"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "SQL statement \"do /*001-vectorizer.sql*/ $migration_body$"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "begin"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "create table ai.vectorizer"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "( id int not null primary key generated by default as identity"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", source_schema name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", source_table name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", source_pk jsonb not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", target_schema name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", target_table name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", view_schema name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", view_name name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", trigger_name name not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", queue_schema name"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", queue_table name"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", config jsonb not null"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", unique (target_schema, target_table)"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ");"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "perform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "perform pg_catalog.pg_extension_config_dump('ai.vectorizer_id_seq'::pg_catalog.regclass, '');"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "create table ai.vectorizer_errors"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "( id int not null references ai.vectorizer (id) on delete cascade"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", message text"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", details jsonb"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ", recorded timestamptz not null default now()"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": ");"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "create index on ai.vectorizer_errors (id, recorded);"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "perform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "end;"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "$migration_body$;\""
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PL/pgSQL function inline_code_block line 48 at EXECUTE"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ "
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "d9f6fe73-bbc5-4038-a931-2b17661efe55",
+        "role": "assistant",
+        "content": "The error messages clearly indicate that `pg_extension_config_dump()` is being called inappropriately within the SQL script generated by `prepare_sql_files`.  This function is designed for use *only* during the `CREATE EXTENSION` process, not in standalone SQL scripts.  The script attempts to use it within `DO` blocks inside the `ai--*.sql` files.\n\nHere's a breakdown of the problem and a revised `prepare_sql_files` function:\n\n**Problem:**\n\n* The `ai--*.sql` files (specifically, the latest one found) contain calls to `pg_extension_config_dump()`.  This function is intended for internal use by `CREATE EXTENSION` to handle configuration data.  Calling it directly in a separate SQL script will fail.\n* The script attempts to wrap the SQL in transactions (`BEGIN; ... COMMIT;`), which is generally good practice, but doesn't handle the `pg_extension_config_dump()` calls correctly.  These calls need to be handled *during* extension creation.\n\n**Solution:**\n\nThe solution is to remove all calls to `pg_extension_config_dump()` from the generated SQL file.  The extension's configuration should be handled entirely within the `CREATE EXTENSION` process.  We can also refine the transaction handling for clarity.\n\nHere's the improved `prepare_sql_files` function:\n\n```bash\nprepare_sql_files() {\n    local sql_dir=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n    local debug_file=\"/tmp/pgai_debug.sql\"\n\n    echo \"Processing SQL files in directory: $sql_dir\"\n    echo \"Available SQL files:\"\n    ls -l \"$sql_dir\"\n\n    # Find the latest ai--*.sql file (improved robustness)\n    latest_sql_file=$(find \"$sql_dir\" -maxdepth 1 -type f -name \"ai--*.sql\" -print0 | xargs -0 -I {} sh -c 'stat -c \"%Y %N\" {}' | sort -nr | head -n 1 | awk '{print $2}')\n\n    if [ -z \"$latest_sql_file\" ]; then\n        echo \"Error: No ai--*.sql files found in $sql_dir\"\n        return 1\n    fi\n\n    # Remove pg_extension_config_dump calls and comments\n    sed -e '/pg_extension_config_dump/d' -e '/^--/d' \"$latest_sql_file\" > \"$tmp_file\"\n\n    # Generate the final SQL script with a single transaction\n    {\n        echo \"-- Setup environment\"\n        echo \"\\\\set ON_ERROR_STOP on\"\n        echo \"SET client_min_messages TO warning;\"\n        echo \"SET search_path TO public;\"\n        echo \"BEGIN;\" # Start transaction\n        cat \"$tmp_file\"\n        echo \"COMMIT;\" # End transaction\n    } > \"$output_file\"\n\n    # Check SQL syntax (improved error handling)\n    echo \"Validating SQL syntax...\"\n    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f \"$output_file\" template1 > \"${output_file}.validate.log\" 2>&1; then\n        echo \"Warning: SQL validation failed:\"\n        cat \"${output_file}.validate.log\"\n        exit 1  # Exit on validation failure.\n    fi\n\n    rm \"$tmp_file\" # Clean up the temporary file.\n\n    return 0\n}\n```\n\n**Key Changes:**\n\n* **Simplified `sed` command:** The `sed` command now only removes lines containing `pg_extension_config_dump()` and comment lines.  This is much simpler and more reliable.\n* **Robust file finding:** Uses `find` with `-print0` and `xargs -0` for better handling of filenames with spaces or special characters.\n* **Single Transaction:** The entire SQL script is now wrapped in a single `BEGIN; ... COMMIT;` block. This is cleaner and avoids potential transaction issues.\n* **Improved Error Handling:** The script now exits with an error code if the SQL validation fails.\n* **Temporary File Cleanup:** The temporary file `$tmp_file` is removed after use.\n\nRemember to replace the old `prepare_sql_files` function with this improved version in your script.  After making this change, the script should correctly install the `pgai` extension without the `pg_extension_config_dump()` errors.  If other problems persist, please provide the contents of the `ai--*.sql` files for further analysis.\n"
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Gemini 1.5 Flash",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/test_set1.sh\n#!/usr/bin/env bash\nset -euo pipefail\n\n# Configuration variables\nPG_USER=\"myuser\"\nPG_PASSWORD=\"mypassword\"\nPG_DATABASE=\"mydb\"\nOLLAMA_HOST=\"localhost\"\nOLLAMA_PORT=\"11434\"\nPG_VERSION=\"16\"\nPGAI_REPO=\"https://github.com/timescale/pgai.git\"\nPGVECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\nCLEAN_INSTALL=true\n\n# PostgreSQL paths\nPGLIB_DIR=$(pg_config --pkglibdir)\nPG_EXTENSION_DIR=$(pg_config --sharedir)/extension\nPG_LIBDIR=$(dirname \"$PGLIB_DIR\")\n\n# Check for root privileges\nif [[ $EUID -ne 0 ]]; then\n    echo \"Please run this script with sudo or as root.\"\n    exit 1\nfi\n\n# System update and dependencies\necho \"Updating system and installing dependencies...\"\napt-get update -y\napt-get upgrade -y\n\n# Проверяем доступные пакеты plpython3\necho \"Checking available plpython3 packages...\"\napt-cache search postgresql-plpython3\n\n# Пробуем разные варианты установки plpython3\ninstall_plpython3() {\n    local versions=(\"postgresql-plpython3-${PG_VERSION}\" \"postgresql-plpython3u-${PG_VERSION}\" \"plpython3\" \"plpython3u\")\n    \n    for pkg in \"${versions[@]}\"; do\n        echo \"Trying to install $pkg...\"\n        if apt-get install -y \"$pkg\" 2>/dev/null; then\n            echo \"$pkg installed successfully\"\n            return 0\n        fi\n    done\n    \n    echo \"Failed to install any plpython3 package. System info:\"\n    lsb_release -a\n    return 1\n}\n\n# Основные зависимости\napt-get install -y \\\n    build-essential \\\n    git \\\n    libpq-dev \\\n    postgresql \\\n    postgresql-contrib \\\n    \"postgresql-server-dev-${PG_VERSION}\" \\\n    llvm-17 \\\n    just \\\n    python3-pip \\\n    python3-dev \\\n    python3-setuptools \\\n    python3-venv \\\n    cmake \\\n    ninja-build\n\n# Устанавливаем plpython3\ninstall_plpython3 || {\n    echo \"Error: Failed to install plpython3. Please check package availability.\"\n    exit 1\n}\n\n# Database setup\nif [ \"$CLEAN_INSTALL\" = true ]; then\n    echo \"Clean install: dropping previous data...\"\n    sudo -u postgres psql -c \"DROP DATABASE IF EXISTS ${PG_DATABASE};\" || true\n    sudo -u postgres psql -c \"DROP ROLE IF EXISTS ${PG_USER};\" || true\nfi\n\necho \"Creating user and database...\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_roles WHERE rolname='${PG_USER}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\"\nsudo -u postgres psql -tc \"SELECT 1 FROM pg_database WHERE datname='${PG_DATABASE}'\" | grep -q 1 || \\\n    sudo -u postgres psql -c \"CREATE DATABASE ${PG_DATABASE};\"\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\"\n\n# Install pgvector and create schemas\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone ${PGVECTOR_REPO}\ncd pgvector\nmake\nmake install\n\n# Create required schemas\necho \"Creating required schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} <<EOL\nCREATE SCHEMA IF NOT EXISTS vector;\nCREATE SCHEMA IF NOT EXISTS ai;\nCREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;\nEOL\n\n# Verify schemas exist\necho \"Verifying schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dn\" | grep -E \"vector|ai\" || {\n    echo \"Error: Required schemas not created\"\n    exit 1\n}\n\n# Dependency check\necho \"Checking PostgreSQL dependencies...\"\ndpkg -l | grep -E \"postgresql-${PG_VERSION}|postgresql-server-dev-${PG_VERSION}\" || {\n    echo \"Error: PostgreSQL ${PG_VERSION} or dev packages not found\"\n    exit 1\n}\n\n# Functions\nbuild_pgai() {\n    local extension_dir=\"projects/extension\"\n    local build_log=\"/tmp/pgai_build.log\"\n    local install_log=\"/tmp/pgai_install.log\"\n    local pkg_config_log=\"/tmp/pgai_pkg_config.log\"\n    \n    # Проверка наличия необходимых утилит\n    for cmd in pg_config pkg-config python3; do\n        if ! command -v \"$cmd\" &> /dev/null; then\n            echo \"Error: Required command '$cmd' not found\"\n            return 1\n        fi\n    done\n    \n    # Определение и экспорт переменных окружения\n    export PG_CONFIG=$(command -v pg_config)\n    export PYTHON_INCLUDE_DIR=$(python3 -c \"import sysconfig; print(sysconfig.get_path('include'))\")\n    export PG_EXTENSION_DIR\n    export PGLIB_DIR\n    export PKG_CONFIG_PATH=\"${PGLIB_DIR}/pkgconfig:${PKG_CONFIG_PATH:-}\"\n    \n    # Проверка путей установки\n    echo \"Checking installation paths...\"\n    {\n        echo \"=== Installation paths ===\"\n        echo \"PG_CONFIG: $PG_CONFIG\"\n        echo \"PYTHON_INCLUDE_DIR: $PYTHON_INCLUDE_DIR\"\n        echo \"PG_EXTENSION_DIR: $PG_EXTENSION_DIR\"\n        echo \"PGLIB_DIR: $PGLIB_DIR\"\n        echo \"PKG_CONFIG_PATH: $PKG_CONFIG_PATH\"\n        echo \"=========================\"\n    } &> \"$build_log\"\n    \n    # Проверка текущей директории\n    echo \"Current working directory: $(pwd)\"\n    cd \"$extension_dir\" || {\n        echo \"Error: Failed to change to $extension_dir\"\n        return 1\n    }\n    echo \"Changed to directory: $(pwd)\"\n    \n    # Создание и активация venv\n    echo \"Creating Python virtual environment...\"\n    python3 -m venv venv || {\n        echo \"Error: Failed to create virtual environment\"\n        return 1\n    }\n    # shellcheck source=/dev/null\n    . venv/bin/activate\n    \n    # Остальные шаги сборки\n    # ...existing build steps...\n    \n    # Добавляем проверку и копирование библиотек\n    echo \"Installing extension files...\"\n    {\n        echo \"=== Extension installation ===\"\n        # Поиск скомпилированных файлов\n        find . -name \"*.so\" -o -name \"*.control\"\n        # Копирование файлов в нужные директории\n        for file in $(find . -name \"pgai.so\"); do\n            sudo install -v -m 755 \"$file\" \"${PGLIB_DIR}/\"\n        done\n        echo \"===========================\"\n    } | tee -a \"$install_log\"\n    \n    # Установка библиотек с проверкой\n    echo \"Installing extension libraries...\"\n    {\n        echo \"=== Library installation ===\"\n        # Поиск .so файлов\n        find . -name \"*.so\" -type f -print0 | while IFS= read -r -d '' so_file; do\n            echo \"Found library: $so_file\"\n            if [[ \"$so_file\" == *\"pgai\"* ]]; then\n                echo \"Installing $so_file to $PGLIB_DIR\"\n                sudo install -v -m 755 \"$so_file\" \"${PGLIB_DIR}/pgai.so\"\n                echo \"Verifying installation:\"\n                ls -l \"${PGLIB_DIR}/pgai.so\"\n            fi\n        done\n        echo \"===========================\"\n    } | tee -a \"$install_log\"\n    \n    return 0\n}\n\nremove_pgai() {\n    echo \"Removing previous installation of pgai...\"\n    sudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai CASCADE;\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai.control\"\n    sudo rm -f \"${PG_EXTENSION_DIR}/pgai--*.sql\"\n    sudo rm -f \"${PGLIB_DIR}/pgai.so\"\n    sudo rm -rf \"${PG_EXTENSION_DIR}/pgai\"  # Remove pgai directory if it exists\n\n    if [ -d \"/tmp/pgai/projects/extension/venv\" ]; then\n        source /tmp/pgai/projects/extension/venv/bin/activate\n        pip uninstall -y pgai\n        deactivate\n    fi\n\n    rm -rf /tmp/pgai\n}\n\n# Добавляем новую функцию для очистки SQL\nclean_sql_file() {\n    local input_file=\"$1\"\n    local output_file=\"$2\"\n    \n    # Удаляем вызовы pg_extension_config_dump и комментарии\n    sed -e '/perform.*pg_extension_config_dump/d' \\\n        -e '/^--/d' \\\n        -e '/SELECT.*pg_extension_config_dump/d' \\\n        -e '/^do.*\\$migration_body\\$/,/\\$migration_body\\$;/d' \\\n        -e '/^do language plpgsql/,/\\$block\\$;/d' \\\n        \"$input_file\" > \"$output_file\"\n}\n\nprepare_sql_files() {\n    local sql_dir=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n    local debug_file=\"/tmp/pgai_debug.sql\"\n    \n    echo \"Processing SQL files in directory: $sql_dir\"\n    echo \"Available SQL files:\"\n    ls -l \"$sql_dir\"\n    \n    # Находим последний файл ai--*.sql\n    latest_sql_file=$(find \"$sql_dir\" -maxdepth 1 -type f -name \"ai--*.sql\" -printf \"%T+ %p\\n\" | sort -r | head -n 1 | cut -d' ' -f2-)\n    \n    if [ -z \"$latest_sql_file\" ]; then\n        echo \"Error: No ai--*.sql files found in $sql_dir\"\n        return 1\n    fi\n    \n    # Анализ оригинального файла\n    echo \"Analyzing original SQL file...\"\n    grep -n \"SET LOCAL\" \"$latest_sql_file\" > \"${debug_file}.setlocal.log\"\n    grep -n \"BEGIN\" \"$latest_sql_file\" > \"${debug_file}.transactions.log\"\n    \n    # Формируем SQL с правильными транзакциями\n    {\n        echo \"-- Setup environment\"\n        echo \"\\\\set ON_ERROR_STOP on\"\n        echo \"SET client_min_messages TO warning;\"\n        echo \"SET search_path TO public;\"\n        \n        # Начало основной транзакции\n        echo \"\\\\echo 'Starting main transaction...'\"\n        echo \"BEGIN;\"\n        \n        # Обработка SET LOCAL\n        sed -e '/SET LOCAL/!b' \\\n            -e '/BEGIN/!i BEGIN;' \\\n            -e '/COMMIT/!a COMMIT;' \\\n            \"$latest_sql_file\" | \\\n        sed -e 's/@extowner@/postgres/g' \\\n            -e 's/@extschema@/public/g' \\\n            -e 's/@extversion@/0.6.1-dev/g' \\\n            -e 's|@extschema:vector@|vector|g' \\\n            -e '/^--/d'\n            \n        # Завершение основной транзакции    \n        echo \"COMMIT;\"\n    } > \"$output_file\"\n    \n    # Проверка синтаксиса\n    echo \"Validating SQL syntax...\"\n    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f \"$output_file\" template1 > \"${output_file}.validate.log\" 2>&1; then\n        echo \"Warning: SQL validation failed:\"\n        cat \"${output_file}.validate.log\"\n        echo \"Original SQL analysis:\"\n        echo \"SET LOCAL statements:\"\n        cat \"${debug_file}.setlocal.log\"\n        echo \"Transaction blocks:\"\n        cat \"${debug_file}.transactions.log\"\n    fi\n    \n    return 0\n}\n\n# Add version checking function\ncheck_versions() {\n    echo \"Checking component versions...\"\n    local pg_version=$(psql --version | awk '{print $3}' | cut -d. -f1)\n    local python_version=$(python3 --version | awk '{print $2}')\n\n    echo \"PostgreSQL version: $pg_version\"\n    echo \"Python version: $python_version\"\n    echo \"Checking for plpython3...\"\n\n    # Check if EITHER package is installed\n    if ! dpkg -l | grep -qE \"postgresql-plpython3-${PG_VERSION}|postgresql-plpython3u-${PG_VERSION}\"; then\n        echo \"Installing plpython3...\"\n        install_plpython3 || {\n            echo \"Error: Failed to install plpython3. Check your repositories.\"\n            return 1\n        }\n    fi\n\n    echo \"Found installed plpython3 package:\"\n    dpkg -l | grep -E \"postgresql-plpython3-${PG_VERSION}|postgresql-plpython3u-${PG_VERSION}\"\n\n    if [ \"$pg_version\" -lt \"13\" ]; then\n        echo \"Error: PostgreSQL version must be 13 or higher\"\n        return 1\n    fi\n}\n\n# Add function to verify installation\nverify_installation() {\n    echo \"Performing installation verification...\"\n\n    # Check extension presence\n    if ! sudo -u postgres psql -d \"$PG_DATABASE\" -tAc \"SELECT 1 FROM pg_extension WHERE extname = 'pgai';\" | grep -q 1; then\n        echo \"Error: pgai extension not found in database\"\n        return 1\n    fi\n\n    # Check required functions\n    local required_functions=(\"pgai_query\" \"pgai_set_service\")\n    for func in \"${required_functions[@]}\"; do\n        if ! sudo -u postgres psql -d \"$PG_DATABASE\" -tAc \"SELECT 1 FROM pg_proc WHERE proname = '$func';\" | grep -q 1; then\n            echo \"Error: Required function $func not found\"\n            return 1\n        fi\n    done\n\n    echo \"Installation verification completed successfully\"\n    return 0\n}\n\n# Main installation\nremove_pgai\n\n# Add version check before installation\ncheck_versions || exit 1\n\necho \"Installing pgai...\"\ncd /tmp\ngit clone ${PGAI_REPO}\ncd pgai\n\n# Install plpython3u before building pgai\necho \"Installing plpython3u extension...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS plpython3u;\"\n\nbuild_pgai || {\n    echo \"Error: pgai build failed\"\n    exit 1\n}\n\n# Обновленная секция установки SQL\necho \"Installing SQL files...\"\nSQL_DIR=\"/tmp/pgai/projects/extension/sql\"\nif [ -d \"$SQL_DIR\" ]; then\n    echo \"Found SQL directory: $SQL_DIR\"\n    SQL_OUT=\"${PG_EXTENSION_DIR}/pgai--0.6.1-dev.sql\"\n    echo \"SQL_OUT: $SQL_OUT\"\n    \n    # Настройка прав доступа для директории расширений\n    echo \"Setting up permissions for extension directory...\"\n    sudo chown postgres:postgres \"${PG_EXTENSION_DIR}\"\n    sudo chmod 755 \"${PG_EXTENSION_DIR}\"\n    \n    # Проверка прав доступа\n    ls -la \"${PG_EXTENSION_DIR}\"\n    echo \"Checking write permissions...\"\n    if ! sudo -u postgres test -w \"${PG_EXTENSION_DIR}\"; then\n        echo \"Error: postgres user cannot write to ${PG_EXTENSION_DIR}\"\n        exit 1\n    fi\n    \n    if prepare_sql_files \"$SQL_DIR\" \"$SQL_OUT\"; then\n        sudo chown postgres:postgres \"$SQL_OUT\"\n        sudo chmod 644 \"$SQL_OUT\"\n        echo \"SQL file installed: $SQL_OUT\"\n\n        # Пошаговое выполнение SQL\n        echo \"Step 1: Creating schema...\"\n        if ! sudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE SCHEMA IF NOT EXISTS ai;\" > \"${SQL_OUT}.step1.log\" 2>&1; then\n            echo \"Error: Failed to create schema. Log:\"\n            cat \"${SQL_OUT}.step1.log\"\n            exit 1\n        fi\n\n        echo \"Step 2: Running main SQL script...\"\n        if ! sudo -u postgres psql -d ${PG_DATABASE} -v ON_ERROR_STOP=on -f \"$SQL_OUT\" > \"${SQL_OUT}.step2.log\" 2>&1; then\n            echo \"Error: Failed to execute SQL script. Log:\"\n            cat \"${SQL_OUT}.step2.log\"\n            exit 1\n        fi\n\n        echo \"SQL installation completed successfully\"\n    else\n        echo \"Error: Failed to prepare SQL files\"\n        exit 1\n    fi\nelse\n    echo \"Error: SQL directory not found: $SQL_DIR\"\n    exit 1\nfi\n\n# Create control file\ncat > \"${PG_EXTENSION_DIR}/pgai.control\" << EOL\n# pgai extension\ncomment = 'PostgreSQL AI Extension'\ndefault_version = '0.6.1-dev'\nmodule_pathname = '\\$libdir/pgai'\nrequires = 'plpgsql,vector'\nrelocatable = true\nEOL\n\n# Verify control file contents\necho \"Verifying control file...\"\nif grep -q \"schema = public\" \"${PG_EXTENSION_DIR}/pgai.control\"; then\n    echo \"Error: Control file contains schema definition with relocatable = true\"\n    exit 1\nfi\n\n# Final setup and verification\nsystemctl restart postgresql\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP EXTENSION IF EXISTS pgai;\"\necho \"Creating pgai extension...\"\nif ! sudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION pgai;\"; then\n    echo \"Error: Failed to create pgai extension. Checking extension files:\"\n    ls -l \"${PG_EXTENSION_DIR}/pgai\"*\n    ls -l \"${PGLIB_DIR}/pgai\"*\n    exit 1\nfi\n\n# Add verification after installation\nverify_installation || {\n    echo \"Installation verification failed\"\n    exit 1\n}\n\necho \"Verifying installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx pgai\"\n\necho \"Configuring pgai for Ollama (port ${OLLAMA_PORT})...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_set_service('ollama', 'http://${OLLAMA_HOST}:${OLLAMA_PORT}');\"\n\necho \"Test query to model 'qwen2.5:latest'...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT pgai_query('ollama', 'qwen2.5:latest', 'Скажи \\\"Привіт, світ!\\\" українською') AS response;\"\n\necho \"Installation completed successfully!\"\necho \"System configured for using PostgreSQL with pgai and Ollama (model qwen2.5:latest).\"\necho \"If you need to start from scratch, set CLEAN_INSTALL=true and re-run the script.\"\n```\n\ntest_set1.sh Removing previous installation of pgai...\nNOTICE:  extension \"pgai\" does not exist, skipping\nDROP EXTENSION\nWARNING: Skipping pgai as it is not installed.\nChecking component versions...\nPostgreSQL version: 16\nPython version: 3.12.3\nChecking for plpython3...\nInstalling plpython3...\nTrying to install postgresql-plpython3-16...\nReading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\npostgresql-plpython3-16 is already the newest version (16.6-0ubuntu0.24.04.1).\n0 upgraded, 0 newly installed, 0 to remove and 4 not upgraded.\npostgresql-plpython3-16 installed successfully\nFound installed plpython3 package:\nii  postgresql-plpython3-16              16.6-0ubuntu0.24.04.1                   amd64        PL/Python 3 procedural language for PostgreSQL 16\nInstalling pgai...\nCloning into 'pgai'...\nremote: Enumerating objects: 5789, done.\nremote: Counting objects: 100% (998/998), done.\nremote: Compressing objects: 100% (367/367), done.\nremote: Total 5789 (delta 786), reused 687 (delta 630), pack-reused 4791 (from 2)\nReceiving objects: 100% (5789/5789), 6.12 MiB | 7.57 MiB/s, done.\nResolving deltas: 100% (3667/3667), done.\nInstalling plpython3u extension...\nCREATE EXTENSION\nChecking installation paths...\nCurrent working directory: /tmp/pgai\nChanged to directory: /tmp/pgai/projects/extension\nCreating Python virtual environment...\nInstalling extension files...\n=== Extension installation ===\n./sql/ai.control\n===========================\nInstalling extension libraries...\n=== Library installation ===\n===========================\nInstalling SQL files...\nFound SQL directory: /tmp/pgai/projects/extension/sql\nSQL_OUT: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nSetting up permissions for extension directory...\ntotal 4064\ndrwxr-xr-x 2 postgres postgres  20480 Dec 21 07:24 .\ndrwxr-xr-x 7 root     root       4096 Dec 19 15:57 ..\n-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 adminpack--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1535 Nov 25 21:05 adminpack--1.0.sql\n-rw-r--r-- 1 postgres postgres   1682 Nov 25 21:05 adminpack--1.1--2.0.sql\n-rw-r--r-- 1 postgres postgres    595 Nov 25 21:05 adminpack--2.0--2.1.sql\n-rw-r--r-- 1 root     root        176 Nov 25 21:05 adminpack.control\n-rw-r--r-- 1 postgres postgres   7522 Dec 21 07:09 ai--0.1.0--0.2.0.sql\n-rw-r--r-- 1 postgres postgres   8573 Dec 21 07:09 ai--0.1.0.sql\n-rw-r--r-- 1 postgres postgres  12983 Dec 21 07:09 ai--0.2.0--0.3.0.sql\n-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.0--0.4.1.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.0--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.0--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 118394 Dec 21 07:09 ai--0.4.0.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.4.1--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.4.1--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.4.1--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 140352 Dec 21 07:09 ai--0.4.1.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.5.0--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.5.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 141038 Dec 21 07:09 ai--0.5.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.0--0.6.1-dev.sql\n-rw-r--r-- 1 postgres postgres 151880 Dec 21 07:09 ai--0.6.0.sql\n-rw-r--r-- 1 postgres postgres 221764 Dec 21 07:09 ai--0.6.1-dev.sql\n-rw-r--r-- 1 root     root        167 Dec 21 07:09 ai.control\n-rw-r--r-- 1 postgres postgres    931 Nov 25 21:05 amcheck--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    704 Nov 25 21:05 amcheck--1.0.sql\n-rw-r--r-- 1 postgres postgres    705 Nov 25 21:05 amcheck--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    852 Nov 25 21:05 amcheck--1.2--1.3.sql\n-rw-r--r-- 1 root     root        154 Nov 25 21:05 amcheck.control\n-rw-r--r-- 1 postgres postgres    249 Nov 25 21:05 autoinc--1.0.sql\n-rw-r--r-- 1 root     root        149 Nov 25 21:05 autoinc.control\n-rw-r--r-- 1 postgres postgres    666 Nov 25 21:05 bloom--1.0.sql\n-rw-r--r-- 1 root     root        156 Nov 25 21:05 bloom.control\n-rw-r--r-- 1 postgres postgres   1372 Nov 25 21:05 btree_gin--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres  24818 Nov 25 21:05 btree_gin--1.0.sql\n-rw-r--r-- 1 postgres postgres   1445 Nov 25 21:05 btree_gin--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   4571 Nov 25 21:05 btree_gin--1.2--1.3.sql\n-rw-r--r-- 1 root     root        175 Nov 25 21:05 btree_gin.control\n-rw-r--r-- 1 postgres postgres   3739 Nov 25 21:05 btree_gist--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5048 Nov 25 21:05 btree_gist--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1955 Nov 25 21:05 btree_gist--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres  41115 Nov 25 21:05 btree_gist--1.2.sql\n-rw-r--r-- 1 postgres postgres   1932 Nov 25 21:05 btree_gist--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   1872 Nov 25 21:05 btree_gist--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13417 Nov 25 21:05 btree_gist--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   2170 Nov 25 21:05 btree_gist--1.6--1.7.sql\n-rw-r--r-- 1 root     root        178 Nov 25 21:05 btree_gist.control\n-rw-r--r-- 1 postgres postgres   1028 Nov 25 21:05 citext--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3424 Nov 25 21:05 citext--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    850 Nov 25 21:05 citext--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    668 Nov 25 21:05 citext--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   2284 Nov 25 21:05 citext--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13466 Nov 25 21:05 citext--1.4.sql\n-rw-r--r-- 1 postgres postgres    427 Nov 25 21:05 citext--1.5--1.6.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 citext.control\n-rw-r--r-- 1 postgres postgres   1594 Nov 25 21:05 cube--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3815 Nov 25 21:05 cube--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    365 Nov 25 21:05 cube--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   9761 Nov 25 21:05 cube--1.2.sql\n-rw-r--r-- 1 postgres postgres   2387 Nov 25 21:05 cube--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    591 Nov 25 21:05 cube--1.4--1.5.sql\n-rw-r--r-- 1 root     root        157 Nov 25 21:05 cube.control\n-rw-r--r-- 1 postgres postgres    419 Nov 25 21:05 dblink--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2832 Nov 25 21:05 dblink--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   6645 Nov 25 21:05 dblink--1.2.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 dblink.control\n-rw-r--r-- 1 postgres postgres    711 Nov 25 21:05 dict_int--1.0.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 dict_int.control\n-rw-r--r-- 1 postgres postgres    694 Nov 25 21:05 dict_xsyn--1.0.sql\n-rw-r--r-- 1 root     root        179 Nov 25 21:05 dict_xsyn.control\n-rw-r--r-- 1 postgres postgres    671 Nov 25 21:05 earthdistance--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3234 Nov 25 21:05 earthdistance--1.1.sql\n-rw-r--r-- 1 root     root        202 Nov 25 21:05 earthdistance.control\n-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 file_fdw--1.0.sql\n-rw-r--r-- 1 root     root        155 Nov 25 21:05 file_fdw.control\n-rw-r--r-- 1 postgres postgres    748 Dec 20 16:25 flag.sql\n-rw-r--r-- 1 postgres postgres    788 Nov 25 21:05 fuzzystrmatch--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    351 Nov 25 21:05 fuzzystrmatch--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1576 Nov 25 21:05 fuzzystrmatch--1.1.sql\n-rw-r--r-- 1 root     root        190 Nov 25 21:05 fuzzystrmatch.control\n-rw-r--r-- 1 postgres postgres    276 Dec 20 16:25 gated.sql\n-rw-r--r-- 1 postgres postgres   2143 Dec 20 16:25 head.sql\n-rw-r--r-- 1 postgres postgres   1639 Nov 25 21:05 hstore--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    525 Nov 25 21:05 hstore--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   5310 Nov 25 21:05 hstore--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    409 Nov 25 21:05 hstore--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres  13765 Nov 25 21:05 hstore--1.4.sql\n-rw-r--r-- 1 postgres postgres    455 Nov 25 21:05 hstore--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   1061 Nov 25 21:05 hstore--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 hstore--1.7--1.8.sql\n-rw-r--r-- 1 root     root        173 Nov 25 21:05 hstore.control\n-rw-r--r-- 1 root     root        750 Nov 25 21:05 hstore_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        201 Nov 25 21:05 hstore_plpython3u.control\n-rw-r--r-- 1 postgres postgres    273 Nov 25 21:05 insert_username--1.0.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 insert_username.control\n-rw-r--r-- 1 postgres postgres    897 Nov 25 21:05 intagg--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1089 Nov 25 21:05 intagg--1.1.sql\n-rw-r--r-- 1 root     root        119 Nov 25 21:05 intagg.control\n-rw-r--r-- 1 postgres postgres   1794 Nov 25 21:05 intarray--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5525 Nov 25 21:05 intarray--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    663 Nov 25 21:05 intarray--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres  12293 Nov 25 21:05 intarray--1.2.sql\n-rw-r--r-- 1 postgres postgres    692 Nov 25 21:05 intarray--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    282 Nov 25 21:05 intarray--1.4--1.5.sql\n-rw-r--r-- 1 root     root        191 Nov 25 21:05 intarray.control\n-rw-r--r-- 1 postgres postgres  12333 Nov 25 21:05 isn--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5264 Nov 25 21:05 isn--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres  69885 Nov 25 21:05 isn--1.1.sql\n-rw-r--r-- 1 root     root        175 Nov 25 21:05 isn.control\n-rw-r--r-- 1 root     root        732 Nov 25 21:05 jsonb_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        191 Nov 25 21:05 jsonb_plpython3u.control\n-rw-r--r-- 1 postgres postgres    223 Nov 25 21:05 lo--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    722 Nov 25 21:05 lo--1.1.sql\n-rw-r--r-- 1 root     root        141 Nov 25 21:05 lo.control\n-rw-r--r-- 1 postgres postgres   6336 Nov 25 21:05 ltree--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   5217 Nov 25 21:05 ltree--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres  19375 Nov 25 21:05 ltree--1.1.sql\n-rw-r--r-- 1 root     root        170 Nov 25 21:05 ltree.control\n-rw-r--r-- 1 root     root        449 Nov 25 21:05 ltree_plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        197 Nov 25 21:05 ltree_plpython3u.control\n-rw-r--r-- 1 postgres postgres   1096 Dec 20 16:25 migration.sql\n-rw-r--r-- 1 postgres postgres    261 Nov 25 21:05 moddatetime--1.0.sql\n-rw-r--r-- 1 root     root        165 Nov 25 21:05 moddatetime.control\n-rw-r--r-- 1 postgres postgres    549 Nov 25 21:05 old_snapshot--1.0.sql\n-rw-r--r-- 1 root     root        168 Nov 25 21:05 old_snapshot.control\n-rw-r--r-- 1 postgres postgres    560 Nov 25 21:05 pageinspect--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1570 Nov 25 21:05 pageinspect--1.10--1.11.sql\n-rw-r--r-- 1 postgres postgres   1165 Nov 25 21:05 pageinspect--1.11--1.12.sql\n-rw-r--r-- 1 postgres postgres    562 Nov 25 21:05 pageinspect--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1946 Nov 25 21:05 pageinspect--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   2566 Nov 25 21:05 pageinspect--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   1347 Nov 25 21:05 pageinspect--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   2252 Nov 25 21:05 pageinspect--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres   6262 Nov 25 21:05 pageinspect--1.5.sql\n-rw-r--r-- 1 postgres postgres    698 Nov 25 21:05 pageinspect--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres   1711 Nov 25 21:05 pageinspect--1.7--1.8.sql\n-rw-r--r-- 1 postgres postgres   3398 Nov 25 21:05 pageinspect--1.8--1.9.sql\n-rw-r--r-- 1 postgres postgres    589 Nov 25 21:05 pageinspect--1.9--1.10.sql\n-rw-r--r-- 1 root     root        174 Nov 25 21:05 pageinspect.control\n-rw-r--r-- 1 postgres postgres 133270 Dec 21 07:20 pgai--0.6.1-dev.sql\n-rw-r--r-- 1 root     root        993 Dec 21 07:20 pgai--0.6.1-dev.sql.files.log\n-rw-r--r-- 1 root     root          0 Dec 21 06:10 pgai--0.6.1-dev.sql.log\n-rw-r--r-- 1 root     root         60 Dec 21 07:20 pgai--0.6.1-dev.sql.step1.log\n-rw-r--r-- 1 root     root      14036 Dec 21 07:20 pgai--0.6.1-dev.sql.step2.log\n-rw-r--r-- 1 root     root         85 Dec 21 06:15 pgai--0.6.1-dev.sql.transaction.log\n-rw-r--r-- 1 postgres postgres    508 Nov 25 21:05 pg_buffercache--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    271 Nov 25 21:05 pg_buffercache--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    328 Nov 25 21:05 pg_buffercache--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    794 Nov 25 21:05 pg_buffercache--1.2.sql\n-rw-r--r-- 1 postgres postgres   1021 Nov 25 21:05 pg_buffercache--1.3--1.4.sql\n-rw-r--r-- 1 root     root        157 Nov 25 21:05 pg_buffercache.control\n-rw-r--r-- 1 postgres postgres    307 Nov 25 21:05 pgcrypto--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    483 Nov 25 21:05 pgcrypto--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   2346 Nov 25 21:05 pgcrypto--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   5708 Nov 25 21:05 pgcrypto--1.3.sql\n-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgcrypto.control\n-rw-r--r-- 1 postgres postgres    335 Nov 25 21:05 pg_freespacemap--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    377 Nov 25 21:05 pg_freespacemap--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    899 Nov 25 21:05 pg_freespacemap--1.1.sql\n-rw-r--r-- 1 root     root        160 Nov 25 21:05 pg_freespacemap.control\n-rw-r--r-- 1 postgres postgres    281 Nov 25 21:05 pg_prewarm--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    458 Nov 25 21:05 pg_prewarm--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    475 Nov 25 21:05 pg_prewarm--1.1.sql\n-rw-r--r-- 1 root     root        139 Nov 25 21:05 pg_prewarm.control\n-rw-r--r-- 1 postgres postgres    651 Nov 25 21:05 pgrowlocks--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    253 Nov 25 21:05 pgrowlocks--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres    555 Nov 25 21:05 pgrowlocks--1.2.sql\n-rw-r--r-- 1 root     root        152 Nov 25 21:05 pgrowlocks.control\n-rw-r--r-- 1 postgres postgres   1246 Nov 25 21:05 pg_stat_statements--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1336 Nov 25 21:05 pg_stat_statements--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1454 Nov 25 21:05 pg_stat_statements--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    345 Nov 25 21:05 pg_stat_statements--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres    305 Nov 25 21:05 pg_stat_statements--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   1427 Nov 25 21:05 pg_stat_statements--1.4.sql\n-rw-r--r-- 1 postgres postgres    376 Nov 25 21:05 pg_stat_statements--1.5--1.6.sql\n-rw-r--r-- 1 postgres postgres    806 Nov 25 21:05 pg_stat_statements--1.6--1.7.sql\n-rw-r--r-- 1 postgres postgres   1744 Nov 25 21:05 pg_stat_statements--1.7--1.8.sql\n-rw-r--r-- 1 postgres postgres   2128 Nov 25 21:05 pg_stat_statements--1.8--1.9.sql\n-rw-r--r-- 1 postgres postgres   2114 Nov 25 21:05 pg_stat_statements--1.9--1.10.sql\n-rw-r--r-- 1 root     root        205 Nov 25 21:05 pg_stat_statements.control\n-rw-r--r-- 1 postgres postgres    400 Nov 25 21:05 pgstattuple--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1435 Nov 25 21:05 pgstattuple--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1126 Nov 25 21:05 pgstattuple--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    623 Nov 25 21:05 pgstattuple--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   5506 Nov 25 21:05 pgstattuple--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres   3764 Nov 25 21:05 pgstattuple--1.4.sql\n-rw-r--r-- 1 root     root        147 Nov 25 21:05 pgstattuple.control\n-rw-r--r-- 1 postgres postgres    608 Nov 25 21:05 pg_surgery--1.0.sql\n-rw-r--r-- 1 root     root        168 Nov 25 21:05 pg_surgery.control\n-rw-r--r-- 1 postgres postgres    536 Nov 25 21:05 pg_trgm--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2192 Nov 25 21:05 pg_trgm--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   3498 Nov 25 21:05 pg_trgm--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres   2045 Nov 25 21:05 pg_trgm--1.3--1.4.sql\n-rw-r--r-- 1 postgres postgres   7942 Nov 25 21:05 pg_trgm--1.3.sql\n-rw-r--r-- 1 postgres postgres    858 Nov 25 21:05 pg_trgm--1.4--1.5.sql\n-rw-r--r-- 1 postgres postgres    418 Nov 25 21:05 pg_trgm--1.5--1.6.sql\n-rw-r--r-- 1 root     root        192 Nov 25 21:05 pg_trgm.control\n-rw-r--r-- 1 postgres postgres    883 Nov 25 21:05 pg_visibility--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    833 Nov 25 21:05 pg_visibility--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   2825 Nov 25 21:05 pg_visibility--1.1.sql\n-rw-r--r-- 1 root     root        186 Nov 25 21:05 pg_visibility.control\n-rw-r--r-- 1 postgres postgres   1296 Nov 25 21:05 pg_walinspect--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   3665 Nov 25 21:05 pg_walinspect--1.0.sql\n-rw-r--r-- 1 root     root        183 Nov 25 21:05 pg_walinspect.control\n-rw-r--r-- 1 postgres postgres    658 Nov 25 21:05 plpgsql--1.0.sql\n-rw-r--r-- 1 root     root        193 Nov 25 21:05 plpgsql.control\n-rw-r--r-- 1 root     root        556 Nov 25 21:05 plpython3u--1.0.sql\n-rw-r--r-- 1 root     root        196 Nov 25 21:05 plpython3u.control\n-rw-r--r-- 1 postgres postgres    626 Nov 25 21:05 postgres_fdw--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    507 Nov 25 21:05 postgres_fdw--1.0.sql\n-rw-r--r-- 1 root     root        172 Nov 25 21:05 postgres_fdw.control\n-rw-r--r-- 1 postgres postgres    343 Nov 25 21:05 refint--1.0.sql\n-rw-r--r-- 1 root     root        169 Nov 25 21:05 refint.control\n-rw-r--r-- 1 postgres postgres   3005 Nov 25 21:05 seg--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    360 Nov 25 21:05 seg--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   8142 Nov 25 21:05 seg--1.1.sql\n-rw-r--r-- 1 postgres postgres   2344 Nov 25 21:05 seg--1.2--1.3.sql\n-rw-r--r-- 1 postgres postgres    259 Nov 25 21:05 seg--1.3--1.4.sql\n-rw-r--r-- 1 root     root        187 Nov 25 21:05 seg.control\n-rw-r--r-- 1 postgres postgres    375 Nov 25 21:05 sslinfo--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    746 Nov 25 21:05 sslinfo--1.1--1.2.sql\n-rw-r--r-- 1 postgres postgres   1534 Nov 25 21:05 sslinfo--1.2.sql\n-rw-r--r-- 1 root     root        146 Nov 25 21:05 sslinfo.control\n-rw-r--r-- 1 postgres postgres   2153 Nov 25 21:05 tablefunc--1.0.sql\n-rw-r--r-- 1 root     root        189 Nov 25 21:05 tablefunc.control\n-rw-r--r-- 1 postgres postgres    274 Nov 25 21:05 tcn--1.0.sql\n-rw-r--r-- 1 root     root        149 Nov 25 21:05 tcn.control\n-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_rows--1.0.sql\n-rw-r--r-- 1 root     root        201 Nov 25 21:05 tsm_system_rows.control\n-rw-r--r-- 1 postgres postgres    327 Nov 25 21:05 tsm_system_time--1.0.sql\n-rw-r--r-- 1 root     root        207 Nov 25 21:05 tsm_system_time.control\n-rw-r--r-- 1 postgres postgres    445 Nov 25 21:05 unaccent--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres    910 Nov 25 21:05 unaccent--1.1.sql\n-rw-r--r-- 1 root     root        172 Nov 25 21:05 unaccent.control\n-rw-r--r-- 1 postgres postgres    688 Nov 25 21:05 uuid-ossp--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   1516 Nov 25 21:05 uuid-ossp--1.1.sql\n-rw-r--r-- 1 root     root        178 Nov 25 21:05 uuid-ossp.control\n-rw-r--r-- 1 root     root       2047 Dec 21 07:24 vector--0.1.0--0.1.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.1--0.1.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.3--0.1.4.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.4--0.1.5.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.5--0.1.6.sql\n-rw-r--r-- 1 root     root        403 Dec 21 07:24 vector--0.1.6--0.1.7.sql\n-rw-r--r-- 1 root     root        396 Dec 21 07:24 vector--0.1.7--0.1.8.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.1.8--0.2.0.sql\n-rw-r--r-- 1 root     root        744 Dec 21 07:24 vector--0.2.0--0.2.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.1--0.2.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.2--0.2.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.3--0.2.4.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.4--0.2.5.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.5--0.2.6.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.6--0.2.7.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.2.7--0.3.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.0--0.3.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.3.1--0.3.2.sql\n-rw-r--r-- 1 root     root        864 Dec 21 07:24 vector--0.3.2--0.4.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.0--0.4.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.1--0.4.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.2--0.4.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.4.3--0.4.4.sql\n-rw-r--r-- 1 root     root       1426 Dec 21 07:24 vector--0.4.4--0.5.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.5.0--0.5.1.sql\n-rw-r--r-- 1 root     root        243 Dec 21 07:24 vector--0.5.1--0.6.0.sql\n-rw-r--r-- 1 root     root        459 Dec 21 07:24 vector--0.6.0--0.6.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.6.1--0.6.2.sql\n-rw-r--r-- 1 root     root      20375 Dec 21 07:24 vector--0.6.2--0.7.0.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.0--0.7.1.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.1--0.7.2.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.2--0.7.3.sql\n-rw-r--r-- 1 root     root        153 Dec 21 07:24 vector--0.7.3--0.7.4.sql\n-rw-r--r-- 1 root     root       1227 Dec 21 07:24 vector--0.7.4--0.8.0.sql\n-rw-r--r-- 1 root     root      31171 Dec 21 07:24 vector--0.8.0.sql\n-rw-r--r-- 1 root     root        145 Dec 21 07:24 vector.control\n-rw-r--r-- 1 postgres postgres    944 Nov 25 21:05 xml2--1.0--1.1.sql\n-rw-r--r-- 1 postgres postgres   2049 Nov 25 21:05 xml2--1.1.sql\n-rw-r--r-- 1 root     root        182 Nov 25 21:05 xml2.control\nChecking write permissions...\nProcessing SQL files in directory: /tmp/pgai/projects/extension/sql\nAvailable SQL files:\ntotal 1488\n-rw-r--r-- 1 root root   7522 Dec 21 07:24 ai--0.1.0--0.2.0.sql\n-rw-r--r-- 1 root root   8573 Dec 21 07:24 ai--0.1.0.sql\n-rw-r--r-- 1 root root  12983 Dec 21 07:24 ai--0.2.0--0.3.0.sql\n-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.0--0.4.1.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.0--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.0--0.6.0.sql\n-rw-r--r-- 1 root root 118394 Dec 21 07:24 ai--0.4.0.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.4.1--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.4.1--0.6.0.sql\n-rw-r--r-- 1 root root 140352 Dec 21 07:24 ai--0.4.1.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.5.0--0.6.0.sql\n-rw-r--r-- 1 root root 141038 Dec 21 07:24 ai--0.5.0.sql\n-rw-r--r-- 1 root root 151880 Dec 21 07:24 ai--0.6.0.sql\n-rw-r--r-- 1 root root    167 Dec 21 07:24 ai.control\n-rw-r--r-- 1 root root    748 Dec 21 07:24 flag.sql\n-rw-r--r-- 1 root root    276 Dec 21 07:24 gated.sql\n-rw-r--r-- 1 root root   2143 Dec 21 07:24 head.sql\ndrwxr-xr-x 2 root root   4096 Dec 21 07:24 idempotent\ndrwxr-xr-x 2 root root   4096 Dec 21 07:24 incremental\n-rw-r--r-- 1 root root   1096 Dec 21 07:24 migration.sql\nAnalyzing original SQL file...\nValidating SQL syntax...\nWarning: SQL validation failed:\nSET\nSET\nStarting main transaction...\nBEGIN\nSET\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:59: ERROR:  query returned no rows\nCONTEXT:  PL/pgSQL function inline_code_block line 10 at SQL statement\nOriginal SQL analysis:\nSET LOCAL statements:\nTransaction blocks:\nSQL file installed: /usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql\nStep 1: Creating schema...\nStep 2: Running main SQL script...\nError: Failed to execute SQL script. Log:\nSET\nSET\nStarting main transaction...\nBEGIN\nSET\nDO\nCREATE TABLE\npsql:/usr/share/postgresql/16/extension/pgai--0.6.1-dev.sql:119: ERROR:  pg_extension_config_dump() can only be called from an SQL script executed by CREATE EXTENSION\nCONTEXT:  SQL statement \"SELECT pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '')\"\nPL/pgSQL function inline_code_block line 20 at PERFORM\nSQL statement \"do /*001-vectorizer.sql*/ $migration_body$\nbegin\ncreate table ai.vectorizer\n( id int not null primary key generated by default as identity\n, source_schema name not null\n, source_table name not null\n, source_pk jsonb not null\n, target_schema name not null\n, target_table name not null\n, view_schema name not null\n, view_name name not null\n, trigger_name name not null\n, queue_schema name\n, queue_table name\n, config jsonb not null\n, unique (target_schema, target_table)\n);\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer_id_seq'::pg_catalog.regclass, '');\ncreate table ai.vectorizer_errors\n( id int not null references ai.vectorizer (id) on delete cascade\n, message text\n, details jsonb\n, recorded timestamptz not null default now()\n);\ncreate index on ai.vectorizer_errors (id, recorded);\nperform pg_catalog.pg_extension_config_dump('ai.vectorizer'::pg_catalog.regclass, '');\nend;\n$migration_body$;\"\nPL/pgSQL function inline_code_block line 48 at EXECUTE\nhawk@hawk:~$ \n\n",
+          "completion": "The error messages clearly indicate that `pg_extension_config_dump()` is being called inappropriately within the SQL script generated by `prepare_sql_files`.  This function is designed for use *only* during the `CREATE EXTENSION` process, not in standalone SQL scripts.  The script attempts to use it within `DO` blocks inside the `ai--*.sql` files.\n\nHere's a breakdown of the problem and a revised `prepare_sql_files` function:\n\n**Problem:**\n\n* The `ai--*.sql` files (specifically, the latest one found) contain calls to `pg_extension_config_dump()`.  This function is intended for internal use by `CREATE EXTENSION` to handle configuration data.  Calling it directly in a separate SQL script will fail.\n* The script attempts to wrap the SQL in transactions (`BEGIN; ... COMMIT;`), which is generally good practice, but doesn't handle the `pg_extension_config_dump()` calls correctly.  These calls need to be handled *during* extension creation.\n\n**Solution:**\n\nThe solution is to remove all calls to `pg_extension_config_dump()` from the generated SQL file.  The extension's configuration should be handled entirely within the `CREATE EXTENSION` process.  We can also refine the transaction handling for clarity.\n\nHere's the improved `prepare_sql_files` function:\n\n```bash\nprepare_sql_files() {\n    local sql_dir=\"$1\"\n    local output_file=\"$2\"\n    local tmp_file=\"/tmp/pgai_tmp.sql\"\n    local debug_file=\"/tmp/pgai_debug.sql\"\n\n    echo \"Processing SQL files in directory: $sql_dir\"\n    echo \"Available SQL files:\"\n    ls -l \"$sql_dir\"\n\n    # Find the latest ai--*.sql file (improved robustness)\n    latest_sql_file=$(find \"$sql_dir\" -maxdepth 1 -type f -name \"ai--*.sql\" -print0 | xargs -0 -I {} sh -c 'stat -c \"%Y %N\" {}' | sort -nr | head -n 1 | awk '{print $2}')\n\n    if [ -z \"$latest_sql_file\" ]; then\n        echo \"Error: No ai--*.sql files found in $sql_dir\"\n        return 1\n    fi\n\n    # Remove pg_extension_config_dump calls and comments\n    sed -e '/pg_extension_config_dump/d' -e '/^--/d' \"$latest_sql_file\" > \"$tmp_file\"\n\n    # Generate the final SQL script with a single transaction\n    {\n        echo \"-- Setup environment\"\n        echo \"\\\\set ON_ERROR_STOP on\"\n        echo \"SET client_min_messages TO warning;\"\n        echo \"SET search_path TO public;\"\n        echo \"BEGIN;\" # Start transaction\n        cat \"$tmp_file\"\n        echo \"COMMIT;\" # End transaction\n    } > \"$output_file\"\n\n    # Check SQL syntax (improved error handling)\n    echo \"Validating SQL syntax...\"\n    if ! sudo -u postgres psql -X -v ON_ERROR_STOP=1 -f \"$output_file\" template1 > \"${output_file}.validate.log\" 2>&1; then\n        echo \"Warning: SQL validation failed:\"\n        cat \"${output_file}.validate.log\"\n        exit 1  # Exit on validation failure.\n    fi\n\n    rm \"$tmp_file\" # Clean up the temporary file.\n\n    return 0\n}\n```\n\n**Key Changes:**\n\n* **Simplified `sed` command:** The `sed` command now only removes lines containing `pg_extension_config_dump()` and comment lines.  This is much simpler and more reliable.\n* **Robust file finding:** Uses `find` with `-print0` and `xargs -0` for better handling of filenames with spaces or special characters.\n* **Single Transaction:** The entire SQL script is now wrapped in a single `BEGIN; ... COMMIT;` block. This is cleaner and avoids potential transaction issues.\n* **Improved Error Handling:** The script now exits with an error code if the SQL validation fails.\n* **Temporary File Cleanup:** The temporary file `$tmp_file` is removed after use.\n\nRemember to replace the old `prepare_sql_files` function with this improved version in your script.  After making this change, the script should correctly install the `pgai` extension without the `pg_extension_config_dump()` errors.  If other problems persist, please provide the contents of the `ai--*.sql` files for further analysis.\n",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "format": {
+              "request": {
+                "contents": [
+                  {
+                    "parts": [
+                      {
+                        "text": "{{prompt}}"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "response": {
+                "candidates[0].content.parts[0].text": "{{completion}}"
+              }
+            },
+            "candidateCount": 1,
+            "stopSequences": [],
+            "topP": 0.9,
+            "topK": 40,
+            "model": "gemini-1.5-flash",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    }
+  ]
+}

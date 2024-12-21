@@ -1,0 +1,459 @@
+{
+  "sessionId": "923ccee4-5dab-4738-9ae6-bb9b5050807b",
+  "title": "Налаштовує",
+  "workspaceDirectory": "/workspace",
+  "history": [
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Job for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ test_set1.sh "
+          }
+        ],
+        "id": "32ee802e-98b0-4440-b0c0-33b1c3257994"
+      },
+      "contextItems": [
+        {
+          "name": "test_set1.sh",
+          "description": "/workspace/test_set1.sh",
+          "content": "```/workspace/test_set1.sh\n#!/bin/bash\n\nPG_USER=\"your_postgres_user\"\nPG_PASSWORD=\"your_postgres_password\"\nPG_DATABASE=\"your_database_name\"\nPG_VECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\n\n# Функція для виводу помилки та завершення скрипту\nfail_and_exit() {\n    echo \"Error: $1\"\n    exit 1\n}\n\n# Перевірка статусу PostgreSQL і підняття, якщо не працює\nif ! systemctl is-active --quiet postgresql.service; then\n    echo \"PostgreSQL is not running. Starting now...\"\n    sudo service postgresql start || fail_and_exit \"Failed to start PostgreSQL\"\nfi\n\n# Встановлюємо параметри для підключення до PostgreSQL\necho \"Setting up PostgreSQL user and privileges...\"\nsudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\" || {\n    echo \"Error creating user.\"\n    fail_and_exit \"Failed to create user\"\n}\n\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\" || {\n    echo \"Error granting privileges.\"\n    fail_and_exit \"Failed to grant privileges\"\n}\n\n# Встановлюємо pgvector та створюємо схему\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone \"${PG_VECTOR_REPO}\"\ncd pgvector\nmake\nsudo make install\n\necho \"Creating required schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE SCHEMA IF NOT EXISTS vector;\" || {\n    echo \"Error creating schema.\"\n    fail_and_exit \"Failed to create schema\"\n}\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;\" || {\n    echo \"Error installing pgvector extension.\"\n    fail_and_exit \"Failed to install pgvector extension\"\n}\n\n# Створення та настройка Python віртуального окремого середовища для PostgreSQL\necho \"Setting up Python virtual environment...\"\nVENV_PATH=\"/var/lib/postgresql/venv\"\nPYTHON_VERSION=$(python3 -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')\")\n\nsudo -u postgres python3 -m venv ${VENV_PATH} || {\n    echo \"Error creating virtual environment.\"\n    fail_and_exit \"Failed to create virtual environment\"\n}\n\n# Установка ollama в віртуальному середовищі з правильною активациєю\necho \"Installing ollama package...\"\nsudo -u postgres bash -c \"source ${VENV_PATH}/bin/activate && \\\n    python3 -m pip install --upgrade pip && \\\n    python3 -m pip install --no-cache-dir ollama\" || {\n    echo \"Error installing ollama package.\"\n    fail_and_exit \"Failed to install ollama package\"\n}\n\n# Перевірка установки ollama пакета та права доступу\necho \"Checking ollama installation...\"\nsudo -u postgres ls -la ${VENV_PATH}/lib/python*/site-packages/ollama* || {\n    echo \"Error: ollama package not found or permissions issue.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Видалення існуючої функції, якщо вона існує\necho \"Dropping existing install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP FUNCTION IF EXISTS install_ollama;\" || {\n    echo \"Error dropping existing install_ollama function.\"\n    fail_and_exit \"Failed to drop existing function\"\n}\n\n# Створення функції для використання установленого ollama з правильним шляхом\necho \"Creating install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION install_ollama() RETURNS TEXT AS \\$\\$ \nimport sys, os, glob\n\nvenv_path = '${VENV_PATH}'\npython_version = '.'.join(map(str, sys.version_info[:2]))\nsite_packages = glob.glob(os.path.join(venv_path, 'lib', f'python{python_version}', 'site-packages'))[0]\n\nif site_packages not in sys.path:\n    sys.path.insert(0, site_packages)\n    \ntry:\n    import ollama\n    return 'Ollama installed successfully at ' + site_packages\nexcept ImportError as e:\n    plpy.error(f'Failed to import ollama from {site_packages}: {str(e)}')\nexcept Exception as e:\n    plpy.error(f'Unexpected error: {str(e)}')\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating install_ollama function.\"\n    fail_and_exit \"Failed to create install_ollama function\"\n}\n\n# Перевірка установки ollama\necho \"Verifying ollama installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT install_ollama();\" || {\n    echo \"Error verifying ollama installation.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Створення функції для перевірки мережевого підключення\necho \"Creating test_network function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION test_network() RETURNS TEXT AS \\$\\$ \nimport socket\ntry:\n    socket.create_connection(('8.8.8.8', 53), 2)\n    return 'Network connection successful'\nexcept OSError as e:\n    return f'Network connection failed: {e}'\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating test_network function.\"\n    fail_and_exit \"Failed to create test_network function\"\n}\n\n# Перевірка мережевого підключення\necho \"Testing network connection...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT test_network();\" || {\n    echo \"Error executing test_network(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute test_network()\"\n}\n\n# Створення функції для перевірки змінних середовища\necho \"Creating check_env function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION check_env() RETURNS TEXT AS \\$\\$ \nimport os\nreturn str(os.environ)\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating check_env function.\"\n    fail_and_exit \"Failed to create check_env function\"\n}\n\n# Перевірка змінних середовища\necho \"Verifying environment variables...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT check_env();\" || {\n    echo \"Error executing check_env(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute check_env()\"\n}\n\n# Створення функції для отримання версії Python\necho \"Creating get_python_version function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION get_python_version() RETURNS TEXT AS \\$\\$ \nimport sys\nreturn sys.version\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating get_python_version function.\"\n    fail_and_exit \"Failed to create get_python_version function\"\n}\n\n# Перевірка версії Python\necho \"Verifying Python version...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT get_python_version();\" || {\n    echo \"Error executing get_python_version(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute get_python_version()\"\n}\n\n# Створення таблиць та триггерів\necho \"Creating tables and triggers...\"\nsudo -u postgres psql -d ${PG_DATABASE} <<SQL_BLOCK\nCREATE TABLE IF NOT EXISTS questions (\n    question TEXT,\n    answer TEXT DEFAULT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nCREATE TABLE IF NOT EXISTS answers (\n    question TEXT,\n    answer TEXT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nGRANT ALL PRIVILEGES ON TABLE questions TO ${PG_USER};\nGRANT ALL PRIVILEGES ON TABLE answers TO ${PG_USER};\n\nCREATE OR REPLACE FUNCTION process_question()\nRETURNS TRIGGER AS \\$function\\$\nimport ollama\nimport plpy\n\ndef generate_answer(question):\n    try:\n        client = ollama.Client(\"http://localhost:11434\")\n        response = client.generate(model='qwen2.5:latest', prompt=question)\n        try:\n            return response.choices[0].text\n        except AttributeError:\n            try:\n                return response.generations[0].text\n            except AttributeError:\n                return str(response)\n    except Exception as e:\n        plpy.log(f\"Ollama error for question '{question}': {str(e)}\")\n        return f\"Error: {str(e)}\"\n\nif TD[\"new\"].get(\"question\") is not None:\n    question = TD[\"new\"].get(\"question\")\n    answer = generate_answer(question)\n    try:\n        with plpy.subtransaction():\n            plpy.execute(\"UPDATE questions SET answer = %s WHERE question = %s\", (answer, question))\n            plpy.execute(\"INSERT INTO answers (question, answer) VALUES (%s, %s)\", (question, answer))\n    except plpy.Error as e:\n        plpy.log(f\"Database error for question '{question}': {e}\")\n        return \"SKIP\"\n\nreturn \"MODIFY\"\n\\$function\\$ LANGUAGE plpython3u;\n\nCREATE TRIGGER process_question_trigger\nAFTER INSERT ON questions\nFOR EACH ROW\nEXECUTE FUNCTION process_question();\n\n-- Оновлення прав доступу\nGRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\nREVOKE CREATE ON DATABASE ${PG_DATABASE} FROM ${PG_USER};\nSQL_BLOCK\n\n# Перевірка існування схем\necho \"Verifying schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dn\" | grep -E \"vector|ai\" || {\n    echo \"Error: Required schemas not created.\"\n    fail_and_exit \"Failed to verify required schemas\"\n}\n\n# Перезавантаження PostgreSQL service\necho \"Restarting PostgreSQL service...\"\nsudo systemctl restart postgresql || {\n    echo \"Error restarting PostgreSQL service.\"\n    fail_and_exit \"Failed to restart PostgreSQL service\"\n}\n\n# Окончальна перевірка установки\necho \"=== Проверка установки ===\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\" || {\n    echo \"Error: Unable to list extensions.\"\n    fail_and_exit \"Failed to check installed extensions\"\n}\n\necho \"Script executed successfully.\"\n\n# Очистимо робочу директорію\ncd /tmp\nrm -rf pgvector\n```",
+          "uri": {
+            "type": "file",
+            "value": "/workspace/test_set1.sh"
+          },
+          "id": {
+            "providerTitle": "file",
+            "itemId": "eb255f50-e8a1-49a9-9495-6ecf6901f839"
+          }
+        }
+      ],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error starting PostgreSQL."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ rm -f set1.sh && nano set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ sudo bash set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL is not running. Starting now..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error starting PostgreSQL."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to start PostgreSQL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ sudo bash set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL is not running. Starting now..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error starting PostgreSQL."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to start PostgreSQL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ rm -f set1.sh && nano set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ sudo bash set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL is not running. Starting now..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error starting PostgreSQL."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to start PostgreSQL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ rm -f set1.sh && nano set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ sudo bash set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL is not running. Starting now..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error starting PostgreSQL."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to start PostgreSQL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ rm -f set1.sh && nano set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ sudo bash set1.sh"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "PostgreSQL is not running. Starting now..."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Job for postgresql.service failed because the control process exited with error code."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "See \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Error: Failed to start PostgreSQL"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "hawk@hawk:~$ "
+              },
+              {
+                "type": "mention",
+                "attrs": {
+                  "id": "/workspace/test_set1.sh",
+                  "label": "test_set1.sh",
+                  "renderInlineAs": null,
+                  "query": "/workspace/test_set1.sh",
+                  "itemType": "file"
+                }
+              },
+              {
+                "type": "text",
+                "text": " "
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "c5e47f07-7667-423b-8a2e-9f2d6ed63ad5",
+        "role": "assistant",
+        "content": "Виникли проблеми з запуском PostgreSQL. Здається, що служба PostgreSQL не може успішно запуститися. Для налагодження проблеми, перегляньте журнали та статус служби PostgreSQL за допомогою команд:\n\n```bash\nsystemctl status postgresql.service\njournalctl -xeu postgresql.service\n```\n\nЦі команди нададуть вам інформацію про те, чому служба PostgreSQL не може запуститися. Найбільш ймовірно, що проблема може бути пов'язана з конфігурацією PostgreSQL або з правами доступу до файлів.\n\nОсь кілька кроків, які допоможуть вам визначити та вирішити проблему:\n\n### 1. Перевірка статусу служби PostgreSQL\n\n```bash\nsudo systemctl status postgresql.service\n```\n\nЦя команда покаже вам поточний статус служби PostgreSQL та останні помилки.\n\n### 2. Перевірка журналів PostgreSQL\n\n```bash\nsudo journalctl -xeu postgresql.service\n```\n\nЦя команда надасть вам детальну інформацію про помилки, які виникли під час запуску служби PostgreSQL.\n\n### 3. Перевірка конфігурації PostgreSQL\n\nПеревірте конфігураційні файли PostgreSQL, такі як `postgresql.conf` та `pg_hba.conf`, щоб впевнитися, що вони налаштовані правильно.\n\n### 4. Перевірка прав доступу до каталогів\n\nПереконайтеся, що PostgreSQL має необхідні права доступу до каталогів даних та журналів.\n\n### 5. Перевірка наявності помилок у журналах PostgreSQL\n\nПеревірте лог-файли PostgreSQL (зазвичай вони знаходяться в `/var/lib/pgsql/data/pg_log/` або `/var/log/postgresql/`), щоб знайти детальні повідомлення про помилки.\n\n### Приклад перевірки статусу та журналів:\n\n```bash\nsudo systemctl status postgresql.service\nsudo journalctl -xeu postgresql.service\n```\n\n### Приклад перевірки конфігураційних файлів:\n\n```bash\nsudo nano /etc/postgresql/12/main/postgresql.conf\nsudo nano /etc/postgresql/12/main/pg_hba.conf\n```\n\n### Приклад перевірки прав доступу:\n\n```bash\nsudo chown -R postgres:postgres /var/lib/postgresql/\nsudo chmod -R 700 /var/lib/postgresql/\n```\n\n### Приклад перевірки журналів PostgreSQL:\n\n```bash\nsudo tail -f /var/log/postgresql/postgresql-12-main.log\n```\n\nЯкщо після виконання цих кроків проблема не вирішена, надайте детальну інформацію про помилки, отримані з журналів та статусу служби, щоб я міг допомогти вам краще."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/test_set1.sh\n#!/bin/bash\n\nPG_USER=\"your_postgres_user\"\nPG_PASSWORD=\"your_postgres_password\"\nPG_DATABASE=\"your_database_name\"\nPG_VECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\n\n# Функція для виводу помилки та завершення скрипту\nfail_and_exit() {\n    echo \"Error: $1\"\n    exit 1\n}\n\n# Перевірка статусу PostgreSQL і підняття, якщо не працює\nif ! systemctl is-active --quiet postgresql.service; then\n    echo \"PostgreSQL is not running. Starting now...\"\n    sudo service postgresql start || fail_and_exit \"Failed to start PostgreSQL\"\nfi\n\n# Встановлюємо параметри для підключення до PostgreSQL\necho \"Setting up PostgreSQL user and privileges...\"\nsudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\" || {\n    echo \"Error creating user.\"\n    fail_and_exit \"Failed to create user\"\n}\n\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\" || {\n    echo \"Error granting privileges.\"\n    fail_and_exit \"Failed to grant privileges\"\n}\n\n# Встановлюємо pgvector та створюємо схему\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone \"${PG_VECTOR_REPO}\"\ncd pgvector\nmake\nsudo make install\n\necho \"Creating required schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE SCHEMA IF NOT EXISTS vector;\" || {\n    echo \"Error creating schema.\"\n    fail_and_exit \"Failed to create schema\"\n}\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;\" || {\n    echo \"Error installing pgvector extension.\"\n    fail_and_exit \"Failed to install pgvector extension\"\n}\n\n# Створення та настройка Python віртуального окремого середовища для PostgreSQL\necho \"Setting up Python virtual environment...\"\nVENV_PATH=\"/var/lib/postgresql/venv\"\nPYTHON_VERSION=$(python3 -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')\")\n\nsudo -u postgres python3 -m venv ${VENV_PATH} || {\n    echo \"Error creating virtual environment.\"\n    fail_and_exit \"Failed to create virtual environment\"\n}\n\n# Установка ollama в віртуальному середовищі з правильною активациєю\necho \"Installing ollama package...\"\nsudo -u postgres bash -c \"source ${VENV_PATH}/bin/activate && \\\n    python3 -m pip install --upgrade pip && \\\n    python3 -m pip install --no-cache-dir ollama\" || {\n    echo \"Error installing ollama package.\"\n    fail_and_exit \"Failed to install ollama package\"\n}\n\n# Перевірка установки ollama пакета та права доступу\necho \"Checking ollama installation...\"\nsudo -u postgres ls -la ${VENV_PATH}/lib/python*/site-packages/ollama* || {\n    echo \"Error: ollama package not found or permissions issue.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Видалення існуючої функції, якщо вона існує\necho \"Dropping existing install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP FUNCTION IF EXISTS install_ollama;\" || {\n    echo \"Error dropping existing install_ollama function.\"\n    fail_and_exit \"Failed to drop existing function\"\n}\n\n# Створення функції для використання установленого ollama з правильним шляхом\necho \"Creating install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION install_ollama() RETURNS TEXT AS \\$\\$ \nimport sys, os, glob\n\nvenv_path = '${VENV_PATH}'\npython_version = '.'.join(map(str, sys.version_info[:2]))\nsite_packages = glob.glob(os.path.join(venv_path, 'lib', f'python{python_version}', 'site-packages'))[0]\n\nif site_packages not in sys.path:\n    sys.path.insert(0, site_packages)\n    \ntry:\n    import ollama\n    return 'Ollama installed successfully at ' + site_packages\nexcept ImportError as e:\n    plpy.error(f'Failed to import ollama from {site_packages}: {str(e)}')\nexcept Exception as e:\n    plpy.error(f'Unexpected error: {str(e)}')\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating install_ollama function.\"\n    fail_and_exit \"Failed to create install_ollama function\"\n}\n\n# Перевірка установки ollama\necho \"Verifying ollama installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT install_ollama();\" || {\n    echo \"Error verifying ollama installation.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Створення функції для перевірки мережевого підключення\necho \"Creating test_network function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION test_network() RETURNS TEXT AS \\$\\$ \nimport socket\ntry:\n    socket.create_connection(('8.8.8.8', 53), 2)\n    return 'Network connection successful'\nexcept OSError as e:\n    return f'Network connection failed: {e}'\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating test_network function.\"\n    fail_and_exit \"Failed to create test_network function\"\n}\n\n# Перевірка мережевого підключення\necho \"Testing network connection...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT test_network();\" || {\n    echo \"Error executing test_network(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute test_network()\"\n}\n\n# Створення функції для перевірки змінних середовища\necho \"Creating check_env function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION check_env() RETURNS TEXT AS \\$\\$ \nimport os\nreturn str(os.environ)\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating check_env function.\"\n    fail_and_exit \"Failed to create check_env function\"\n}\n\n# Перевірка змінних середовища\necho \"Verifying environment variables...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT check_env();\" || {\n    echo \"Error executing check_env(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute check_env()\"\n}\n\n# Створення функції для отримання версії Python\necho \"Creating get_python_version function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION get_python_version() RETURNS TEXT AS \\$\\$ \nimport sys\nreturn sys.version\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating get_python_version function.\"\n    fail_and_exit \"Failed to create get_python_version function\"\n}\n\n# Перевірка версії Python\necho \"Verifying Python version...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT get_python_version();\" || {\n    echo \"Error executing get_python_version(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute get_python_version()\"\n}\n\n# Створення таблиць та триггерів\necho \"Creating tables and triggers...\"\nsudo -u postgres psql -d ${PG_DATABASE} <<SQL_BLOCK\nCREATE TABLE IF NOT EXISTS questions (\n    question TEXT,\n    answer TEXT DEFAULT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nCREATE TABLE IF NOT EXISTS answers (\n    question TEXT,\n    answer TEXT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nGRANT ALL PRIVILEGES ON TABLE questions TO ${PG_USER};\nGRANT ALL PRIVILEGES ON TABLE answers TO ${PG_USER};\n\nCREATE OR REPLACE FUNCTION process_question()\nRETURNS TRIGGER AS \\$function\\$\nimport ollama\nimport plpy\n\ndef generate_answer(question):\n    try:\n        client = ollama.Client(\"http://localhost:11434\")\n        response = client.generate(model='qwen2.5:latest', prompt=question)\n        try:\n            return response.choices[0].text\n        except AttributeError:\n            try:\n                return response.generations[0].text\n            except AttributeError:\n                return str(response)\n    except Exception as e:\n        plpy.log(f\"Ollama error for question '{question}': {str(e)}\")\n        return f\"Error: {str(e)}\"\n\nif TD[\"new\"].get(\"question\") is not None:\n    question = TD[\"new\"].get(\"question\")\n    answer = generate_answer(question)\n    try:\n        with plpy.subtransaction():\n            plpy.execute(\"UPDATE questions SET answer = %s WHERE question = %s\", (answer, question))\n            plpy.execute(\"INSERT INTO answers (question, answer) VALUES (%s, %s)\", (question, answer))\n    except plpy.Error as e:\n        plpy.log(f\"Database error for question '{question}': {e}\")\n        return \"SKIP\"\n\nreturn \"MODIFY\"\n\\$function\\$ LANGUAGE plpython3u;\n\nCREATE TRIGGER process_question_trigger\nAFTER INSERT ON questions\nFOR EACH ROW\nEXECUTE FUNCTION process_question();\n\n-- Оновлення прав доступу\nGRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\nREVOKE CREATE ON DATABASE ${PG_DATABASE} FROM ${PG_USER};\nSQL_BLOCK\n\n# Перевірка існування схем\necho \"Verifying schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dn\" | grep -E \"vector|ai\" || {\n    echo \"Error: Required schemas not created.\"\n    fail_and_exit \"Failed to verify required schemas\"\n}\n\n# Перезавантаження PostgreSQL service\necho \"Restarting PostgreSQL service...\"\nsudo systemctl restart postgresql || {\n    echo \"Error restarting PostgreSQL service.\"\n    fail_and_exit \"Failed to restart PostgreSQL service\"\n}\n\n# Окончальна перевірка установки\necho \"=== Проверка установки ===\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\" || {\n    echo \"Error: Unable to list extensions.\"\n    fail_and_exit \"Failed to check installed extensions\"\n}\n\necho \"Script executed successfully.\"\n\n# Очистимо робочу директорію\ncd /tmp\nrm -rf pgvector\n```\n\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ test_set1.sh \n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    },
+    {
+      "message": {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "переінсталюй прямо все з скрипту на дефулт"
+          }
+        ],
+        "id": "b39eee56-8d28-4f7a-b6cd-fb365d799f30"
+      },
+      "contextItems": [],
+      "editorState": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "переінсталюй прямо все з скрипту на дефулт"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "message": {
+        "id": "3b109417-f578-4138-90c2-02a2dd4bef4f",
+        "role": "assistant",
+        "content": "Для переінсталювання PostgreSQL та повторного виконання вашого скрипту з дефолтними налаштуваннями, слідуйте наступним крокам:\n\n### 1. Видаліть існуючі налаштування та дані PostgreSQL\n\n```bash\nsudo systemctl stop postgresql\nsudo apt-get purge postgresql postgresql-*\nsudo rm -rf /etc/postgresql /var/lib/postgresql /var/log/postgresql\nsudo apt-get autoremove\nsudo apt-get autoclean\n```\n\n### 2. Встановіть PostgreSQL з дефолтними налаштуваннями\n\n```bash\nsudo apt-get update\nsudo apt-get install postgresql postgresql-contrib\n```\n\n### 3. Перевірте статус PostgreSQL\n\n```bash\nsudo systemctl status postgresql\n```\n\n### 4. Запустіть ваш скрипт знову\n\n```bash\nsudo bash /workspace/test_set1.sh\n```\n\nНижче наведено повний скрипт для виконання цих кроків:\n\n```bash\n#!/bin/bash\n\n# Видалення існуючих налаштувань та даних PostgreSQL\nsudo systemctl stop postgresql\nsudo apt-get purge postgresql postgresql-*\nsudo rm -rf /etc/postgresql /var/lib/postgresql /var/log/postgresql\nsudo apt-get autoremove\nsudo apt-get autoclean\n\n# Встановлення PostgreSQL з дефолтними налаштуваннями\nsudo apt-get update\nsudo apt-get install postgresql postgresql-contrib\n\n# Перевірка статусу PostgreSQL\nsudo systemctl status postgresql\n\n# Запуск вашого скрипту\nsudo bash /workspace/test_set1.sh\n```\n\nЗбережіть цей скрипт у файл, наприклад `reinstall_postgresql.sh`, і виконайте його:\n\n```bash\nsudo bash reinstall_postgresql.sh\n```\n\nЦей скрипт видалить існуючі налаштування та дані PostgreSQL, встановить PostgreSQL з дефолтними налаштуваннями та запустить ваш існуючий скрипт `test_set1.sh`."
+      },
+      "contextItems": [],
+      "promptLogs": [
+        {
+          "modelTitle": "Mistral Large",
+          "prompt": "<system>\nНалаштовано оптимальні параметри для роботи з вашими моделями.\n\n<user>\n```/workspace/test_set1.sh\n#!/bin/bash\n\nPG_USER=\"your_postgres_user\"\nPG_PASSWORD=\"your_postgres_password\"\nPG_DATABASE=\"your_database_name\"\nPG_VECTOR_REPO=\"https://github.com/pgvector/pgvector.git\"\n\n# Функція для виводу помилки та завершення скрипту\nfail_and_exit() {\n    echo \"Error: $1\"\n    exit 1\n}\n\n# Перевірка статусу PostgreSQL і підняття, якщо не працює\nif ! systemctl is-active --quiet postgresql.service; then\n    echo \"PostgreSQL is not running. Starting now...\"\n    sudo service postgresql start || fail_and_exit \"Failed to start PostgreSQL\"\nfi\n\n# Встановлюємо параметри для підключення до PostgreSQL\necho \"Setting up PostgreSQL user and privileges...\"\nsudo -u postgres psql -c \"CREATE USER ${PG_USER} WITH PASSWORD '${PG_PASSWORD}';\" || {\n    echo \"Error creating user.\"\n    fail_and_exit \"Failed to create user\"\n}\n\nsudo -u postgres psql -c \"GRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\" || {\n    echo \"Error granting privileges.\"\n    fail_and_exit \"Failed to grant privileges\"\n}\n\n# Встановлюємо pgvector та створюємо схему\necho \"Installing pgvector...\"\ncd /tmp\nrm -rf pgvector || true\ngit clone \"${PG_VECTOR_REPO}\"\ncd pgvector\nmake\nsudo make install\n\necho \"Creating required schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE SCHEMA IF NOT EXISTS vector;\" || {\n    echo \"Error creating schema.\"\n    fail_and_exit \"Failed to create schema\"\n}\nsudo -u postgres psql -d ${PG_DATABASE} -c \"CREATE EXTENSION IF NOT EXISTS vector SCHEMA vector;\" || {\n    echo \"Error installing pgvector extension.\"\n    fail_and_exit \"Failed to install pgvector extension\"\n}\n\n# Створення та настройка Python віртуального окремого середовища для PostgreSQL\necho \"Setting up Python virtual environment...\"\nVENV_PATH=\"/var/lib/postgresql/venv\"\nPYTHON_VERSION=$(python3 -c \"import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')\")\n\nsudo -u postgres python3 -m venv ${VENV_PATH} || {\n    echo \"Error creating virtual environment.\"\n    fail_and_exit \"Failed to create virtual environment\"\n}\n\n# Установка ollama в віртуальному середовищі з правильною активациєю\necho \"Installing ollama package...\"\nsudo -u postgres bash -c \"source ${VENV_PATH}/bin/activate && \\\n    python3 -m pip install --upgrade pip && \\\n    python3 -m pip install --no-cache-dir ollama\" || {\n    echo \"Error installing ollama package.\"\n    fail_and_exit \"Failed to install ollama package\"\n}\n\n# Перевірка установки ollama пакета та права доступу\necho \"Checking ollama installation...\"\nsudo -u postgres ls -la ${VENV_PATH}/lib/python*/site-packages/ollama* || {\n    echo \"Error: ollama package not found or permissions issue.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Видалення існуючої функції, якщо вона існує\necho \"Dropping existing install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"DROP FUNCTION IF EXISTS install_ollama;\" || {\n    echo \"Error dropping existing install_ollama function.\"\n    fail_and_exit \"Failed to drop existing function\"\n}\n\n# Створення функції для використання установленого ollama з правильним шляхом\necho \"Creating install_ollama function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION install_ollama() RETURNS TEXT AS \\$\\$ \nimport sys, os, glob\n\nvenv_path = '${VENV_PATH}'\npython_version = '.'.join(map(str, sys.version_info[:2]))\nsite_packages = glob.glob(os.path.join(venv_path, 'lib', f'python{python_version}', 'site-packages'))[0]\n\nif site_packages not in sys.path:\n    sys.path.insert(0, site_packages)\n    \ntry:\n    import ollama\n    return 'Ollama installed successfully at ' + site_packages\nexcept ImportError as e:\n    plpy.error(f'Failed to import ollama from {site_packages}: {str(e)}')\nexcept Exception as e:\n    plpy.error(f'Unexpected error: {str(e)}')\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating install_ollama function.\"\n    fail_and_exit \"Failed to create install_ollama function\"\n}\n\n# Перевірка установки ollama\necho \"Verifying ollama installation...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT install_ollama();\" || {\n    echo \"Error verifying ollama installation.\"\n    fail_and_exit \"Failed to verify ollama installation\"\n}\n\n# Створення функції для перевірки мережевого підключення\necho \"Creating test_network function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION test_network() RETURNS TEXT AS \\$\\$ \nimport socket\ntry:\n    socket.create_connection(('8.8.8.8', 53), 2)\n    return 'Network connection successful'\nexcept OSError as e:\n    return f'Network connection failed: {e}'\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating test_network function.\"\n    fail_and_exit \"Failed to create test_network function\"\n}\n\n# Перевірка мережевого підключення\necho \"Testing network connection...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT test_network();\" || {\n    echo \"Error executing test_network(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute test_network()\"\n}\n\n# Створення функції для перевірки змінних середовища\necho \"Creating check_env function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION check_env() RETURNS TEXT AS \\$\\$ \nimport os\nreturn str(os.environ)\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating check_env function.\"\n    fail_and_exit \"Failed to create check_env function\"\n}\n\n# Перевірка змінних середовища\necho \"Verifying environment variables...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT check_env();\" || {\n    echo \"Error executing check_env(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute check_env()\"\n}\n\n# Створення функції для отримання версії Python\necho \"Creating get_python_version function...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\nCREATE OR REPLACE FUNCTION get_python_version() RETURNS TEXT AS \\$\\$ \nimport sys\nreturn sys.version\n\\$\\$ LANGUAGE plpython3u;\" || {\n    echo \"Error creating get_python_version function.\"\n    fail_and_exit \"Failed to create get_python_version function\"\n}\n\n# Перевірка версії Python\necho \"Verifying Python version...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"SELECT get_python_version();\" || {\n    echo \"Error executing get_python_version(). Check PostgreSQL logs.\"\n    fail_and_exit \"Failed to execute get_python_version()\"\n}\n\n# Створення таблиць та триггерів\necho \"Creating tables and triggers...\"\nsudo -u postgres psql -d ${PG_DATABASE} <<SQL_BLOCK\nCREATE TABLE IF NOT EXISTS questions (\n    question TEXT,\n    answer TEXT DEFAULT NULL,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nCREATE TABLE IF NOT EXISTS answers (\n    question TEXT,\n    answer TEXT,\n    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\nGRANT ALL PRIVILEGES ON TABLE questions TO ${PG_USER};\nGRANT ALL PRIVILEGES ON TABLE answers TO ${PG_USER};\n\nCREATE OR REPLACE FUNCTION process_question()\nRETURNS TRIGGER AS \\$function\\$\nimport ollama\nimport plpy\n\ndef generate_answer(question):\n    try:\n        client = ollama.Client(\"http://localhost:11434\")\n        response = client.generate(model='qwen2.5:latest', prompt=question)\n        try:\n            return response.choices[0].text\n        except AttributeError:\n            try:\n                return response.generations[0].text\n            except AttributeError:\n                return str(response)\n    except Exception as e:\n        plpy.log(f\"Ollama error for question '{question}': {str(e)}\")\n        return f\"Error: {str(e)}\"\n\nif TD[\"new\"].get(\"question\") is not None:\n    question = TD[\"new\"].get(\"question\")\n    answer = generate_answer(question)\n    try:\n        with plpy.subtransaction():\n            plpy.execute(\"UPDATE questions SET answer = %s WHERE question = %s\", (answer, question))\n            plpy.execute(\"INSERT INTO answers (question, answer) VALUES (%s, %s)\", (question, answer))\n    except plpy.Error as e:\n        plpy.log(f\"Database error for question '{question}': {e}\")\n        return \"SKIP\"\n\nreturn \"MODIFY\"\n\\$function\\$ LANGUAGE plpython3u;\n\nCREATE TRIGGER process_question_trigger\nAFTER INSERT ON questions\nFOR EACH ROW\nEXECUTE FUNCTION process_question();\n\n-- Оновлення прав доступу\nGRANT ALL PRIVILEGES ON DATABASE ${PG_DATABASE} TO ${PG_USER};\nREVOKE CREATE ON DATABASE ${PG_DATABASE} FROM ${PG_USER};\nSQL_BLOCK\n\n# Перевірка існування схем\necho \"Verifying schemas...\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dn\" | grep -E \"vector|ai\" || {\n    echo \"Error: Required schemas not created.\"\n    fail_and_exit \"Failed to verify required schemas\"\n}\n\n# Перезавантаження PostgreSQL service\necho \"Restarting PostgreSQL service...\"\nsudo systemctl restart postgresql || {\n    echo \"Error restarting PostgreSQL service.\"\n    fail_and_exit \"Failed to restart PostgreSQL service\"\n}\n\n# Окончальна перевірка установки\necho \"=== Проверка установки ===\"\nsudo -u postgres psql -d ${PG_DATABASE} -c \"\\dx\" || {\n    echo \"Error: Unable to list extensions.\"\n    fail_and_exit \"Failed to check installed extensions\"\n}\n\necho \"Script executed successfully.\"\n\n# Очистимо робочу директорію\ncd /tmp\nrm -rf pgvector\n```\n\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError starting PostgreSQL.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ rm -f set1.sh && nano set1.sh\nhawk@hawk:~$ sudo bash set1.sh\nPostgreSQL is not running. Starting now...\nJob for postgresql.service failed because the control process exited with error code.\nSee \"systemctl status postgresql.service\" and \"journalctl -xeu postgresql.service\" for details.\nError: Failed to start PostgreSQL\nhawk@hawk:~$ test_set1.sh \n\n<assistant>\nВиникли проблеми з запуском PostgreSQL. Здається, що служба PostgreSQL не може успішно запуститися. Для налагодження проблеми, перегляньте журнали та статус служби PostgreSQL за допомогою команд:\n\n```bash\nsystemctl status postgresql.service\njournalctl -xeu postgresql.service\n```\n\nЦі команди нададуть вам інформацію про те, чому служба PostgreSQL не може запуститися. Найбільш ймовірно, що проблема може бути пов'язана з конфігурацією PostgreSQL або з правами доступу до файлів.\n\nОсь кілька кроків, які допоможуть вам визначити та вирішити проблему:\n\n### 1. Перевірка статусу служби PostgreSQL\n\n```bash\nsudo systemctl status postgresql.service\n```\n\nЦя команда покаже вам поточний статус служби PostgreSQL та останні помилки.\n\n### 2. Перевірка журналів PostgreSQL\n\n```bash\nsudo journalctl -xeu postgresql.service\n```\n\nЦя команда надасть вам детальну інформацію про помилки, які виникли під час запуску служби PostgreSQL.\n\n### 3. Перевірка конфігурації PostgreSQL\n\nПеревірте конфігураційні файли PostgreSQL, такі як `postgresql.conf` та `pg_hba.conf`, щоб впевнитися, що вони налаштовані правильно.\n\n### 4. Перевірка прав доступу до каталогів\n\nПереконайтеся, що PostgreSQL має необхідні права доступу до каталогів даних та журналів.\n\n### 5. Перевірка наявності помилок у журналах PostgreSQL\n\nПеревірте лог-файли PostgreSQL (зазвичай вони знаходяться в `/var/lib/pgsql/data/pg_log/` або `/var/log/postgresql/`), щоб знайти детальні повідомлення про помилки.\n\n### Приклад перевірки статусу та журналів:\n\n```bash\nsudo systemctl status postgresql.service\nsudo journalctl -xeu postgresql.service\n```\n\n### Приклад перевірки конфігураційних файлів:\n\n```bash\nsudo nano /etc/postgresql/12/main/postgresql.conf\nsudo nano /etc/postgresql/12/main/pg_hba.conf\n```\n\n### Приклад перевірки прав доступу:\n\n```bash\nsudo chown -R postgres:postgres /var/lib/postgresql/\nsudo chmod -R 700 /var/lib/postgresql/\n```\n\n### Приклад перевірки журналів PostgreSQL:\n\n```bash\nsudo tail -f /var/log/postgresql/postgresql-12-main.log\n```\n\nЯкщо після виконання цих кроків проблема не вирішена, надайте детальну інформацію про помилки, отримані з журналів та статусу служби, щоб я міг допомогти вам краще.\n\n<user>\nпереінсталюй прямо все з скрипту на дефулт\n\n",
+          "completion": "",
+          "completionOptions": {
+            "stream": true,
+            "temperature": 0.7,
+            "maxTokens": 2048,
+            "model": "mistral-large-latest",
+            "tools": []
+          }
+        }
+      ],
+      "isGatheringContext": false
+    }
+  ]
+}
